@@ -4,7 +4,7 @@ import React from "react";
 
 interface SelectProps {
     options: { label: string; value: string | number }[]; // select options with its label and its value.
-    value?: string | number; // valor seleccionado.
+    value?: string | number; // selected value.
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void; // useState.
     className?: string;
     disabled?: boolean; 
