@@ -1,6 +1,6 @@
 import React from "react";
 
-// UI select componet interface.
+// UI select component interface.
 
 interface SelectProps {
     options: { label: string; value: string | number }[]; // select options with its label and its value.
