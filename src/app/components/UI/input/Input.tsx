@@ -12,13 +12,14 @@ interface InputProps {
     disabled?: boolean; // input able 'TRUE' or disabled 'FALSE'.
 };
 
-// input component.
+// UI input component.
 
-const Input: React.FC<InputProps> = ( { type, placeholder, value, onChange, className, disabled }) => {
+const Input: React.FC<InputProps> = ( { type, placeholder, name, value, onChange, className, disabled }) => {
     return (
         <input
           type={type}
           placeholder={placeholder}
+          name={name}
           value={value}
           onChange={onChange}
           className={className}
