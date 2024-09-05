@@ -1,6 +1,9 @@
 "use client";
+import Slider from "./components/slider/slider";
 export default function Home() {
   return (
-    <main></main>
+    <main>
+        <Slider></Slider>
+    </main>
   );
 }
