@@ -4,7 +4,7 @@
 .footerContainer {
   background-color: $turquoise-color;
   display: flex;
-  justify-content: space-between; // Separar las secciones
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 5rem;
   width: 100%;
@@ -21,9 +21,8 @@
 }
 
 .logo {
-  width: 12rem; // Tamaño ligeramente más pequeño para pantallas medianas
+  width: 12rem;
   height: auto;
-
 }
 
 .socialMedia {
@@ -31,30 +30,16 @@
   gap: 1rem;
   width: 33%;
   justify-content: flex-end;
-
-  @include media-breakpoint-down(md) {
-    justify-content: center; // Centrar los íconos en pantallas pequeñas
-    width: 100%;
-  }
 }
 
 .socialLink {
   text-decoration: none;
   color: $white-color;
   font-size: 1.5rem;
-  @include transition(color);
-
-  &:hover {
-    color: $white-color;
-  }
 }
 
 .copyright {
   font-size: 1rem;
   text-align: center;
   width: 33%;
-
-  @include media-breakpoint-down(md) {
-    width: 100%; // Centrar en pantallas pequeñas
-  }
 }
