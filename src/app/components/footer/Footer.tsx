@@ -2,7 +2,7 @@
 import React from "react";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-import styles from './footer.module.scss'; 
+import styles from './footer.module.scss';
 
 const Footer: React.FC = () => {
   return (

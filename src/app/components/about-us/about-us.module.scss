@@ -1,0 +1,19 @@
+@import '../../style/variables';
+@import '../../style/mixins.scss';
+
+.aboutUsContainer{
+    text-align: center;
+    margin: 0;
+
+    .title{
+        font-size: 3rem;
+        color: $turquoise-color;
+    }
+
+
+}
+.aboutDescription{
+    margin: 1rem auto;
+    width: 70%;
+    text-align: center;
+}
