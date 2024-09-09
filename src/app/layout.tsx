@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-
-import "./style/globals.scss";
+import { Raleway } from "next/font/google";
 import Footer from "./components/footer/Footer";
-import Navbar from "./components/navbar/navbar";
+import Navbar from "./components/navbar/Navbar";
+import "./style/globals.scss";
 
-const inter = Poppins({ subsets: ["latin"], weight: '400' });
+const raleway = Raleway({ subsets: ["latin"], weight: '300' });
 
 export const metadata: Metadata = {
   title: "Urgencias YA",
@@ -19,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={raleway.className}>
         <Navbar></Navbar>
         <main>{children}</main>
         <Footer></Footer>
