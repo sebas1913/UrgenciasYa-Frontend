@@ -1,0 +1,33 @@
+@import '../../style/variables.scss';
+@import '../../style/mixins';
+
+.searchForm {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+    gap: 3.1rem;
+    align-items: center;
+
+    .selectTown, .selectEPS {
+        font-family: var(--font-principal);
+        background: none;
+        border-radius: 0.5rem;
+        padding: 0.7rem 4.4rem;
+        border: none;
+        @include shadow($black-color, 0.2);
+    }
+
+    .buttonSearch {
+        font-family: var(--font-principal);
+        background: none;
+        border-radius: 0.5rem;
+        padding: 0.7rem 2rem;
+        background-color: $turquoise-color;
+        border: none;
+        @include shadow($black-color, 0.2);
+        cursor: pointer;
+    }
+}
+
+
+
