@@ -2,38 +2,38 @@
 @import '../../style/mixins';
 
 .swiperContainer {
-    width: 70%;
-    margin: 0 auto;
-    height: 500px;
-    position: relative;
-  }
-  
+  width: 70%;
+  margin: 0 auto;
+  height: 23rem;
+  position: relative;
+
   .cardContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     background: $white-color;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba($black-color, 0.2);
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
     box-sizing: border-box;
     width: 100%;
-    height: 200px;
-    margin: 40px 0px;
+    height: 13rem;
+    margin: 3rem 0;
+    @include shadow($black-color, 0.2);
+
+    .cardLink {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 70%;
+      height: 100%;
+      text-decoration: none;
+
+
+      .sliderImage {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+    }
   }
-  
-  .cardLink {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    height: 100%;
-    text-decoration: none; 
-  }
-  
-  .sliderImage {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 8px;
-  }
+}
