@@ -4,7 +4,7 @@ import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import "./style/globals.scss";
 
-const raleway = Raleway({ subsets: ["latin"], weight: '300' });
+const raleway = Raleway({ subsets: ["latin"]});
 
 export const metadata: Metadata = {
   title: "Urgencias YA",
