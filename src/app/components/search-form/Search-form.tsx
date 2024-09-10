@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./search-form.module.scss";
 import Form from "../form/Form";
 import Select from "../UI/select/Select";
@@ -7,26 +7,83 @@ import Label from "../UI/label/Label";
 
 const SearchForm: React.FC = () => {
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        alert(`selected town: ${selectedTown}, selected EPS: ${selectedEPS}`);
-    };
-
-    const towns = [{ label: 'Medellín', value: 'Medellín' }, { label: 'Copacabana', value: 'Copacabana' }, { label: 'Envigado', value: 'Envigado' }, { label: 'Bello', value: 'Bello' }];
-
-    const eps = [{ label: 'Sura', value: 'Sura' }, { label: 'Nueva EPS', value: 'Nueva EPS' }, { label: 'Sanitas', value: 'Sanitas' }];
-
     const [selectedTown, setSelectedTown] = useState('');
-    const [selectedEPS, setSelectedEPS] = useState('');
+  const [selectedEPS, setSelectedEPS] = useState('');
 
+  const [towns, setTowns] = useState<{ label: string, value: string }[]>([]);
+  const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
 
-    const handleChangeTown = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedTown(event.target.value);
-    };
+  // Fetch towns from API
+  useEffect(() => {
+    const fetchTowns = async () => {
+        try {
+          const response: Response = await fetch("http://localhost:8080/api/v1/town");
+          const data = await response.json();
+          console.log("Response:", data);
 
-    const handleChangeEPS = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedEPS(event.target.value);
-    };
+          const townOptions = data.map((element: any) => ({ // tipar diferente 
+            label: element.name,   // Replace 'name' with the correct field from your API
+            value: element.name     // Replace 'id' with the correct field 
+          }));
+
+          setTowns(townOptions);
+
+        } catch (error) {
+          console.error("Error fetching towns:", error);
+        }
+      };
+      
+    fetchTowns();
+
+    const fetchEps = async () => {
+        try {
+          const response: Response = await fetch("http://localhost:8080/api/v1/eps");
+          const data = await response.json();
+          console.log("Response:", data);
+
+          const epsOptions = data.map((element: any) => ({
+            label: element.name,   
+            value: element.name     
+          }));
+
+          setEps(epsOptions);
+
+        } catch (error) {
+          console.error("Error fetching towns:", error);
+        }
+      };
+      
+    fetchEps();
+  }, []); 
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(`Selected town: ${selectedTown}, Selected EPS: ${selectedEPS}`);
+  
+    try {
+      const response: Response = await fetch(
+        `http://localhost:8080/api/v1/hospitals?eps=${encodeURIComponent(selectedEPS)}&town=${encodeURIComponent(selectedTown)}&latitude=${encodeURIComponent('123.556')}&longitude=${encodeURIComponent('78.910')}`
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.status}`);
+      }
+  
+      const data = await response.json();  // Await the promise to get the JSON data
+      console.log(data);  // Log the response data
+  
+    } catch (error) {
+      console.error("Error:", error);  // Handle any errors that occur
+    }
+  };
+  
+  const handleChangeTown = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedTown(event.target.value);
+  };
+
+  const handleChangeEPS = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedEPS(event.target.value);
+  };
 
     return (
         <div>
@@ -75,4 +132,4 @@ const SearchForm: React.FC = () => {
     );
 };
 
-export default SearchForm;
+export default SearchForm; 
