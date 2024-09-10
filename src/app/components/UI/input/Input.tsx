@@ -3,8 +3,9 @@ import React from "react";
 // UI input component interface.
 
 interface InputProps {
+    id?: string;
     type: string;
-    placeholder: string;
+    placeholder?: string;
     name: string;
     value: string | number;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,9 +15,10 @@ interface InputProps {
 
 // UI input component.
 
-const Input: React.FC<InputProps> = ( { type, placeholder, name, value, onChange, className, disabled }) => {
+const Input: React.FC<InputProps> = ( { id, type, placeholder, name, value, onChange, className, disabled }) => {
     return (
         <input
+          id={id}
           type={type}
           placeholder={placeholder}
           name={name}

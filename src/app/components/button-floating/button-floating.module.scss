@@ -1,0 +1,43 @@
+@import '../../style/variables';
+@import '../../style/mixins';
+
+.floatingButton {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    background-color: $turquoise-color;
+    color: $white-color;
+    border: none;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1;
+    @include shadow($black-color, 0.2);
+
+    &:hover {
+        background-color: $white-color;
+        color: $turquoise-color;
+        border: solid 0.2rem $turquoise-color;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+.modalContainer{
+    position: fixed;
+    z-index: 2; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.2); 
+}
+
+
