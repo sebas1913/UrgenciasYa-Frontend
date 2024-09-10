@@ -8,10 +8,34 @@ import Button from "../UI/button/Button";
 
 const RegisterForm : React.FC = () => {
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        alert('funcionando');
-    };
+        
+        try {
+          const response: Response = await fetch('http://localhost:8080/api/v1/user/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: selectedName,      // Asegúrate de que selectedName esté definido
+              eps: selectedEps,        // Asegúrate de que selectedEps esté definido
+              email: selectedEmail,    // Asegúrate de que selectedEmail esté definido
+              password: selectedPassword // Asegúrate de que selectedPassword esté definido
+            }),
+          });
+      
+          // Verificar si la respuesta fue exitosa
+          if (!response.ok) {
+            throw new Error(`Error en el registro: ${response.statusText}`);
+          }
+      
+          const data = await response.json(); // Parsear la respuesta si es JSON
+          console.log("Registro exitoso:", data); // Manejar la respuesta
+        } catch (error) {
+          console.error("Error en la solicitud:", error); // Manejar cualquier error
+        }
+      };      
 
     const [selectedName, setSelectedName] = useState('');
     const [selectedEps, setSelectedEps] = useState('');
