@@ -1,20 +1,19 @@
-'use client';
+"USE CLIENT";
 import React from 'react';
-import { MouseEventHandler } from "react";
 
 //creation of the interface for the atomic input component
-export interface ButtonProps {
-  type: "submit" | "button" | "reset";
-  label: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  className?: string;
+interface ButtonProps {
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
+  children: React.ReactNode;
+  className: string;
 }
 
 //Component creation
-const Button: React.FC<ButtonProps> = ({ label, onClick, className, type }) => {
+const Button: React.FC<ButtonProps> = ({ type = 'button', onClick, children, className }) => {
   return (
     <button type={type} onClick={onClick} className={className}>
-      {label}
+      {children}
     </button>
   );
 };
