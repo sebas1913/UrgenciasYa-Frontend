@@ -5,16 +5,30 @@
     display: flex;
     justify-content: center;
     margin-top: 4rem;
-    gap: 3rem;
+    gap: 4rem;
     align-items: center;
 
-    .selectTown, .selectEPS {
-        font-family: var(--font-principal);
-        background: none;
-        border-radius: 0.5rem;
-        padding: 0.7rem 8rem 0.7rem 1rem; 
-        border: none;
-        @include shadow($black-color, 0.2);
+    .formElement {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        .selectTown, .selectEPS {
+            font-family: var(--font-principal);
+            background-color: $white-color;
+            border-radius: 0.5rem;
+            padding: 0.7rem 10rem 0.7rem 1rem; 
+            border: none;
+            @include shadow($black-color, 0.2);
+            font-size: 1rem;
+            letter-spacing: 0.05rem;
+        }
+
+        .label {
+            font-size: 1.1rem;
+            letter-spacing: 0.05rem;
+            font-weight: 300;
+        }
     }
 
     .buttonSearch {
@@ -26,6 +40,9 @@
         border: none;
         @include shadow($black-color, 0.2);
         cursor: pointer;
+        color: $white-color;
+        font-weight: 600;
+        font-size: 1rem;
     }
 }
 

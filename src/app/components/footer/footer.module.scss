@@ -2,22 +2,22 @@
 @import '../../style/mixins';
 
 .footerContainer {
-  background-color: $turquoise-color;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 5rem;
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  color: $white-color;
+    background-color: $turquoise-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5rem;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    color: $white-color;
 }
 
 .leftSection {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 33%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 33%;
 }
 
 .logo {
@@ -35,11 +35,12 @@
 .socialLink {
   text-decoration: none;
   color: $white-color;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .copyright {
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
   width: 33%;
+  letter-spacing: 0.05rem;
 }

@@ -11,7 +11,7 @@ const Slider = () => {
     <div className={styles.swiperContainer}>
       <Swiper
         spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={4}
         centeredSlides={false}
         autoplay={{
           delay: 3000,

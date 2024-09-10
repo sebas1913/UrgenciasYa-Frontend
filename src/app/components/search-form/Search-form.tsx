@@ -7,7 +7,7 @@ import Label from "../UI/label/Label";
 
 const SearchForm: React.FC = () => {
 
-    const onSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         alert(`selected town: ${selectedTown}, selected EPS: ${selectedEPS}`);
     };
@@ -31,40 +31,44 @@ const SearchForm: React.FC = () => {
     return (
         <div>
             <Form onSubmit={onSubmit} className={styles.searchForm}>
-                <Label
-                htmlFor="Town"
-                label='Selecciona tu municipio'
-                ></Label>
 
-                <Select
-                    id='Town'
-                    options={towns}
-                    value={selectedTown}
-                    onChange={handleChangeTown}
-                    className={styles.selectTown}
-                    disabled={false} 
-                />
+                <div className={styles.formElement}>
+                    <Label
+                        htmlFor="Town"
+                        label='Selecciona tu municipio'
+                        className={styles.label}
+                    ></Label>
+                    <Select
+                        id='Town'
+                        options={towns}
+                        value={selectedTown}
+                        onChange={handleChangeTown}
+                        className={styles.selectTown}
+                        disabled={false}
+                    />
+                </div>
 
-                <Label
-                htmlFor="EPS"
-                label='Selecciona tu EPS'
-                />
-
-                <Select
-                    id='EPS'
-                    options={eps}
-                    value={selectedEPS}
-                    onChange={handleChangeEPS}
-                    className={styles.selectEPS}
-                    disabled={false}
-                />
+                <div className={styles.formElement}>
+                    <Label
+                        htmlFor="EPS"
+                        label='Selecciona tu EPS'
+                        className={styles.label}
+                    />
+                    <Select
+                        id='EPS'
+                        options={eps}
+                        value={selectedEPS}
+                        onChange={handleChangeEPS}
+                        className={styles.selectEPS}
+                        disabled={false}
+                    />
+                </div>
 
                 <div>
                     <Button
                         type='submit'
-                        label='Buscar'
                         className={styles.buttonSearch}
-                    />
+                    >Enviar</Button>
                 </div>
             </Form>
         </div>
