@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from './navbar.module.scss';
 import Button from '../UI/button/Button';
 import { AiOutlineClose } from 'react-icons/ai';
+import RegisterForm from '../register-form/Register-form';
 // import FormularioLogin from '../FormularioLogin'; 
 
 const Navbar: React.FC = () => {
@@ -38,7 +39,7 @@ const Navbar: React.FC = () => {
           <button className={styles.closeButton} onClick={handleCloseForm}>
             <AiOutlineClose size={24} /> 
           </button>
-          <h1>Hola</h1>
+          <RegisterForm></RegisterForm>
         </div>
       )}
     </header>
