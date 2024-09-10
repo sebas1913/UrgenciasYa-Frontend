@@ -29,46 +29,15 @@
         transform: scale(0.95);
     }
 }
-
-.formContainer {
+.modalContainer{
     position: fixed;
-    width: 70%;
-    bottom: 50%;
-    left: 10%;
-    background-color: $white-color;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 2; /* Asegúrate de que esté encima del botón flotante */
+    z-index: 2; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.2); 
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
 
-    label {
-        margin-bottom: 0.2rem;
-    }
-
-    input {
-        padding: 0.5rem;
-        border: 1px solid $gray-color;
-        border-radius: 0.25rem;
-    }
-
-    button {
-        padding: 0.5rem;
-        border: none;
-        border-radius: 0.25rem;
-        background-color: $turquoise-color;
-        color: $white-color;
-        cursor: pointer;
-        font-size: 1rem;
-
-        &:hover {
-            background-color: $gray-color;
-            color: $turquoise-color;
-        }
-    }
-}

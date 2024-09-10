@@ -16,6 +16,7 @@ const ButtonFloating: React.FC = () => {
             <Button className={styles.floatingButton} onClick={toggleForm}>
                 <FaRegEnvelope />
             </Button>
+
             {isFormVisible && (
                 <div className={styles.modalContainer}>
                     <ContactForm></ContactForm>
