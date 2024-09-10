@@ -5,14 +5,14 @@
     display: flex;
     justify-content: center;
     margin-top: 4rem;
-    gap: 3.1rem;
+    gap: 3rem;
     align-items: center;
 
     .selectTown, .selectEPS {
         font-family: var(--font-principal);
         background: none;
         border-radius: 0.5rem;
-        padding: 0.7rem 4.4rem;
+        padding: 0.7rem 8rem 0.7rem 1rem; 
         border: none;
         @include shadow($black-color, 0.2);
     }
