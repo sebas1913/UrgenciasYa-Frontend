@@ -3,44 +3,56 @@
 
 .header {
     background-color: $turquoise-color;
-    box-shadow: 1px 2px 4px 3px rgba(0, 0, 0, 0.1);
+    @include shadow($black-color, 0.2);
 
     .nav {
         width: 100%;
         height: 6rem;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
+        padding: 0 2rem;
 
         .image {
             width: 100%;
             height: 5.5rem;
         }
 
-        .links {
-            display: flex;
-            gap: 3.7rem;
-        
-            .a {
-                text-decoration: none;
-                color: $white-color;
-                font-size: large;
-            }
-        }
-
-        .button {
-            cursor: pointer;
+        .navButton{
+            font-family: var(--font-principal);
             background: none;
             border: none;
-
-            .icon {
-            font-size: 4rem;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            font-weight: 700;
             color: $white-color;
-            height: 4rem;
+            margin: 1rem;
+
+            &:hover{
+                border-bottom: 0.1rem solid $white-color;
+                cursor: pointer;
             }
         }
     }
+
+    .formContainer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100vh;
+        background-color: white;
+        z-index: 1000;
+        padding: 20px;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .formContainer.hidden {
+        transform: translateX(100%);
+    }
 }
+
+
 
 
 
