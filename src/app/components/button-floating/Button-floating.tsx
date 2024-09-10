@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from './button-floating.module.scss';
 import Button from "../UI/button/Button";
 import { FaRegEnvelope } from "react-icons/fa";
+import ContactForm from "../form-contact/form-contact";
 
 const ButtonFloating: React.FC = () => {
     const [isFormVisible, setFormVisible] = useState(false);
@@ -16,8 +17,8 @@ const ButtonFloating: React.FC = () => {
                 <FaRegEnvelope />
             </Button>
             {isFormVisible && (
-                <div className={styles.formContainer}>
-                    <h1>Hola</h1>
+                <div className={styles.modalContainer}>
+                    <ContactForm></ContactForm>
                 </div>
             )}
         </>

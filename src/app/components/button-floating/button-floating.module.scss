@@ -11,16 +11,22 @@
     background-color: $turquoise-color;
     color: $white-color;
     border: none;
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
-    font-size: 1.6rem;
+    font-size: 2rem;
     cursor: pointer;
     z-index: 1;
+    @include shadow($black-color, 0.2);
 
     &:hover {
-        background-color: $gray-color;
+        background-color: $white-color;
         color: $turquoise-color;
+        border: solid 0.2rem $turquoise-color;
+    }
+
+    &:active {
+        transform: scale(0.95);
     }
 }
 
