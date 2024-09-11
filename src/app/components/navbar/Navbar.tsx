@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './navbar.module.scss';
 import Button from '../UI/button/Button';
-import { AiOutlineClose } from 'react-icons/ai';
+import { CgCloseO } from "react-icons/cg";
 import RegisterForm from '../register-form/Register-form';
 // import FormularioLogin from '../FormularioLogin'; 
 
@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div>
-          <img className={styles.image} src="./images/UrgenciasYa.png" alt="Logo" />
+          <img className={styles.image} src="./images/UrgenciasYa.png" alt="Logo"/>
         </div>
         <div className={styles.links}>
           <Button type="button" onClick={handleToggleForm} className={styles.navButton}>
@@ -32,14 +32,15 @@ const Navbar: React.FC = () => {
           </Button>
         </div>
       </nav>
-
       {/* Mostrar el formulario cuando showForm sea true */}
       {showForm && (
-        <div className={styles.formContainer}>
+        <div className={styles.modalContainer}>
           <button className={styles.closeButton} onClick={handleCloseForm}>
-            <AiOutlineClose size={24} /> 
+            <CgCloseO/>
           </button>
-          <RegisterForm></RegisterForm>
+          <div className={styles.formContainer}>
+            <RegisterForm></RegisterForm>
+          </div>
         </div>
       )}
     </header>
