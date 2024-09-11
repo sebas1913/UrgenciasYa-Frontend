@@ -4,7 +4,7 @@ import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import Label from "../UI/label/Label";
 import Form from "../form/Form";
-
+import TextArea from "../UI/textarea/TextArea";
 
 const ContactForm: React.FC = () => {
 
@@ -24,10 +24,19 @@ const ContactForm: React.FC = () => {
         setSelectedEmail(event.target.value);
     };
 
+    const [text, setText] = useState<string>('');
+
+    const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setText(event.target.value);
+    };
+
     return (
         <div className={styles.formContainer}>
+
+            <h2 className={styles.title}>Contáctanos</h2>
+
             <Form onSubmit={onSubmit} className={styles.contactForm}>
-                <h2>Contáctanos</h2>
+                
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="name"
@@ -58,6 +67,24 @@ const ContactForm: React.FC = () => {
                         onChange={handleChangeEmail}
                         className={styles.input}
                     ></Input>
+                </div>
+
+                <div className={styles.formElement}>
+                    <Label
+                        htmlFor="comentario"
+                        label='Descripción'
+                        className={styles.label}
+                    ></Label>
+                    <TextArea
+                        id='comentario'
+                        value={text}
+                        onChange={handleTextareaChange}
+                        placeholder="Deja tu comentario aquí"
+                        rows={5}
+                        cols={50}
+                        maxLength={250}
+                        className={styles.textarea}
+                    />
                 </div>
 
                 <div>

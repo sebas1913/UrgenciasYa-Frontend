@@ -2,6 +2,11 @@
 @import '../../style/mixins';
 
 .formContainer {
+
+    .title {
+        text-align: center;
+    }
+    
     .contactForm {
         display: flex;
         flex-direction: column;
@@ -31,6 +36,16 @@
                 &:focus {
                     outline: none;
                 }
+            }
+
+            .textarea {
+                font-family: var(--font-principal);
+                border-radius: 0.25rem;
+                border: none;
+                @include shadow($black-color, 0.2);
+                padding: 0.7rem;
+                font-size: 1rem;
+                letter-spacing: 0.01rem;
             }
         }
 
