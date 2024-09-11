@@ -88,7 +88,6 @@ const SearchForm: React.FC = () => {
     return (
         <div>
             <Form onSubmit={onSubmit} className={styles.searchForm}>
-
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="Town"
@@ -120,13 +119,10 @@ const SearchForm: React.FC = () => {
                         disabled={false}
                     />
                 </div>
-
-                <div>
                     <Button
                         type='submit'
                         className={styles.buttonSearch}
                     >Enviar</Button>
-                </div>
             </Form>
         </div>
     );

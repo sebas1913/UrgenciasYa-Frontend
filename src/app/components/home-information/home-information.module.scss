@@ -2,15 +2,12 @@
 @import '../../style/mixins.scss';
 
 .informationContainer {
-    text-align: center;
-    margin-top: 1.5rem;
     display: flex;
-    flex-direction: column;
+    padding: 6rem;
     align-items: center;
-    padding: 3rem;
 
     .title{
-        font-size: 3.3rem;
+        font-size: 4rem;
         color: $turquoise-color; 
         font-weight: 800; 
         text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
@@ -23,6 +20,12 @@
         letter-spacing: 0.05rem;
         line-height: 1.6rem;
         font-weight: 300;
+    }
+    .containerLeft{
+        width: 50%;
+    }
+    .containerRight{
+        width: 50%;
     }
 }
 
