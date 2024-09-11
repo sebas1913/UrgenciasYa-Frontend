@@ -6,7 +6,17 @@
     padding: 1rem;
     width: 100%;
 
+    .title {
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+
+    .image {
+        width: 100%;
+    }
+
     .contactForm {
+        margin-top: 2rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;

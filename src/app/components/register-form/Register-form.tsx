@@ -60,8 +60,13 @@ const RegisterForm : React.FC = () => {
 
     return (
         <div className={styles.formContainer}>
+
+            <img className={styles.image} src="./images/LogoDos.png" ></img>
+
+            <h2 className={styles.title}>Crea tu cuenta</h2>
+
             <Form onSubmit={onSubmit} className={styles.contactForm}>
-                <h2>Regístrate</h2>
+                
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="name"
