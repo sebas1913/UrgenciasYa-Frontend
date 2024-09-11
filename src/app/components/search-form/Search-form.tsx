@@ -91,9 +91,8 @@ const SearchForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="Town"
-                        label='Selecciona tu municipio'
                         className={styles.label}
-                    ></Label>
+                    >Selecciona tu <b>municipio</b></Label>
                     <Select
                         id='Town'
                         options={towns}
@@ -107,9 +106,8 @@ const SearchForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="EPS"
-                        label='Selecciona tu EPS'
                         className={styles.label}
-                    />
+                    >Selecciona tu <b>EPS</b></Label>
                     <Select
                         id='EPS'
                         options={eps}

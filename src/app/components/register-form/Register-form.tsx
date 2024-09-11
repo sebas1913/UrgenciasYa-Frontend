@@ -70,9 +70,8 @@ const RegisterForm : React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="name"
-                        label='Ingresa tu nombre completo'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu nombre completo</Label>
                     <Input
                         id='name'
                         type='text'
@@ -85,9 +84,8 @@ const RegisterForm : React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="eps"
-                        label='Ingresa tu EPS afiliada'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu EPS afiliada</Label>
                     <Input
                         id='eps'
                         type='text'
@@ -101,9 +99,8 @@ const RegisterForm : React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="email"
-                        label='Ingresa tu correo electrónico'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu correo electrónico</Label>
                     <Input
                         id='email'
                         type='email'
@@ -117,9 +114,8 @@ const RegisterForm : React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="password"
-                        label='Ingresa tu constraseña'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu contraseña</Label>
                     <Input
                         id='password'
                         type='password'

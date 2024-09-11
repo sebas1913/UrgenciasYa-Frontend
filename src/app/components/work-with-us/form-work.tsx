@@ -31,9 +31,8 @@ const WorkWithUsForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="name"
-                        label='Ingresa tu nombre completo'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu nombre completo</Label>
                     <Input
                         id='name'
                         type='text'
@@ -47,9 +46,8 @@ const WorkWithUsForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="email"
-                        label='Ingresa tu correo electrónico'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu correo electrónico</Label>
                     <Input
                         id='email'
                         type='email'
