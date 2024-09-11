@@ -36,21 +36,51 @@
         }
     }
 
-    .formContainer {
+    .modalContainer {
         position: fixed;
+        z-index: 3; 
+        left: 0;
         top: 0;
-        right: 0;
-        width: 500px;
-        height: 100vh;
-        background-color: #fbfbfb;
-        z-index: 1000;
-        padding: 20px;
-        transition: transform 0.5s ease-in-out;
-    }
+        width: 100%; 
+        height: 100%; 
+        overflow: auto;
+        background-color: rgba(0,0,0,0.2); 
 
-    .formContainer.hidden {
-        transform: translateX(100%);
-    }
+        .closeButton {
+            position: absolute; // Posiciona el botón en relación a .modalContainer
+            top: 1.2rem; // Ajusta la distancia desde la parte superior
+            right: 1.2rem; // Ajusta la distancia desde el lado derecho
+            background: none; // Opcional, para quitar el fondo
+            border: none; // Opcional, para quitar el borde
+            cursor: pointer; // Cambia el cursor al pasar sobre el botón
+            z-index: 1001; // Asegúrate de que esté por encima del contenido
+            color: $turquoise-color; 
+            font-size: 2.3rem;
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
+        .formContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 24rem;
+            height: 100vh;
+            background-color: #fbfbfb;
+            z-index: 1000;
+            padding: 0.7rem;
+            transition: transform 0.5s ease-in-out;
+        }
+    
+        .formContainer.hidden {
+            transform: translateX(100%);
+        }
+    } 
 }
 
 
