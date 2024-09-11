@@ -30,10 +30,12 @@
             letter-spacing: 0.1rem;
 
             &:hover{
-                border-bottom: 0.1rem solid $white-color;
                 cursor: pointer;
             }
-        }
+          
+            &:active{
+                transform: scale(0.95); 
+            }
     }
 
     .modalContainer {
@@ -71,7 +73,7 @@
             right: 0;
             width: 24rem;
             height: 100vh;
-            background-color: #fbfbfb;
+            background-color: $background-modal;
             z-index: 1000;
             padding: 0.7rem;
             transition: transform 0.5s ease-in-out;
@@ -82,12 +84,3 @@
         }
     } 
 }
-
-
-
-
-
-
-
-
-

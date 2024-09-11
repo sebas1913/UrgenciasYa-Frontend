@@ -2,8 +2,8 @@
 @import '../../style/mixins';
 
 .formContainer {
-    background-color: #fbfbfb;
-    padding: 1rem;
+    background-color: $background-modal;
+    padding: 3rem;
     width: 100%;
 
     .title {
