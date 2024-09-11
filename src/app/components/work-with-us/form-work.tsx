@@ -15,6 +15,8 @@ const WorkWithUsForm: React.FC = () => {
 
     const [selectedName, setSelectedName] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState('');
+
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedName(event.target.value);
@@ -24,6 +26,9 @@ const WorkWithUsForm: React.FC = () => {
         setSelectedEmail(event.target.value);
     };
 
+    const handleChangeSubject = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedSubject(event.target.value);
+    };
 
     const [text, setText] = useState<string>('');
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,8 +79,8 @@ const WorkWithUsForm: React.FC = () => {
                         id='subject'
                         type='subject'
                         name='subject'
-                        value={selectedEmail}
-                        onChange={handleChangeEmail}////////////////////////////
+                        value={selectedSubject}
+                        onChange={handleChangeSubject}
                         className={styles.input}
                     ></Input>
                 </div>
