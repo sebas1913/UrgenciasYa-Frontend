@@ -36,9 +36,8 @@ const LoginForm : React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="email"
-                        label='Ingresa tu correo electrónico'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu correo electrónico</Label>
                     <Input
                         id='email'
                         type='email'
@@ -52,9 +51,8 @@ const LoginForm : React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="password"
-                        label='Ingresa tu constraseña'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu constraseña</Label>
                     <Input
                         id='password'
                         type='password'
