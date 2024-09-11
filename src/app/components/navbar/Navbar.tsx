@@ -4,6 +4,7 @@ import styles from './navbar.module.scss';
 import Button from '../UI/button/Button';
 import { CgCloseO } from "react-icons/cg";
 import RegisterForm from '../register-form/Register-form';
+import LoginForm from '../login-form/Login-form';
 // import FormularioLogin from '../FormularioLogin'; 
 
 const Navbar: React.FC = () => {
@@ -58,7 +59,7 @@ const Navbar: React.FC = () => {
             <CgCloseO/>
           </button>
           <div className={styles.formContainer}>
-            <h1>Hola</h1>
+            <LoginForm></LoginForm>
           </div>
 
         </div>
