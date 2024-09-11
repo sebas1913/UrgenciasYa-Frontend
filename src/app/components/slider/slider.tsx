@@ -9,6 +9,9 @@ import styles from './slider.module.scss';
 const Slider = () => {
   return (
     <div className={styles.swiperContainer}>
+
+      <h2 className={styles.title}>Entidades aliadas</h2>
+
       <Swiper
         spaceBetween={30}
         slidesPerView={4}

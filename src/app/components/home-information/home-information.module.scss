@@ -2,27 +2,46 @@
 @import '../../style/mixins.scss';
 
 .informationContainer {
-    text-align: center;
-    margin-top: 1.5rem;
     display: flex;
-    flex-direction: column;
+    padding: 4rem;
     align-items: center;
-    padding: 3rem;
+    width: 80%;
+    margin: 2rem auto;
+    gap: 5rem;
 
-    .title{
-        font-size: 3.3rem;
-        color: $turquoise-color; 
-        font-weight: 800; 
-        text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
+    .containerLeft{
+        width: 50%;
+
+        .title{
+            font-size: 4.5rem;
+            color: $turquoise-color; 
+            font-weight: 800; 
+            text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
+        }
+    
+        .description{
+            margin-top: 2.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.05rem;
+            line-height: 1.6rem;
+            font-weight: 300;
+        }
+    
+        .admiration {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.05rem;
+            line-height: 1.6rem;
+            font-weight: 300;
+        }
     }
-
-    .description{
-        width: 80%;
-        margin-top: 2.5rem;
-        font-size: 1.2rem;
-        letter-spacing: 0.05rem;
-        line-height: 1.6rem;
-        font-weight: 300;
+ 
+    .containerRight{
+        width: 50%;
+        @include shadow($black-color, 0.2);
+        border-radius: 1rem;
+        background-color: $white-color;
+        padding: 2.5rem;
     }
 }
 

@@ -3,25 +3,25 @@
 
 .searchForm {
     display: flex;
-    justify-content: center;
-    margin-top: 4rem;
-    gap: 4rem;
+    flex-direction: column;
     align-items: center;
+    gap: 2rem;
 
     .formElement {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
+        width: 100%;
 
-        .selectTown, .selectEPS {
+        .selectTown,
+        .selectEPS {
             font-family: var(--font-principal);
-            background-color: $white-color;
+            background-color: $background-modal;
             border-radius: 0.5rem;
-            padding: 0.7rem 10rem 0.7rem 1rem; 
+            padding: 0.9rem;
+            width: 100%;
             border: none;
             @include shadow($black-color, 0.2);
             font-size: 1rem;
             letter-spacing: 0.05rem;
+            margin: 0.5rem 0;
         }
 
         .label {
@@ -35,16 +35,15 @@
         font-family: var(--font-principal);
         background: none;
         border-radius: 0.5rem;
-        padding: 0.7rem 2rem;
+        padding: 1.2rem;
         background-color: $turquoise-color;
         border: none;
         @include shadow($black-color, 0.2);
         cursor: pointer;
         color: $white-color;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 1.2rem;
+        width: 100%;
+        letter-spacing: 0.05rem;
     }
 }
-
-
-

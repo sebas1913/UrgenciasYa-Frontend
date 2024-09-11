@@ -8,7 +8,7 @@ const AboutUs : React.FC = () => {
 
             <h2 className={styles.title}>Sobre nosotros</h2>
             
-            <p className={styles.aboutDescription}>En <b>UrgenciasYa</b>, nos dedicamos a facilitar el acceso a la atención médica en momentos críticos. Nuestra plataforma permite a los usuarios encontrar rápidamente <b>hospitales</b> disponibles según su <b>EPS </b> y <b>ubicación</b>, asegurando una respuesta ágil en situaciones de emergencia.</p>
+            <p className={styles.aboutDescription}>En <b>Urgencias Ya</b>, nos dedicamos a facilitar el acceso a la atención médica en momentos críticos. Nuestra plataforma permite a los usuarios encontrar rápidamente <b>hospitales</b> disponibles según su <b>EPS </b> y <b>ubicación</b>, asegurando una respuesta ágil en situaciones de emergencia.</p>
 
             <CardHome
                 title="Misión"
@@ -23,7 +23,7 @@ const AboutUs : React.FC = () => {
                 text="Nos identificamos con la transparencia, integridad, compromiso, colaboración, confianza y calidad. Estos valores, guían cada aspecto de nuestro trabajo, asegurando que brindemos un servicio confiable y de alta calidad."
             />
         </div>
-    )
-}
+    );
+};
 
 export default AboutUs;

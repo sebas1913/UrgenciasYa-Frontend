@@ -40,9 +40,8 @@ const ContactForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="name"
-                        label='Ingresa tu nombre completo'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu nombre completo</Label>
                     <Input
                         id='name'
                         type='text'
@@ -56,9 +55,8 @@ const ContactForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="email"
-                        label='Ingresa tu correo electrónico'
                         className={styles.label}
-                    ></Label>
+                    >Ingresa tu correo electrónico</Label>
                     <Input
                         id='email'
                         type='email'
@@ -72,14 +70,13 @@ const ContactForm: React.FC = () => {
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="comentario"
-                        label='Descripción'
                         className={styles.label}
-                    ></Label>
+                    >Descripción</Label>
                     <TextArea
                         id='comentario'
                         value={text}
                         onChange={handleTextareaChange}
-                        placeholder="Deja tu comentario aquí"
+                        placeholder="Mensaje"
                         rows={5}
                         cols={50}
                         maxLength={250}
