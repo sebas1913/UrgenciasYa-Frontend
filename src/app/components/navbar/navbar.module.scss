@@ -32,10 +32,11 @@
             &:hover{
                 cursor: pointer;
             }
-          
-            &:active{
-                transform: scale(0.95); 
+
+            &:active {
+                transform: scale(0.95);
             }
+        }
     }
 
     .modalContainer {
@@ -49,13 +50,13 @@
         background-color: rgba(0,0,0,0.2); 
 
         .closeButton {
-            position: absolute; // Posiciona el botón en relación a .modalContainer
-            top: 1.2rem; // Ajusta la distancia desde la parte superior
-            right: 1.2rem; // Ajusta la distancia desde el lado derecho
-            background: none; // Opcional, para quitar el fondo
-            border: none; // Opcional, para quitar el borde
-            cursor: pointer; // Cambia el cursor al pasar sobre el botón
-            z-index: 1001; // Asegúrate de que esté por encima del contenido
+            position: absolute; 
+            top: 1.2rem; 
+            right: 1.2rem; 
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001; 
             color: $turquoise-color; 
             font-size: 2.3rem;
 
