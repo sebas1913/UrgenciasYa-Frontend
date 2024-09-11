@@ -29,9 +29,12 @@
             margin: 1rem;
             letter-spacing: 0.1rem;
 
+
             &:hover{
-                border-bottom: 0.1rem solid $white-color;
                 cursor: pointer;
+            }
+            &:active {
+                transform: scale(0.95);
             }
         }
     }
@@ -42,7 +45,6 @@
         right: 0;
         width: 500px;
         height: 100vh;
-        background-color: #fbfbfb;
         z-index: 1000;
         padding: 20px;
         transition: transform 0.5s ease-in-out;

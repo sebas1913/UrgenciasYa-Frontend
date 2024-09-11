@@ -2,45 +2,67 @@
 @import '../../style/mixins';
 
 .footerContainer {
-    background-color: $turquoise-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5rem;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-    color: $white-color;
-}
+  background-color: $turquoise-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5rem;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  color: $white-color;
 
-.leftSection {
+
+  .leftSection {
     display: flex;
     align-items: center;
     gap: 1rem;
     width: 33%;
+
+    .logo {
+      width: 12rem;
+      height: auto;
+    }
+  }
+
+
+  .centerSection {
+    text-align: center;
+
+    .buttonWork {
+      font-family: var(--font-principal);
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      font-weight: 600;
+      color: $white-color;
+      margin: 1rem;
+      letter-spacing: 0.1rem;
+      border-bottom: 0.01rem solid $turquoise-color;
+
+
+      &:hover {
+        border-bottom: 0.01rem solid $white-color;
+        cursor: pointer;
+      }
+    }
+  }
+
+
+  .rightSection {
+    display: flex;
+    gap: 1rem;
+    width: 33%;
+    justify-content: flex-end;
+
+
+    .socialLink {
+      text-decoration: none;
+      color: $white-color;
+      font-size: 2rem;
+    }
+  }
+
 }
 
-.logo {
-  width: 12rem;
-  height: auto;
-}
-
-.socialMedia {
-  display: flex;
-  gap: 1rem;
-  width: 33%;
-  justify-content: flex-end;
-}
-
-.socialLink {
-  text-decoration: none;
-  color: $white-color;
-  font-size: 2rem;
-}
-
-.copyright {
-  font-size: 1.2rem;
-  text-align: center;
-  width: 33%;
-  letter-spacing: 0.05rem;
-}
