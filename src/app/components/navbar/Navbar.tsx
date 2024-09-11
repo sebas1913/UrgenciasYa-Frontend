@@ -60,6 +60,7 @@ const Navbar: React.FC = () => {
           <div className={styles.formContainer}>
             <h1>Hola</h1>
           </div>
+
         </div>
       )}
     </header>
