@@ -8,13 +8,35 @@ import TextArea from "../UI/textarea/TextArea";
 
 const ContactForm: React.FC = () => {
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        alert('funcionando');
+        
+        try {
+            const response = await fetch('/api/contactEmails', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: selectedName, email: selectedEmail, message: selectedMessage }),
+            });
+            
+            if (response.ok) {
+              setSelectedName('');
+              setSelectedEmail('');
+              setSelectedMessage('');
+
+              console.log('Formulario enviado correctamente.');
+            } 
+            else {
+              throw new Error('Error al enviar el formulario.');
+            }
+          } 
+          catch (error) {
+            console.error('Error:', error);
+          }
     };
 
     const [selectedName, setSelectedName] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
+    const [selectedMessage, setSelectedMessage] = useState<string>('');
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedName(event.target.value);
@@ -24,10 +46,8 @@ const ContactForm: React.FC = () => {
         setSelectedEmail(event.target.value);
     };
 
-    const [text, setText] = useState<string>('');
-
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setText(event.target.value);
+        setSelectedMessage(event.target.value);
     };
 
     return (
@@ -69,12 +89,12 @@ const ContactForm: React.FC = () => {
 
                 <div className={styles.formElement}>
                     <Label
-                        htmlFor="comentario"
+                        htmlFor="message"
                         className={styles.label}
                     >Descripción</Label>
                     <TextArea
-                        id='comentario'
-                        value={text}
+                        id='message'
+                        value={selectedMessage}
                         onChange={handleTextareaChange}
                         placeholder="Mensaje"
                         rows={5}
