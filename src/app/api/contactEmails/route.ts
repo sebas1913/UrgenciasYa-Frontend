@@ -15,10 +15,11 @@ export async function POST(req: NextRequest) {
     try{
         const mailOptions = {
             from: email,
+            replyTo: email, 
             to: process.env.EMAIL_USER, 
-            subject: `Contact Us`,
+            subject: 'Contact Us',
             text: `From: ${name} \nEmail: ${email} \n\n${message}`,
-        };
+        };   
 
         await transporter.sendMail(mailOptions);
         return NextResponse.json({ message: 'Email sent successfully.' }, { status: 200 });
