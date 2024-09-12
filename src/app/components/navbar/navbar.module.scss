@@ -18,7 +18,7 @@
             height: 5.5rem;
         }
 
-        .navButton{
+        .navButton {
             font-family: var(--font-principal);
             background: none;
             border: none;
@@ -29,7 +29,7 @@
             margin: 1rem;
             letter-spacing: 0.1rem;
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
 
@@ -41,23 +41,23 @@
 
     .modalContainer {
         position: fixed;
-        z-index: 3; 
+        z-index: 3;
         left: 0;
         top: 0;
-        width: 100%; 
-        height: 100%; 
+        width: 100%;
+        height: 100%;
         overflow: auto;
-        background-color: rgba(0,0,0,0.2); 
+        background-color: rgba(0, 0, 0, 0.2);
 
         .closeButton {
-            position: absolute; 
-            top: 1.2rem; 
-            right: 1.2rem; 
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
             background: none;
             border: none;
             cursor: pointer;
-            z-index: 1001; 
-            color: $turquoise-color; 
+            z-index: 1001;
+            color: $turquoise-color;
             font-size: 2.3rem;
 
             &:active {
@@ -79,9 +79,35 @@
             padding: 0.7rem;
             transition: transform 0.5s ease-in-out;
         }
-    
+
         .formContainer.hidden {
             transform: translateX(100%);
         }
-    } 
+    }
+
+    @include mediaQuery(small) {
+        .nav {
+            width: 100%;
+            height: 4.5rem;
+            padding: 0;
+            display: flex;
+            align-items: center;
+
+            .image {
+                width: 93%;
+                height: 2.7rem;
+            }
+
+            .navButton {
+                font-family: var(--font-principal);
+                border: none;
+                font-size: 0.9rem;
+                padding: 0;
+                font-weight: 700;
+                color: $white-color;
+                margin: 0.5rem;
+                letter-spacing: 0;
+            }
+        }
+    }
 }

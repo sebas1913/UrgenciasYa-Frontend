@@ -9,24 +9,24 @@
     margin: 2rem auto;
     gap: 6.5rem;
 
-    .containerLeft{
+    .containerLeft {
         width: 50%;
 
-        .title{
+        .title {
             font-size: 4.5rem;
-            color: $turquoise-color; 
-            font-weight: 800; 
+            color: $turquoise-color;
+            font-weight: 800;
             text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
         }
-    
-        .description{
+
+        .description {
             margin-top: 2.5rem;
             font-size: 1.1rem;
             letter-spacing: 0.05rem;
             line-height: 1.6rem;
             font-weight: 300;
         }
-    
+
         .admiration {
             margin-top: 2rem;
             font-size: 1.1rem;
@@ -35,18 +35,56 @@
             font-weight: 300;
         }
     }
- 
-    .containerRight{
+
+    .containerRight {
         width: 50%;
         @include shadow($black-color, 0.2);
         border-radius: 1rem;
         background-color: $white-color;
         padding: 2.5rem;
     }
+
+
+    @include mediaQuery(small) {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+        align-items: center;
+        width: 90%;
+        gap: 2rem;
+        
+
+        .containerLeft {
+            width: 100%;
+            text-align: center;
+
+            .title {
+                font-size: 2rem;
+                color: $turquoise-color;
+                font-weight: 800;
+                text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
+            }
+
+            .description {
+                margin-top: 1rem;
+                font-size: 1rem;
+                letter-spacing: 0.05rem;
+                line-height: 1.1rem;
+                font-weight: 300;
+            }
+
+            .admiration {
+                display: none
+            }
+        }
+
+        .containerRight {
+            width: 100%;
+            @include shadow($black-color, 0.2);
+            border-radius: 1rem;
+            background-color: $white-color;
+            padding: 2rem;
+        }
+
+    }
 }
-
-
-
-   
-
-
