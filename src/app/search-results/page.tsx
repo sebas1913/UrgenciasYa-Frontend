@@ -3,8 +3,10 @@
 
 import { useEffect, useState } from 'react'; 
 // Importamos hooks para manejar efectos y estados.
+import styles from './page-results.module.scss';
 
 import { useSearchParams } from 'next/navigation'; 
+import HospitalCard from '../components/hospital-card/Hospital-card';
 // Hook para acceder a los parámetros de búsqueda en la URL.
 
 // Definimos la interfaz 'Hospital', que describe los datos que recibimos del servidor.
@@ -71,20 +73,14 @@ const ResultsPage: React.FC = () => {
 
   // Si tenemos resultados, los mostramos en una lista; de lo contrario, mostramos un mensaje de "No se encontraron hospitales".
   return (
-    <div>
-      <h1>Resultados de los hospitales</h1>
+    <div className={styles.containerResults}>
+      <h1>Resultados de búsqueda:</h1>
       {results && results.length > 0 ? (
-        <ul>
-          {results.map((hospital, index) => (
-            <li key={index}>
-              <h2>{hospital.name}</h2> 
-              <img src={hospital.url_image} alt={`Imagen de ${hospital.name}`} width="100" /> 
-              <p><strong>Cómo llegar:</strong> {hospital.howtogetthere}</p>
-              <p><strong>Teléfono:</strong> {hospital.phone_number}</p>
-              <p><strong>Rating:</strong> {hospital.rating}</p>
-            </li>
+        <div className={styles.bigFilterContainer}>
+          {results.map((hospital) => (
+            <HospitalCard  name={hospital.name} url_image={hospital.url_image} phone_number={hospital.phone_number} rating={hospital.rating} ></HospitalCard> 
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No se encontraron hospitales.</p>
       )}
