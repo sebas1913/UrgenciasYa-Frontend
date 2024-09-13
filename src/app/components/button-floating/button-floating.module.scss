@@ -16,7 +16,7 @@
     border-radius: 50%;
     font-size: 2rem;
     cursor: pointer;
-    z-index: 1;
+    z-index: 3;
     @include shadow($black-color, 0.2);
 
     &:hover {

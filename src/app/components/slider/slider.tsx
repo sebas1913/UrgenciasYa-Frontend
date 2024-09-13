@@ -25,6 +25,12 @@ const Slider = () => {
         }}
         navigation={false}
         modules={[Autoplay, Pagination, Navigation]}
+        breakpoints={{
+          320: { slidesPerView: 1 },
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1440: { slidesPerView: 4 },
+        }}
       >
         <SwiperSlide>
           <div className={styles.cardContainer}>
