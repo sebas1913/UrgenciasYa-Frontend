@@ -14,14 +14,14 @@
         .selectEPS {
             font-family: var(--font-principal);
             background-color: $background-modal;
-            border-radius: 0.5rem;
             padding: 0.9rem;
             width: 100%;
             border: none;
-            @include shadow($black-color, 0.2);
             font-size: 1rem;
             letter-spacing: 0.05rem;
             margin: 0.5rem 0;
+            @include border-radius(0.3rem);
+            @include shadow($black-color, 0.1);
         }
 
         .label {
@@ -34,16 +34,16 @@
     .buttonSearch {
         font-family: var(--font-principal);
         background: none;
-        border-radius: 0.5rem;
-        padding: 1.2rem;
+        padding: 1rem;
         background-color: $turquoise-color;
         border: none;
-        @include shadow($black-color, 0.2);
         cursor: pointer;
         color: $white-color;
         font-weight: 600;
         font-size: 1.2rem;
         width: 100%;
         letter-spacing: 0.05rem;
+        @include border-radius(0.3rem);
+        @include shadow($black-color, 0.1);
     }
 }

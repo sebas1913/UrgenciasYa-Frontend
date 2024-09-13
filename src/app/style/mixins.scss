@@ -6,6 +6,10 @@
     box-shadow: 0 0.2rem 0.4rem rgba($color, $opacity);
 }
 
+@mixin border-radius($radius) {
+    border-radius: $radius;
+}
+
 @mixin mediaQuery($breakpoint) {
     @if $breakpoint == small {
         @media (max-width: 768px) {
