@@ -10,7 +10,11 @@ const LoginForm : React.FC = () => {
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        alert(`${selectedEmail}, ${selectedPassword}`);
+       
+        if (!selectedEmail || !selectedPassword) {
+            alert('Por favor, completa todos los campos.');
+            return;
+        };
       };      
 
     const [selectedEmail, setSelectedEmail] = useState('');
@@ -29,7 +33,7 @@ const LoginForm : React.FC = () => {
 
             <img className={styles.image} src="./images/LogoDos.png" ></img>
 
-            <h2 className={styles.title}>Inciar sesión</h2>
+            <h2 className={styles.title}>Iniciar sesión</h2>
 
             <Form onSubmit={onSubmit} className={styles.contactForm}>
 
@@ -37,7 +41,7 @@ const LoginForm : React.FC = () => {
                     <Label
                         htmlFor="email"
                         className={styles.label}
-                    >Ingresa tu correo electrónico</Label>
+                    >Ingresa tu correo electrónico:</Label>
                     <Input
                         id='email'
                         type='email'
@@ -52,7 +56,7 @@ const LoginForm : React.FC = () => {
                     <Label
                         htmlFor="password"
                         className={styles.label}
-                    >Ingresa tu constraseña</Label>
+                    >Ingresa tu constraseña:</Label>
                     <Input
                         id='password'
                         type='password'
