@@ -56,7 +56,7 @@ const LoginForm : React.FC = () => {
                     <Label
                         htmlFor="password"
                         className={styles.label}
-                    >Ingresa tu constraseña:</Label>
+                    >Ingresa tu contraseña:</Label>
                     <Input
                         id='password'
                         type='password'
