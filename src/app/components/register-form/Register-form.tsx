@@ -4,12 +4,18 @@ import Form from "../form/Form";
 import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
+import { Albert_Sans } from "next/font/google";
 
 
 const RegisterForm : React.FC = () => {
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (!selectedName || !selectedEps || !selectedEmail || !selectedPassword) {
+            alert('Por favor, completa todos los campos.');
+            return;
+        };
         
         try {
           const response: Response = await fetch('http://localhost:8080/api/v1/user/register', {
@@ -71,7 +77,7 @@ const RegisterForm : React.FC = () => {
                     <Label
                         htmlFor="name"
                         className={styles.label}
-                    >Ingresa tu nombre completo</Label>
+                    >Ingresa tu nombre completo:</Label>
                     <Input
                         id='name'
                         type='text'
@@ -85,7 +91,7 @@ const RegisterForm : React.FC = () => {
                     <Label
                         htmlFor="eps"
                         className={styles.label}
-                    >Ingresa tu EPS afiliada</Label>
+                    >Ingresa tu <b>EPS </b>afiliada:</Label>
                     <Input
                         id='eps'
                         type='text'
@@ -100,7 +106,7 @@ const RegisterForm : React.FC = () => {
                     <Label
                         htmlFor="email"
                         className={styles.label}
-                    >Ingresa tu correo electrónico</Label>
+                    >Ingresa tu correo electrónico:</Label>
                     <Input
                         id='email'
                         type='email'
@@ -115,7 +121,7 @@ const RegisterForm : React.FC = () => {
                     <Label
                         htmlFor="password"
                         className={styles.label}
-                    >Ingresa tu contraseña</Label>
+                    >Ingresa tu contraseña:</Label>
                     <Input
                         id='password'
                         type='password'
