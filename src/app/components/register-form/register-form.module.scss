@@ -3,16 +3,18 @@
 
 .formContainer {
     background-color: $background-modal;
-    padding: 3rem;
-    width: 100%;
+    padding: 1rem;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
 
     .title {
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         text-align: center;
     }
 
     .image {
-        width: 100%;
+        width: 75%;
     }
 
     .contactForm {
@@ -27,8 +29,9 @@
             gap: 0.5rem;
 
             .label {
-                font-size: 0.8rem;
+                font-size: 0.9rem;
                 letter-spacing: 0.01rem;
+                text-align: left;
             }
 
             .input {
@@ -48,6 +51,7 @@
         }
 
         .contactButton {
+            margin-top: 1rem;
             font-family: var(--font-principal);
             background: none;
             border-radius: 0.5rem;
