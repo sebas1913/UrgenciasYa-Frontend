@@ -3,19 +3,19 @@
 
 
 .cardHome {
-    margin: 0 auto;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     background: $white-color;
-    border-radius: 1rem;
-    @include shadow($black-color, 0.2);
     box-sizing: border-box;
-    width: 28%;
-    height: 17rem;
-    margin: 2.5rem 1rem 5rem 1rem;
-    padding: 1.1rem;
+    width: 28%;  
+    height: 17rem;          
+    margin: 2.5rem 1rem;
+    padding: 2rem;
+    @include border-radius(0.3rem);
+    @include shadow($black-color, 0.2);
 
     .cardTitle {
-        margin-top: 1.5rem;
+        margin-top: 1.2rem;
         text-align: center;
         font-size: 1.5rem;
         color: $turquoise-color;
@@ -24,7 +24,7 @@
     }
 
     .cardText {
-        text-align: center;
+        text-align: justify;
         margin-top: 1rem;
         line-height: 1.2rem;
         font-size: 0.9rem;
@@ -41,8 +41,8 @@
         height: 17rem;
         margin: 2.5rem 1rem;
 
-    .cardTitle {
-        margin-top: 1rem;
-    }
+        .cardTitle {
+            margin-top: 1rem;
+        }
     }
 }
