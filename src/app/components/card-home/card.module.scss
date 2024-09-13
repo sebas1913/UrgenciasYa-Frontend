@@ -7,7 +7,7 @@
     flex-direction: column;
     background: $white-color;
     box-sizing: border-box;
-    width: 28%;  
+    width: 30%;  
     height: 17rem;          
     margin: 2.5rem 1rem;
     padding: 2rem;
@@ -15,7 +15,7 @@
     @include shadow($black-color, 0.2);
 
     .cardTitle {
-        margin-top: 1.2rem;
+        margin-top: 1rem;
         text-align: center;
         font-size: 1.5rem;
         color: $turquoise-color;
