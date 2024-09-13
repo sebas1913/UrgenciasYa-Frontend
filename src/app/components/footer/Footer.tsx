@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             <div className={styles.leftSection}>
                 <img
                     className={styles.logo}
-                    src="/images/UrgenciasYa.png"
+                    src="./images/white_logo.png"
                     alt="Logo"
                 />
             </div>
