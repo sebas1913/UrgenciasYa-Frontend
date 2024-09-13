@@ -39,7 +39,7 @@ const WorkWithUsForm: React.FC = () => {
     return (
         <div className={styles.formContainer}>
             <Form onSubmit={onSubmit} className={styles.contactForm}>
-                <h2>Trabaja con nosotros</h2>
+                <h2 className={styles.title}>Trabaja con nosotros</h2>
                 <div className={styles.formElement}>
                     <Label
                         htmlFor="name"
