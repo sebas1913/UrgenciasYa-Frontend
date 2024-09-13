@@ -1,11 +1,13 @@
 @import '../../style/variables.scss';
+@import '../../style/mixins.scss';
+
 
 .cardHome {
     margin: 0 auto;
     display: inline-block;
     background: $white-color;
     border-radius: 1rem;
-    box-shadow: 0px 4px 8px rgba($black-color, 0.2);
+    @include shadow($black-color, 0.2);
     box-sizing: border-box;
     width: 28%;
     height: 17rem;
@@ -28,5 +30,19 @@
         font-size: 0.9rem;
         letter-spacing: 0.05rem;
         font-weight: 300;
+    }
+}
+
+@include mediaQuery(small) {
+    .cardHome {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 17rem;
+        margin: 2.5rem 1rem;
+
+    .cardTitle {
+        margin-top: 1rem;
+    }
     }
 }
