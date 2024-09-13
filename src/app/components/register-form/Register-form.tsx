@@ -86,7 +86,7 @@ const RegisterForm: React.FC = () => {
     return (
         <div className={styles.formContainer}>
 
-            <img className={styles.image} src="./images/LogoDos.png" ></img>
+            <img className={styles.image} src="./images/turquoise_logo.png" ></img>
 
             <h2 className={styles.title}>Registrarse</h2>
 
