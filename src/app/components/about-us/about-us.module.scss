@@ -3,8 +3,8 @@
 
 .aboutUsContainer{
     text-align: center;
-    margin: 1rem auto;
-    width: 85%;
+    margin: 0.5rem auto;
+    width: 90%;
 
     .title{
         font-size: 2.5rem;
@@ -15,13 +15,31 @@
     }
 
     .aboutDescription{
-        margin: 2rem auto;
-        width: 91%;
-        text-align: center;
-        font-size: 1.1rem;
-        letter-spacing: 0.05rem;
-        line-height: 1.6rem;
-        font-weight: 300;
+        margin-top: 2.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.05rem;
+            line-height: 1.6rem;
+            font-weight: 300;
     }
+
+    @include mediaQuery(small){
+
+        .title{
+            font-size: 2.1rem;
+        }
+
+        .aboutDescription{
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.05rem;
+            line-height: 1.1rem;
+            font-weight: 300;
+            text-align: justify;
+
+        }
+
+    }
+
+   
 }
 
