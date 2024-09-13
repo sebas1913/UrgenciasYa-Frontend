@@ -11,7 +11,7 @@ const RegisterForm: React.FC = () => {
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!selectedName || !selectedEps || !selectedEmail || !selectedPassword) {
+        if (!selectedName || !selectedEps || !selectedEmail || !selectedPassword || !selectedDocument) {
             alert('Por favor, completa todos los campos.');
             return;
 
@@ -24,7 +24,8 @@ const RegisterForm: React.FC = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: selectedName,      // Asegúrate de que selectedName esté definido
+                    name: selectedName,  
+                    document: selectedDocument,    // Asegúrate de que selectedName esté definido
                     eps: selectedEps,        // Asegúrate de que selectedEps esté definido
                     email: selectedEmail,    // Asegúrate de que selectedEmail esté definido
                     password: selectedPassword // Asegúrate de que selectedPassword esté definido
@@ -46,25 +47,26 @@ const RegisterForm: React.FC = () => {
     useEffect(() => {
         // Función para obtener la lista de EPS desde el servidor.
         const fetchEps = async () => {
-          try {
-            const response: Response = await fetch("http://localhost:8080/api/v1/eps"); // Llamada a la API para obtener EPS.
-            const data = await response.json(); // Convertimos la respuesta a formato JSON.
-            const epsOptions = data.map((element: any) => ({
-              label: element.name, // Guardamos el nombre de la EPS.
-              value: element.name
-            }));
-            setEps(epsOptions); // Guardamos las opciones de EPS.
-          } catch (error) {
-            console.error("Error fetching EPS:", error); // Si hay un error, lo mostramos en la consola.
-          }
+            try {
+                const response: Response = await fetch("http://localhost:8080/api/v1/eps"); // Llamada a la API para obtener EPS.
+                const data = await response.json(); // Convertimos la respuesta a formato JSON.
+                const epsOptions = data.map((element: any) => ({
+                    label: element.name, // Guardamos el nombre de la EPS.
+                    value: element.name
+                }));
+                setEps(epsOptions); // Guardamos las opciones de EPS.
+            } catch (error) {
+                console.error("Error fetching EPS:", error); // Si hay un error, lo mostramos en la consola.
+            }
         };
         fetchEps(); // Llamamos la función para obtener las EPS.
-      }, []); 
+    }, []);
 
     const [selectedName, setSelectedName] = useState('');
     const [selectedEps, setSelectedEps] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedPassword, setSelectedPassword] = useState('');
+    const [selectedDocument, setSelectedDocument] = useState('');
     const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,10 +85,14 @@ const RegisterForm: React.FC = () => {
         setSelectedPassword(event.target.value);
     };
 
+    const handleChangeDocument = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedDocument(event.target.value);
+    };
+
     return (
         <div className={styles.formContainer}>
 
-            <img className={styles.image} src="./images/turquoise_logo.png" ></img>
+            <img className={styles.image} src="./images/LogoDos.png" ></img>
 
             <h2 className={styles.title}>Registrarse</h2>
 
@@ -103,6 +109,20 @@ const RegisterForm: React.FC = () => {
                         name='name'
                         value={selectedName}
                         onChange={handleChangeName}
+                        className={styles.input}
+                    ></Input>
+                </div>
+                <div className={styles.formElement}>
+                    <Label
+                        htmlFor="document"
+                        className={styles.label}
+                    >Ingresa tu documento:</Label>
+                    <Input
+                        id='document'
+                        type='number'
+                        name='document'
+                        value={selectedDocument}
+                        onChange={handleChangeDocument}
                         className={styles.input}
                     ></Input>
                 </div>
