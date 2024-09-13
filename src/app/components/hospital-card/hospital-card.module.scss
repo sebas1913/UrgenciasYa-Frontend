@@ -3,7 +3,7 @@
 
 .filterCardContainer {
     background-color: $white-color;
-    width: 36%;
+    width: 40%;
     height: 17rem;
     display: flex;
     margin: 0.8rem;
@@ -16,23 +16,19 @@
         width: 53%;
         display: flex;
         flex-direction: column;
-        border-radius: 1rem;
 
         .filterImage {
-            margin-top: 0.5rem;
             width: 100%;
-            height: 10.5rem;
+            height: 11.5rem;
             object-fit: cover;
             @include shadow($black-color, 0.1);
             @include border-radius(0.3rem);
         }
-
     }
 
     .filterCardTwo {
         width: 45%;
-        padding: 0.5rem;
-        margin-left: 0.5rem;
+        margin-left: 1rem;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -40,11 +36,10 @@
 
         .filterInformation {
             width: 100%;
-            align-items: center;
-
             p{
                 font-weight: 600;
                 margin: 0.5rem;
+                text-align: left;
 
             }
 

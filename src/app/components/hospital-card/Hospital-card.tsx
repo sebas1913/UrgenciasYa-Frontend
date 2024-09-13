@@ -19,8 +19,8 @@ const HospitalCard: React.FC<Hospital> = ({ name, phone_number, rating, url_imag
         <div className={styles.filterCardContainer}>
 
             <div className={styles.filterCardOne}>
-                <div className={styles.filterImage}>
-                    <img src={url_image} alt={name} />
+                <div>
+                    <img className={styles.filterImage} src={url_image} alt={name} />
                 </div>
                 <div>
                     <p>{rating}</p>
