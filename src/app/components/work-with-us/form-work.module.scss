@@ -9,6 +9,10 @@
         padding: 1rem 2rem;
         color: $black-color;
 
+        .title{
+            text-align: center;
+        }
+
         .formElement {
             display: flex;
             flex-direction: column;
