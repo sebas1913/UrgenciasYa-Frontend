@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div>
-          <img className={styles.image} src="./images/UrgenciasYa.png" alt="Logo"/>
+          <img className={styles.image} src="./images/white_logo.png" alt="Logo"/>
         </div>
         <div className={styles.links}>
           <Button type="button" onClick={handleToggleLoginForm} className={styles.navButton}>
