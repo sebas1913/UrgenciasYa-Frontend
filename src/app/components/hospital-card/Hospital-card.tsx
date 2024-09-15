@@ -3,8 +3,8 @@ import styles from './hospital-card.module.scss';
 import { FaRegHeart, FaMapPin, FaPhoneAlt, FaCar } from "react-icons/fa";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import { LuMessageCircle } from "react-icons/lu";
-
-
+import { FaCalendarCheck } from "react-icons/fa6";
+import { useRouter } from 'next/navigation';
 
 interface Hospital {
     name: string;           // Nombre del hospital.
@@ -15,6 +15,13 @@ interface Hospital {
 };
 
 const HospitalCard: React.FC<Hospital> = ({ name, phone_number, rating, url_image }) => {
+
+    const router = useRouter();
+
+    const onClick = () => {
+        router.push(`/chat`);
+      };
+
     return (
         <div className={styles.filterCardContainer}>
 
@@ -50,8 +57,8 @@ const HospitalCard: React.FC<Hospital> = ({ name, phone_number, rating, url_imag
                     </div>
                 </div>
                 <div className={styles.filterButtons}>
-                    <Button className={styles.filterButton}><LuMessageCircle className={styles.buttonIcon}/>
-                    </Button> 
+                    <Button className={styles.filterButton}><FaCalendarCheck className={styles.buttonIcon}/></Button> 
+                    <Button className={styles.filterButton}><LuMessageCircle className={styles.buttonIcon} onClick={onClick}/></Button> 
                     <Button className={styles.filterButton}><FaCar className={styles.buttonIcon}/></Button> 
                 </div>
             </div>
