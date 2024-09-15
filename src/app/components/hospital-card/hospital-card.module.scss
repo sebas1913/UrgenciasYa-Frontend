@@ -13,7 +13,7 @@
 
 
     .filterCardOne {
-        width: 53%;
+        width: 55%;
         display: flex;
         flex-direction: column;
 
@@ -21,7 +21,7 @@
             width: 100%;
             height: 11.5rem;
             object-fit: cover;
-            @include shadow($black-color, 0.1);
+            @include shadow($black-color, 0.15);
             @include border-radius(0.3rem);
         }
     }
@@ -36,8 +36,9 @@
 
         .filterInformation {
             width: 100%;
-            p{
-                font-weight: 600;
+
+            p {
+                font-weight: 300;
                 margin: 0.5rem;
                 text-align: left;
 
@@ -55,8 +56,12 @@
                 background: none;
                 cursor: pointer;
 
-                .iconDescription{
+                .iconDescription {
                     font-size: 1.3rem;
+
+                    &:active {
+                        transform: scale(0.95);
+                    }
                 }
             }
         }
@@ -65,20 +70,24 @@
             width: 100%;
             display: flex;
             justify-content: flex-end;
-            gap: 0.4rem;
+            gap: 0.7rem;
 
             .filterButton {
                 background-color: $turquoise-color;
                 border: none;
-                padding: 0.8rem;
+                width: 2.5rem;
+                height: 2.5rem;
                 cursor: pointer;
                 @include shadow($black-color, 0.2);
                 @include border-radius(50%);
 
+                &:active {
+                    transform: scale(0.95);
+                }
 
-                .buttonIcon{
+                .buttonIcon {
                     font-size: 1.2rem;
-                    color: $black-color;
+                    color: $white-color;
                 }
             }
         }
