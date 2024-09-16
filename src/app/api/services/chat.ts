@@ -35,11 +35,11 @@ export const getMessages = (callback: (messages: any[]) => void) => {
 };
 
 // Función para enviar un nuevo mensaje a la base de datos.
-export const sendMessage = async (name: string, message: string) => {
+export const sendMessage = async (message: string) => {
   try {
     // Usamos "addDoc" para agregar un nuevo mensaje a la colección "messages" en Firestore.
     await addDoc(collection(db, "messages"), {
-      Nombre: name,        // El nombre que pasa el usuario
+      Nombre: 'Prueba',        // El nombre que pasa el usuario
       Mensaje: message,    // El mensaje que pasa el usuario
       Hora: Timestamp.now(), // La hora actual cuando el mensaje se envía
     });

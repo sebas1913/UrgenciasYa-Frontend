@@ -1,56 +1,112 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getMessages, sendMessage } from "../api/services/chat";
+import { FaRegHeart, FaMapPin, FaPhoneAlt } from "react-icons/fa";
+import { BiSolidBarChartAlt2 } from "react-icons/bi";
+import styles from './chat.module.scss';
+import Form from "../components/form/Form";
+import Label from "../components/UI/label/Label";
+import TextArea from "../components/UI/textarea/TextArea";
+import Button from "../components/UI/button/Button";
+
 
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<any[]>([]);
-  const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-   // Dentro de useEffect, llamamos a la función getMessages para obtener todos los mensajes del chat y actualizamos el estado 'messages'.
-   useEffect(() => {
+  // Dentro de useEffect, llamamos a la función getMessages para obtener todos los mensajes del chat y actualizamos el estado 'messages'.
+  useEffect(() => {
     getMessages(setMessages); // Llama a getMessages y pasa setMessages como el "callback" para actualizar los mensajes en la pantalla.
   }, []); // [] indica que esto solo debe ejecutarse una vez, al inicio (cuando el componente se monta).
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name && message) {
-      await sendMessage(name, message); // Enviar mensaje
-      // Limpiar campos
-      setMessage(""); 
-      setName("");
+    if (message) {
+      await sendMessage(message); // Enviar mensaje
+      setMessage("");
     }
   };
 
-  return (
-    <div>
-      <h1>Chat</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Mensaje"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-        />
-        <button type="submit">Enviar</button>
-      </form>
+  const handleChangeMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event.target.value);
+  };
 
-      {/* Mostrar y recorrer mensajes */}
-      <div>
-        {messages.map((message) => (
-          <div key={message.ID}>
-            <p><strong>{message.Nombre}</strong>: {message.Mensaje}</p>
-            <span>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
+  return (
+    <div className={styles.chatContainer}>
+      <div className={styles.chatInformation}>
+        <div className={styles.hospitalBanner}>
+          <div className={styles.hospitalDescription}>
+            <h1>Hospital Pablo Tóbón Uribe</h1>
+            <p>Un centro de excelencia médica y calidez humana. Desde nuestra fundación, nos hemos dedicado a brindar atención de salud integral, combinando tecnología avanzada con un trato compasivo y personalizado.</p>
           </div>
-        ))}
+          <div className={styles.hospitalImage}>
+            <img className={styles.img} src="https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/ZUCFKCZCZJFUHEGZIXW46MZCKM.jpg" />
+          </div>
+        </div>
+        <div className={styles.chatMessagesContainer}>
+          <div className={styles.chatMessages}>
+            <div>
+              <h2 className={styles.chatTitle}>Entérate de lo que está sucediendo en la sede:</h2>
+            </div>
+            {messages.map((message) => (
+              <div className={styles.chatMessage} key={message.ID}>
+                <p className={styles.name}><strong>{message.Nombre}</strong></p>
+                <p> {message.Mensaje}</p>
+                <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
+              </div>
+            ))}
+          </div>
+          <div className={styles.informationContainer}>
+            <div className={styles.hospitalInformation}>
+              <div className={styles.card}>
+                <div className={styles.iconInformation}>
+                  <Button className={styles.informationButton}><FaRegHeart className={styles.iconDescription} /></Button>
+                  <p>EPS</p>
+                </div>
+
+                <div className={styles.iconInformation}>
+                  <Button className={styles.informationButton}><FaMapPin className={styles.iconDescription} /></Button>
+                  <p>Ubicación</p>
+                </div>
+
+                <div className={styles.iconInformation}>
+                  <Button className={styles.informationButton}><BiSolidBarChartAlt2 className={styles.iconDescription} /></Button>
+                  <p>Concurrencia</p>
+                </div>
+
+                <div className={styles.iconInformation}>
+                  <Button className={styles.informationButton}><FaPhoneAlt className={styles.iconDescription} /></Button>
+                  <p>3218825621</p>
+                </div>
+              </div>
+            </div>
+            <div className={styles.formContainer}>
+              <Form className={styles.form} onSubmit={handleSubmit}>
+                <h2 className={styles.title}>Escribe un comentario</h2>
+                <div className={styles.formElement}>
+                  <Label
+                    htmlFor="message"
+                    className={styles.label}
+                  >Mensaje:</Label>
+                  <TextArea
+                    id='message'
+                    value={message}
+                    onChange={handleChangeMessage}
+                    rows={5}
+                    cols={50}
+                    maxLength={200}
+                    className={styles.textarea}
+                  />
+                </div>
+                <div className={styles.formElement}>
+                  <Button className={styles.chatButton} type="submit">
+                    Enviar
+                  </Button>
+                </div>
+              </Form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
