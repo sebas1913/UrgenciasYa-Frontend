@@ -18,7 +18,7 @@ const RegisterForm: React.FC = () => {
         };
 
         try {
-            const response: Response = await fetch('http://localhost:8080/api/v1/user/register', {
+            const response: Response = await fetch('http://localhost:8080/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +54,11 @@ const RegisterForm: React.FC = () => {
                     label: element.name, // Guardamos el nombre de la EPS.
                     value: element.name
                 }));
-                setEps(epsOptions); // Guardamos las opciones de EPS.
+
+                const defaultOption = { label: 'Ingresa una opción', value: '' };
+        const optionsWithDefault = [defaultOption, ...epsOptions];
+
+                setEps(optionsWithDefault); // Guardamos las opciones de EPS.
             } catch (error) {
                 console.error("Error fetching EPS:", error); // Si hay un error, lo mostramos en la consola.
             }
