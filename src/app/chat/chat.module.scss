@@ -1,0 +1,198 @@
+@import '../style/variables.scss';
+@import '../style/mixins';
+
+
+.chatContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    .chatInformation {
+        margin-top: 3.1rem;
+        width: 80%;
+
+
+        .hospitalBanner {
+            background-color: $white-color;
+            @include border-radius(0.3rem);
+            @include shadow($black-color, 0.2);
+            width: 100%;
+            height: 13.7rem;
+            display: flex;
+            gap: 1.2rem;
+
+
+            .hospitalImage {
+                width: 65%;
+                text-align: center;
+
+                .img {
+                    width: 100%;
+                    height: 13.7rem;
+                    object-fit: cover;
+                }
+            }
+
+            .hospitalDescription {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 1rem;
+                width: 35%;
+                text-align: left;
+                color: $turquoise-color;
+                padding: 1.2rem;
+            }
+
+            .hospitalDescription p {
+                font-size: 0.85rem;
+                color: $black-color;
+                letter-spacing: 0.05rem;
+            }
+        }
+
+        .chatMessagesContainer {
+            margin-top: 1.5rem;
+            width: 100%;
+            display: flex;
+            gap: 1.8rem;
+
+            .chatMessages {
+                width: 60%;
+                padding: 2rem;
+                background-color: $white-color;
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                @include border-radius(0.3rem);
+                @include shadow($black-color, 0.3);
+
+                .chatTitle {
+                    margin: 0.6rem;
+                }
+
+                p {
+                    margin: 0.6rem;
+                }
+
+                .chatMessage {
+                    width: 100%;
+                    margin: 0.3rem 0rem;
+                    border-bottom: 0.02rem solid $ligh-gray-color;
+
+                    .name {
+                        font-size: 1.1rem;
+                    }
+
+                    .date {
+                        font-size: 0.8rem;
+                        float: right;
+                        margin-bottom: 0.5rem;
+                    }
+                }
+            }
+
+            .informationContainer {
+                width: 40%;
+                display: flex;
+                flex-direction: column;
+                gap: 1.2rem;
+
+                .formContainer {
+                    width: 100%;
+                    background-color: $white-color;
+                    @include border-radius(0.3rem);
+                    @include shadow($black-color, 0.2);
+
+
+                    .h2 {
+                        margin: 0;
+                    }
+
+
+                    .form {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.2rem;
+                        padding: 1.2rem;
+
+
+                        .formElement {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.6rem;
+
+
+                            .textarea {
+                                font-family: var(--font-principal);
+                                background-color: $background-modal;
+                                border: none;
+                                padding: 0.7rem;
+                                font-size: 0.9rem;
+                                letter-spacing: 0.01rem;
+                                @include border-radius(0.3rem);
+                                @include shadow($black-color, 0.1);
+                            }
+
+                            .chatButton {
+                                margin-top: 0.2rem;
+                                font-family: var(--font-principal);
+                                background: none;
+                                @include border-radius(0.5rem);
+                                width: 100%;
+                                padding: 0.7rem 2rem;
+                                background-color: $turquoise-color;
+                                border: none;
+                                @include shadow($black-color, 0.1);
+                                cursor: pointer;
+                                color: $white-color;
+                                font-weight: 600;
+                                font-size: 1rem;
+                                letter-spacing: 0.05rem;
+
+                                &:active {
+                                    transform: scale(0.95);
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                .card {
+                    width: 100%;
+                    height: 10.9rem;
+                    background-color: $white-color;
+                    @include border-radius(0.3rem);
+                    @include shadow($black-color, 0.2);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    
+
+                    .iconInformation {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.6rem;
+                        margin-left: 0.9rem;
+
+                        .informationButton{
+                            display: flex;
+                            align-items: center;
+                            border: none;
+                            background: none;
+                            cursor: pointer;
+
+                            .iconDescription{
+                                font-size: 1.3rem;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

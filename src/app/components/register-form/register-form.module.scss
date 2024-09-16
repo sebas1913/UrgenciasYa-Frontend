@@ -37,7 +37,7 @@
             .input {
                 font-family: var(--font-principal);
                 padding: 0.7rem;
-                border-radius: 0.25rem;
+                @include border-radius(0.25rem);
                 border: none;
                 @include shadow($black-color, 0.1);
                 font-size: 0.9rem;
@@ -51,7 +51,7 @@
 
             .selectEPS {
                 font-family: var(--font-principal);
-                border-radius: 0.25rem;
+                @include border-radius(0.25rem);
                 padding: 0.7rem;
                 border: none;
                 background-color: $background-modal;
@@ -65,7 +65,7 @@
             margin-top: 1rem;
             font-family: var(--font-principal);
             background: none;
-            border-radius: 0.5rem;
+            @include border-radius(0.25rem);
             width: 100%;
             padding: 0.7rem 2rem;
             background-color: $turquoise-color;
