@@ -5,9 +5,16 @@ import Form from "../form/Form";
 import Select from "../UI/select/Select"; 
 import Button from "../UI/button/Button";
 import Label from "../UI/label/Label"; 
+import Alert from "../UI/alert/Alert";
 
 const SearchForm: React.FC = () => {
   const router = useRouter();
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
   // Creamos dos "estados" para guardar el municipio (town) y la EPS seleccionados por el usuario.
   const [selectedTown, setSelectedTown] = useState('');
