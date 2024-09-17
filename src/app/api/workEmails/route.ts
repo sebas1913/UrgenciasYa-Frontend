@@ -10,16 +10,15 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function POST(req: NextRequest) {
-    const { name, email, message } = await req.json();
+    const { name, email, subject, message } = await req.json();
 
     try{
         const mailOptions = {
             from: email,
-            replyTo: email, 
             to: process.env.EMAIL_USER, 
-            subject: 'Contact Us',
-            text: `From: ${name} \nEmail: ${email} \n\n${message}`,
-        };   
+            subject: `Work with Us`,
+            text: `From: ${name}  \nSubject: ${subject} \nEmail: ${email} \n\n${message}`,
+        };
 
         await transporter.sendMail(mailOptions);
         return NextResponse.json({ message: 'Email sent successfully.'}, { status: 200 });
