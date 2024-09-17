@@ -1,0 +1,107 @@
+@import '../style/variables';
+@import '../style/mixins.scss';
+
+.informationContainer {
+    display: flex;
+    padding: 3rem;
+    align-items: center;
+    width: 80%;
+    margin: 2rem auto;
+    gap: 3.5rem;
+
+    .containerLeft {
+        width: 55%;
+
+        .title {
+            font-size: 4rem;
+            color: $turquoise-color;
+            font-weight: 800;
+            text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
+        }
+
+        .nameUser{
+            line-height: 1rem;
+            font-size: 1.3rem;
+            color: $gray-color;
+        }
+
+        .description {
+            margin-top: 2rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.05rem;
+            line-height: 1.5rem;
+            font-weight: 300;
+        }
+
+        .button {
+            font-family: var(--font-principal);
+            background: none;
+            margin: 0.8rem 0;
+            padding: 0.9rem;
+            background-color: $turquoise-color;
+            border: none;
+            cursor: pointer;
+            color: $white-color;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 50%;
+            letter-spacing: 0.05rem;
+            @include border-radius(0.3rem);
+            @include shadow($black-color, 0.1);
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+    }
+
+    .containerRight {
+        width: 50%;
+        @include shadow($black-color, 0.2);
+        @include border-radius(0.5rem);
+        background-color: $white-color;
+        padding: 2.5rem;
+    }
+
+
+    @include mediaQuery(small) {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+        align-items: center;
+        width: 90%;
+        gap: 2rem;
+
+
+        .containerLeft {
+            width: 100%;
+            text-align: center;
+
+            .title {
+                font-size: 2.1rem;
+            }
+
+            .description {
+                margin-top: 1rem;
+                font-size: 1.1rem;
+                letter-spacing: 0.05rem;
+                line-height: 1.1rem;
+                font-weight: 300;
+                text-align: justify;
+            }
+
+            .admiration {
+                display: none
+            }
+        }
+
+        .containerRight {
+            width: 100%;
+            @include shadow($black-color, 0.2);
+            @include border-radius(0.5rem);
+            background-color: $white-color;
+            padding: 2rem;
+        }
+
+    }
+}
