@@ -1,12 +1,11 @@
 @import '../../style/variables';
 @import '../../style/mixins.scss';
 
-.aboutUsContainer {        
+.aboutUsContainer {
     text-align: center;
     margin: 0.5rem auto;
     width: 85%;
     height: 35rem;
-
 
     .title {
         font-size: 2.5rem;
@@ -23,9 +22,9 @@
         line-height: 1.6rem;
         font-weight: 300;
         width: 88%;
-        text-align: justify;        
+        text-align: justify;
     }
-    
+
     .cardContainer {
         display: flex;
         flex-wrap: wrap;
@@ -34,8 +33,12 @@
         margin: 0 auto;
         width: 93%;
     }
+}
 
-    @include mediaQuery(small) {
+@include mediaQuery(small) {
+
+    .aboutUsContainer {
+        height: auto;
 
         .title {
             font-size: 2.1rem;
@@ -43,12 +46,13 @@
 
         .aboutDescription {
             margin-top: 1rem;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             letter-spacing: 0.05rem;
-            line-height: 1.1rem;
+            line-height: 1.2rem;
             font-weight: 300;
             text-align: justify;
-
         }
     }
+
+
 }
