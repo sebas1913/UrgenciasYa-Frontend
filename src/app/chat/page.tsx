@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getMessages, sendMessage } from "../api/services/chat";
 import { FaRegHeart, FaMapPin, FaPhoneAlt } from "react-icons/fa";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
@@ -13,16 +13,23 @@ import Button from "../components/UI/button/Button";
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Dentro de useEffect, llamamos a la función getMessages para obtener todos los mensajes del chat y actualizamos el estado 'messages'.
   useEffect(() => {
-    getMessages(setMessages); // Llama a getMessages y pasa setMessages como el "callback" para actualizar los mensajes en la pantalla.
-  }, []); // [] indica que esto solo debe ejecutarse una vez, al inicio (cuando el componente se monta).
+    getMessages(setMessages);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight; // Desplazarse al final del contenedor
+    }
+  }, [messages]); // Se ejecuta cuando un mensaje se envíe 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (message) {
-      await sendMessage(message); // Enviar mensaje
+      await sendMessage(message); 
       setMessage("");
     }
   };
@@ -48,13 +55,17 @@ const Chat: React.FC = () => {
             <div>
               <h2 className={styles.chatTitle}>Entérate de lo que está sucediendo en la sede:</h2>
             </div>
-            {messages.map((message) => (
-              <div className={styles.chatMessage} key={message.ID}>
-                <p className={styles.name}><strong>{message.Nombre}</strong></p>
-                <p> {message.Mensaje}</p>
-                <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
-              </div>
-            ))}
+            <div ref={containerRef} className={styles.containerRef}>
+              {messages.map((message) => (
+                <div className={styles.chatMessage} key={message.ID}>
+                  <div className={styles.containerLeft}>
+                    <p className={styles.name}><strong>{message.Nombre}</strong></p>
+                    <p> {message.Mensaje}</p>
+                  </div>
+                  <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <div className={styles.informationContainer}>
             <div className={styles.hospitalInformation}>
