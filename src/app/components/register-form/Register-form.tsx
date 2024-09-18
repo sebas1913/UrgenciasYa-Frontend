@@ -6,7 +6,14 @@ import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import Select from "../UI/select/Select";
 
-const RegisterForm: React.FC = () => {
+const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
+    
+    const [selectedName, setSelectedName] = useState('');
+    const [selectedEps, setSelectedEps] = useState('');
+    const [selectedEmail, setSelectedEmail] = useState('');
+    const [selectedPassword, setSelectedPassword] = useState('');
+    const [selectedDocument, setSelectedDocument] = useState('');
+    const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -38,6 +45,8 @@ const RegisterForm: React.FC = () => {
 
             const data = await response.json(); 
             console.log("Registro exitoso:", data); 
+            onSuccess();
+            
         } catch (error) {
             console.error("Error en la solicitud:", error);
         }
@@ -53,7 +62,11 @@ const RegisterForm: React.FC = () => {
                     label: element.name, 
                     value: element.name
                 }));
-                setEps(epsOptions); // Guardamos las opciones de EPS.
+
+                const defaultOption = { label: 'Ingresa una opción', value: '' };
+                const optionsWithDefault = [defaultOption, ...epsOptions];
+
+                setEps(optionsWithDefault); // Guardamos las opciones de EPS.
             } catch (error) {
                 console.error("Error fetching EPS:", error); 
             }
@@ -61,12 +74,6 @@ const RegisterForm: React.FC = () => {
         fetchEps(); // Llamamos la función para mostrar las EPS.
     }, []);
 
-    const [selectedName, setSelectedName] = useState('');
-    const [selectedEps, setSelectedEps] = useState('');
-    const [selectedEmail, setSelectedEmail] = useState('');
-    const [selectedPassword, setSelectedPassword] = useState('');
-    const [selectedDocument, setSelectedDocument] = useState('');
-    const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedName(event.target.value);
