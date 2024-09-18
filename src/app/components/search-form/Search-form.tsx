@@ -9,7 +9,7 @@ import Label from "../UI/label/Label";
 const SearchForm: React.FC = () => {
   const router = useRouter();
 
-  // Creamos dos "estados" para guardar el municipio (town) y la EPS seleccionados por el usuario.
+  // Creamos dos "estados" para guardar el municipio y la EPS.
   const [selectedTown, setSelectedTown] = useState('');
   const [selectedEPS, setSelectedEPS] = useState('');
 
@@ -41,8 +41,8 @@ const SearchForm: React.FC = () => {
 
     const fetchEps = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/eps"); // Llamada a la API para obtener EPS.
-        const data = await response.json(); // Convertimos la respuesta a formato JSON.
+        const response: Response = await fetch("http://localhost:8080/api/v1/eps"); 
+        const data = await response.json();
         const epsOptions = data.map((element: any) => ({
           label: element.name, 
           value: element.name
@@ -51,15 +51,14 @@ const SearchForm: React.FC = () => {
         const defaultOption = { label: 'Ingresa una opción', value: '' };
         const optionsWithDefault = [defaultOption, ...epsOptions];
 
-        setEps(optionsWithDefault); // Guardamos las opciones de EPS.
+        setEps(optionsWithDefault);
       } catch (error) {
-        console.error("Error fetching EPS:", error); // Si hay un error, lo mostramos en la consola.
+        console.error("Error fetching EPS:", error);
       }
     };
     fetchEps(); // Llamamos la función para obtener las EPS.
   }, []); // Este arreglo vacío significa que solo ejecutamos esto una vez cuando la página carga.
 
-  // Esta función se ejecuta cuando el usuario envía el formulario.
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedTown || !selectedEPS) {
@@ -71,12 +70,10 @@ const SearchForm: React.FC = () => {
     router.push(`/search-results?town=${encodeURIComponent(selectedTown)}&eps=${encodeURIComponent(selectedEPS)}`);
   };
 
-  // Esta función se ejecuta cuando el usuario selecciona un municipio.
   const handleChangeTown = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTown(event.target.value); 
   };
 
-  // Esta función se ejecuta cuando el usuario selecciona una EPS.
   const handleChangeEPS = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedEPS(event.target.value);
   };

@@ -35,7 +35,7 @@ const ContactForm: React.FC = () => {
             }
         } catch (error) {
             console.error('Error:', error);
-            setErrorMessage('No se pudo enviar el formulario. Intenta de nuevo más tarde.'); // Mostrar mensaje de error
+            setErrorMessage('No se pudo enviar el formulario. Intenta de nuevo más tarde.'); 
         }
     };
 

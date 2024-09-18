@@ -6,14 +6,12 @@ import { FaCalendarCheck } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
 import { TbMessageCircleFilled } from "react-icons/tb";
 
-
-
 interface Hospital {
-    name: string;           // Nombre del hospital.
-    phone_number: string;   // Número de teléfono del hospital.
-    howtogetthere?: string;  // Indicaciones de cómo llegar al hospital.
-    rating: string | number;         // Puntuación del hospital.
-    url_image: string;      // URL de la imagen del hospital.
+    name: string;           
+    phone_number: string;   
+    howtogetthere?: string;  
+    rating: string | number;        
+    url_image: string;    
 };
 
 const HospitalCard: React.FC<Hospital> = ({ name, phone_number, rating, url_image }) => {
