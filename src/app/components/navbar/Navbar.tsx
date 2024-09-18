@@ -5,10 +5,13 @@ import Button from '../UI/button/Button';
 import { CgCloseO } from "react-icons/cg";
 import RegisterForm from '../register-form/Register-form';
 import LoginForm from '../login-form/Login-form';
+import { useRouter } from 'next/navigation';
+
 
 const Navbar: React.FC = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const router = useRouter();
 
   const handleToggleRegisterForm = () => {
     setShowRegisterForm(!showRegisterForm); // Alterna la visibilidad del formulario
@@ -26,11 +29,18 @@ const Navbar: React.FC = () => {
     setShowLoginForm(false); // Cierra el formulario
   };
 
+  const home = () => {
+    router.push('/');
+  }
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div>
-          <img className={styles.image} src="./images/white_logo.png" alt="Logo"/>
+          <Button className={styles.buttonImage} onClick={home}>
+            <img className={styles.image} src="./images/white_logo.png" alt="Logo" />
+
+          </Button>
         </div>
         <div className={styles.links}>
           <Button type="button" onClick={handleToggleLoginForm} className={styles.navButton}>
@@ -45,7 +55,7 @@ const Navbar: React.FC = () => {
       {showRegisterForm && (
         <div className={styles.modalContainer}>
           <button className={styles.closeButton} onClick={handleCloseRegisterForm}>
-            <CgCloseO/>
+            <CgCloseO />
           </button>
           <div className={styles.formContainer}>
             <RegisterForm></RegisterForm>
@@ -55,7 +65,7 @@ const Navbar: React.FC = () => {
       {showLoginForm && (
         <div className={styles.modalContainer}>
           <button className={styles.closeButton} onClick={handleCloseLoginForm}>
-            <CgCloseO/>
+            <CgCloseO />
           </button>
           <div className={styles.formContainer}>
             <LoginForm></LoginForm>
