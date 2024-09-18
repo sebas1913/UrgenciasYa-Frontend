@@ -7,8 +7,7 @@ import Button from "../UI/button/Button";
 import { useRouter } from "next/navigation";
 
 
-const LoginForm: React.FC = () => {
-    
+const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
     const router = useRouter();
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,6 +40,8 @@ const LoginForm: React.FC = () => {
 
             if(token) {
                 router.push('/profile-user');
+                onSuccess();
+
             }
             
         } catch (error) {
