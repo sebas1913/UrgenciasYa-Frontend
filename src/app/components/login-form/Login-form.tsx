@@ -4,9 +4,12 @@ import Form from "../form/Form";
 import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
+import { useRouter } from "next/navigation";
 
 
 const LoginForm: React.FC = () => {
+    
+    const router = useRouter();
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,6 +38,10 @@ const LoginForm: React.FC = () => {
 
             const token = data.token;
             sessionStorage.setItem('auth', token);
+
+            if(token) {
+                router.push('/profile-user');
+            }
             
         } catch (error) {
             console.error("Error en la solicitud:", error); 
