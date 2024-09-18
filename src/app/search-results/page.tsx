@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'; 
 import styles from './page-results.module.scss';
 import { useSearchParams } from 'next/navigation'; 
-import HospitalCard from '../components/hospital-card/Hospital-card';
-import Spinner from "../components/UI/spinner/Spinner"; // Importa el spinner
+import HospitalCard from '../../components/hospital-card/Hospital-card';
+import Spinner from "../../components/UI/spinner/Spinner"; // Importa el spinner
 
 interface Hospital {  
   name: string;           
