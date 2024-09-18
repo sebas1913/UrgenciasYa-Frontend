@@ -42,15 +42,11 @@
 
         .title {
             font-size: 2.1rem;
+            margin-bottom: 1rem;
         }
 
         .aboutDescription {
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            letter-spacing: 0.05rem;
-            line-height: 1.2rem;
-            font-weight: 300;
-            text-align: justify;
+            display: none;
         }
     }
 
