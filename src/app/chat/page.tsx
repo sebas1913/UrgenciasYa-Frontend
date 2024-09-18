@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import { getMessages, sendMessage } from "../../api/services/chat";
+import { getMessages, sendMessage } from "../api/services/chat";
 import { FaRegHeart, FaMapPin, FaPhoneAlt } from "react-icons/fa";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import styles from './chat.module.scss';
