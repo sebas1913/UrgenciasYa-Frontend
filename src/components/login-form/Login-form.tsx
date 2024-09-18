@@ -5,6 +5,7 @@ import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import { useRouter } from "next/navigation";
+import cookie from 'cookie'; 
 
 
 const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
@@ -36,7 +37,9 @@ const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
             console.log("Log in exitoso");
 
             const token = data.token;
-            sessionStorage.setItem('auth', token);
+            document.cookie = `auth=${token}; path=/;`;
+
+           
 
             if(token) {
                 router.push('/profile-user');
