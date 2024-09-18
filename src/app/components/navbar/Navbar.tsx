@@ -5,7 +5,6 @@ import Button from '../UI/button/Button';
 import { CgCloseO } from "react-icons/cg";
 import RegisterForm from '../register-form/Register-form';
 import LoginForm from '../login-form/Login-form';
-// import FormularioLogin from '../FormularioLogin'; 
 
 const Navbar: React.FC = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -42,7 +41,7 @@ const Navbar: React.FC = () => {
           </Button>
         </div>
       </nav>
-      {/* Mostrar el formulario cuando showForm sea true */}
+      {/* Cuando sea true se muestra el form */}
       {showRegisterForm && (
         <div className={styles.modalContainer}>
           <button className={styles.closeButton} onClick={handleCloseRegisterForm}>
