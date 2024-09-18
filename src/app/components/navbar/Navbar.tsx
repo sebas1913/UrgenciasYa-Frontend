@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
             <CgCloseO />
           </button>
           <div className={styles.formContainer}>
-            <RegisterForm></RegisterForm>
+            <RegisterForm onSuccess={handleCloseRegisterForm}></RegisterForm>
           </div>
         </div>
       )}
