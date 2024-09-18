@@ -48,7 +48,7 @@ const ResultsPage: React.FC = () => {
     }
   }, [town, eps]);
 
-  if (loading) return <Spinner />; // Reemplazamos 'Loading...' por el Spinner
+  if (loading) return <Spinner />; 
 
   return (
     <div className={styles.containerResults}>

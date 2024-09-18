@@ -60,6 +60,7 @@
 
             .chatMessages {
                 width: 60%;
+                height: 30rem;
                 padding: 2rem;
                 background-color: $white-color;
                 display: flex;
@@ -67,6 +68,18 @@
                 gap: 0.6rem;
                 @include border-radius(0.3rem);
                 @include shadow($black-color, 0.3);
+
+                .containerRef {
+                    width: 100%;
+                    height: 100%;
+                    overflow-y: scroll;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none; 
+                }
+                                    
+                .containerRef::-webkit-scrollbar{
+                    display: none;
+                }
 
                 .chatTitle {
                     margin: 0.6rem;
@@ -80,6 +93,13 @@
                     width: 100%;
                     margin: 0.3rem 0rem;
                     border-bottom: 0.02rem solid $ligh-gray-color;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+
+                    .containerLeft{
+                        width: 80%;
+                    }
 
                     .name {
                         font-size: 1.1rem;
@@ -87,7 +107,6 @@
 
                     .date {
                         font-size: 0.8rem;
-                        float: right;
                         margin-bottom: 0.5rem;
                     }
                 }
@@ -170,7 +189,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-around;
-                    
+
 
                     .iconInformation {
                         display: flex;
@@ -178,14 +197,14 @@
                         gap: 0.6rem;
                         margin-left: 0.9rem;
 
-                        .informationButton{
+                        .informationButton {
                             display: flex;
                             align-items: center;
                             border: none;
                             background: none;
                             cursor: pointer;
 
-                            .iconDescription{
+                            .iconDescription {
                                 font-size: 1.3rem;
                             }
                         }

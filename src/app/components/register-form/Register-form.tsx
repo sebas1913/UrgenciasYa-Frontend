@@ -25,33 +25,32 @@ const RegisterForm: React.FC = () => {
                 },
                 body: JSON.stringify({
                     name: selectedName,  
-                    document: selectedDocument,    // Asegúrate de que selectedName esté definido
-                    eps: selectedEps,        // Asegúrate de que selectedEps esté definido
-                    email: selectedEmail,    // Asegúrate de que selectedEmail esté definido
-                    password: selectedPassword // Asegúrate de que selectedPassword esté definido
+                    document: selectedDocument,  
+                    eps: selectedEps,       
+                    email: selectedEmail,   
+                    password: selectedPassword 
                 }),
             });
 
-            // Verificar si la respuesta fue exitosa
             if (!response.ok) {
                 throw new Error(`Error en el registro: ${response.statusText}`);
             }
 
-            const data = await response.json(); // Parsear la respuesta si es JSON
-            console.log("Registro exitoso:", data); // Manejar la respuesta
+            const data = await response.json(); 
+            console.log("Registro exitoso:", data); 
         } catch (error) {
-            console.error("Error en la solicitud:", error); // Manejar cualquier error
+            console.error("Error en la solicitud:", error);
         }
     };
 
     useEffect(() => {
-        // Función para obtener la lista de EPS desde el servidor.
+        // Obtener eps
         const fetchEps = async () => {
             try {
-                const response: Response = await fetch("http://localhost:8080/api/v1/eps"); // Llamada a la API para obtener EPS.
-                const data = await response.json(); // Convertimos la respuesta a formato JSON.
+                const response: Response = await fetch("http://localhost:8080/api/v1/eps"); 
+                const data = await response.json();
                 const epsOptions = data.map((element: any) => ({
-                    label: element.name, // Guardamos el nombre de la EPS.
+                    label: element.name, 
                     value: element.name
                 }));
 
@@ -60,10 +59,10 @@ const RegisterForm: React.FC = () => {
 
                 setEps(optionsWithDefault); // Guardamos las opciones de EPS.
             } catch (error) {
-                console.error("Error fetching EPS:", error); // Si hay un error, lo mostramos en la consola.
+                console.error("Error fetching EPS:", error); 
             }
         };
-        fetchEps(); // Llamamos la función para obtener las EPS.
+        fetchEps(); // Llamamos la función para mostrar las EPS.
     }, []);
 
     const [selectedName, setSelectedName] = useState('');
@@ -136,12 +135,12 @@ const RegisterForm: React.FC = () => {
                         className={styles.label}
                     >Ingresa tu EPS afiliada:</Label>
                     <Select
-                        id="eps" // Este es el ID del campo de selección de la EPS.
-                        options={eps} // Las opciones para el campo de selección son las EPS que obtuvimos antes.
-                        value={selectedEps} // El valor actual es la EPS que el usuario seleccionó.
-                        onChange={handleChangeEps} // Cuando el usuario cambia la selección, llamamos a la función handleChangeEPS.
-                        className={styles.selectEPS} // Usamos esta clase para darle estilo.
-                        disabled={false} // El campo de selección no está deshabilitado.
+                        id="eps"
+                        options={eps} 
+                        value={selectedEps} 
+                        onChange={handleChangeEps} 
+                        className={styles.selectEPS}
+                        disabled={false}
                     />
                 </div>
 

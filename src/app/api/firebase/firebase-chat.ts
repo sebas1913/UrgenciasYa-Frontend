@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// Tu configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyACHj9Mgt5vF0o40RJcsH2gBSB3LOgqOXk",
   authDomain: "prueba-chat-a2081.firebaseapp.com",

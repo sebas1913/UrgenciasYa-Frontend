@@ -2,16 +2,16 @@ import Button from '../UI/button/Button';
 import styles from './hospital-card.module.scss';
 import { FaRegHeart, FaMapPin, FaPhoneAlt, FaCar } from "react-icons/fa";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
-import { LuMessageCircle } from "react-icons/lu";
 import { FaCalendarCheck } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
+import { TbMessageCircleFilled } from "react-icons/tb";
 
 interface Hospital {
-    name: string;           // Nombre del hospital.
-    phone_number: string;   // Número de teléfono del hospital.
-    howtogetthere?: string;  // Indicaciones de cómo llegar al hospital.
-    rating: string | number;         // Puntuación del hospital.
-    url_image: string;      // URL de la imagen del hospital.
+    name: string;           
+    phone_number: string;   
+    howtogetthere?: string;  
+    rating: string | number;        
+    url_image: string;    
 };
 
 const HospitalCard: React.FC<Hospital> = ({ name, phone_number, rating, url_image }) => {
@@ -58,7 +58,7 @@ const HospitalCard: React.FC<Hospital> = ({ name, phone_number, rating, url_imag
                 </div>
                 <div className={styles.filterButtons}>
                     <Button className={styles.filterButton}><FaCalendarCheck className={styles.buttonIcon}/></Button> 
-                    <Button className={styles.filterButton}><LuMessageCircle className={styles.buttonIcon} onClick={onClick}/></Button> 
+                    <Button className={styles.filterButton}><TbMessageCircleFilled  className={styles.buttonIcon} onClick={onClick}/></Button> 
                     <Button className={styles.filterButton}><FaCar className={styles.buttonIcon}/></Button> 
                 </div>
             </div>

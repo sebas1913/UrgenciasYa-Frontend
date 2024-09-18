@@ -8,14 +8,37 @@ import TextArea from "../UI/textarea/TextArea";
 
 const WorkWithUsForm: React.FC = () => {
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit =  async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        alert('funcionando');
+        
+        try {
+            const response = await fetch('/api/workEmails', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: selectedName, email: selectedEmail, subject: selectedSubject, message: text }),
+            });
+            
+            if (response.ok) {
+              setSelectedName('');
+              setSelectedEmail('');
+              setSelectedSubject('');
+              setText('');
+
+              console.log('Formulario enviado correctamente.');
+            } 
+            else {
+              throw new Error('Error al enviar el formulario.');
+            }
+          } 
+          catch (error) {
+            console.error('Error:', error);
+          }
     };
 
     const [selectedName, setSelectedName] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
+    const [text, setText] = useState<string>('');
 
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +53,6 @@ const WorkWithUsForm: React.FC = () => {
         setSelectedSubject(event.target.value);
     };
 
-    const [text, setText] = useState<string>('');
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value);
     };
