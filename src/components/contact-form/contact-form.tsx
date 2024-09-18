@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styles from './form-contact.module.scss'
+import styles from './contact-form.module.scss'
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import Label from "../UI/label/Label";
-import Form from "../form/Form";
+import Form from "../UI/form/Form";
 import TextArea from "../UI/textarea/TextArea";
 
 const ContactForm: React.FC = () => {

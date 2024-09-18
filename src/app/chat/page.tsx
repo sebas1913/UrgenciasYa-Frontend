@@ -4,7 +4,7 @@ import { getMessages, sendMessage } from "../api/services/chat";
 import { FaRegHeart, FaMapPin, FaPhoneAlt } from "react-icons/fa";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import styles from './chat.module.scss';
-import Form from "../../components/form/Form";
+import Form from "../../components/UI/form/Form";
 import Label from "../../components/UI/label/Label";
 import TextArea from "../../components/UI/textarea/TextArea";
 import Button from "../../components/UI/button/Button";

@@ -4,7 +4,7 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import styles from './footer.module.scss';
 import Button from "../UI/button/Button";
-import WorkWithUsForm from "../work-with-us/form-work";
+import WorkWithUsForm from "../work-form/work-form";
 import Modal from "../modal/Modal";
 
 const Footer: React.FC = () => {
