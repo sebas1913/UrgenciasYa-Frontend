@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./profile-user.module.scss";
-import Button from "../components/UI/button/Button";
+import Button from "../../components/UI/button/Button";
 
 const Profile = () =>{
     return(

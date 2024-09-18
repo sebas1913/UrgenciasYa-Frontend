@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styles from './form-work.module.scss'
+import styles from './work-form.module.scss'
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import Label from "../UI/label/Label";
-import Form from "../form/Form";
+import Form from "../UI/form/Form";
 import TextArea from "../UI/textarea/TextArea";
 
 const WorkWithUsForm: React.FC = () => {

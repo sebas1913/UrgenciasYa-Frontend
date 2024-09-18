@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './register-form.module.scss'
-import Form from "../form/Form";
+import Form from "../UI/form/Form";
 import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";

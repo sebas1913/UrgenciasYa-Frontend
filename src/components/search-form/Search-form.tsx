@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"; 
 import { useRouter } from 'next/navigation'; 
 import styles from "./search-form.module.scss";
-import Form from "../form/Form"; 
+import Form from "../UI/form/Form"; 
 import Select from "../UI/select/Select"; 
 import Button from "../UI/button/Button";
 import Label from "../UI/label/Label"; 
