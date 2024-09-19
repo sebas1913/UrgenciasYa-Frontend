@@ -1,3 +1,4 @@
+// src/components/LoginForm.tsx
 import React, { useState } from "react";
 import styles from './login-form.module.scss';
 import Form from "../UI/form/Form";
@@ -5,11 +6,14 @@ import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import { useRouter } from "next/navigation";
-import cookie from 'cookie'; 
+import { useAuth } from '../context/AuthContext'; // Importa el contexto
 
-
-const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
+const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const router = useRouter();
+    const { login } = useAuth(); // Usa el contexto
+
+    const [selectedEmail, setSelectedEmail] = useState('');
+    const [selectedPassword, setSelectedPassword] = useState('');
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -17,7 +21,7 @@ const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
         if (!selectedEmail || !selectedPassword) {
             alert('Por favor, completa todos los campos.');
             return;
-        };
+        }
 
         try {
             const response: Response = await fetch('http://localhost:8080/login', {
@@ -30,30 +34,23 @@ const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
                     password: selectedPassword
                 }),
             });
+
             if (!response.ok) {
                 throw new Error(`Error en el log in: ${response.statusText}`);
             }
+
             const data = await response.json();
-            console.log("Log in exitoso");
-
             const token = data.token;
-            document.cookie = `auth=${token}; path=/;`;
 
-           
-
-            if(token) {
+            if (token) {
+                login(token); // Usa el contexto para iniciar sesión
                 router.push('/profile-user');
                 onSuccess();
-
             }
-            
         } catch (error) {
-            console.error("Error en la solicitud:", error); 
+            console.error("Error en la solicitud:", error);
         }
     };
-
-    const [selectedEmail, setSelectedEmail] = useState('');
-    const [selectedPassword, setSelectedPassword] = useState('');
 
     const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedEmail(event.target.value);
@@ -65,18 +62,13 @@ const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
 
     return (
         <div className={styles.formContainer}>
-
-            <img className={styles.image} src="./images/turquoise_logo.png" ></img>
-
+            <img className={styles.image} src="./images/turquoise_logo.png" />
             <h2 className={styles.title}>Iniciar sesión</h2>
-
             <Form onSubmit={onSubmit} className={styles.contactForm}>
-
                 <div className={styles.formElement}>
-                    <Label
-                        htmlFor="email"
-                        className={styles.label}
-                    >Ingresa tu correo electrónico:</Label>
+                    <Label htmlFor="email" className={styles.label}>
+                        Ingresa tu correo electrónico:
+                    </Label>
                     <Input
                         id='email'
                         type='text'
@@ -84,14 +76,12 @@ const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
                         value={selectedEmail}
                         onChange={handleChangeEmail}
                         className={styles.input}
-                    ></Input>
+                    />
                 </div>
-
                 <div className={styles.formElement}>
-                    <Label
-                        htmlFor="password"
-                        className={styles.label}
-                    >Ingresa tu contraseña:</Label>
+                    <Label htmlFor="password" className={styles.label}>
+                        Ingresa tu contraseña:
+                    </Label>
                     <Input
                         id='password'
                         type='password'
@@ -99,14 +89,12 @@ const LoginForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
                         value={selectedPassword}
                         onChange={handleChangePassword}
                         className={styles.input}
-                    ></Input>
+                    />
                 </div>
-
                 <div>
-                    <Button
-                        type='submit'
-                        className={styles.contactButton}
-                    >Enviar</Button>
+                    <Button type='submit' className={styles.contactButton}>
+                        Enviar
+                    </Button>
                 </div>
             </Form>
         </div>
