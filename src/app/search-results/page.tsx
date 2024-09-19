@@ -1,25 +1,18 @@
 'use client'; 
-
 import { useEffect, useState } from 'react'; 
 import styles from './page-results.module.scss';
 import { useSearchParams } from 'next/navigation'; 
 import HospitalCard from '../../components/hospital-card/Hospital-card';
-import Spinner from "../../components/UI/spinner/Spinner"; // Importa el spinner
-
-interface Hospital {  
-  name: string;           
-  phone_number: string;   
-  howtogetthere: string;  
-  rating: number;         
-  url_image: string;      
-}
+import Spinner from "../../components/UI/spinner/Spinner"; 
+import { IHospital } from '@/interfaces/IHospital';
 
 const ResultsPage: React.FC = () => {
+  
   const searchParams = useSearchParams(); 
   const town = searchParams.get('town'); 
   const eps = searchParams.get('eps'); 
 
-  const [results, setResults] = useState<Hospital[] | null>(null); 
+  const [results, setResults] = useState<IHospital[] | null>(null); 
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState<string | null>(null);
 
@@ -34,7 +27,7 @@ const ResultsPage: React.FC = () => {
           throw new Error(`Error fetching data: ${response.status}`);
         }
 
-        const data: Hospital[] = await response.json();
+        const data: IHospital[] = await response.json();
         setResults(data);
       } catch (error: any) {
         setError(error.message);
@@ -62,6 +55,8 @@ const ResultsPage: React.FC = () => {
               url_image={hospital.url_image} 
               phone_number={hospital.phone_number} 
               rating={hospital.rating} 
+              howtogetthere={hospital.howtogetthere}
+              nameTown={hospital.nameTown}
             />
           ))}
         </div>
