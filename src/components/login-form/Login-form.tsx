@@ -21,7 +21,7 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         if (!selectedEmail || !selectedPassword) {
             alert('Por favor, completa todos los campos.');
             return;
-        }
+        };
 
         try {
             const response: Response = await fetch('http://localhost:8080/login', {
@@ -37,16 +37,23 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
             if (!response.ok) {
                 throw new Error(`Error en el log in: ${response.statusText}`);
-            }
+            };
 
             const data = await response.json();
             const token = data.token;
 
             if (token) {
-                login(token); // Usa el contexto para iniciar sesión
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    eps: data.eps,
+                    document: data.document,
+                };
+                login(token, userInfo); // Guarda el token y la info del usuario
                 router.push('/profile-user');
                 onSuccess();
-            }
+            };
+            
         } catch (error) {
             console.error("Error en la solicitud:", error);
         }
