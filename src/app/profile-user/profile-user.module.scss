@@ -109,6 +109,17 @@
             .iconInformation{
                 display: flex;
                 font-size: 1.1rem;
+                .editButton{
+                    background: none;
+                    border: none;
+                    font-family: var(--font-principal);
+                    font-size: 1.1rem;
+                    cursor: pointer;
+
+                    b{
+                        margin-left: 0.9rem;
+                    }
+                }
 
                 .description{
                     margin-left: 0.9rem;
