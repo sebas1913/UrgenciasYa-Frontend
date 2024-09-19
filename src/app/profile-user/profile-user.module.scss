@@ -37,6 +37,7 @@
                 }
 
                 .containerButton {
+
                     .searchButton {
                         margin-top: 0.2rem;
                         font-family: var(--font-principal);
@@ -56,8 +57,6 @@
                         &:active {
                             transform: scale(0.95);
                         }
-
-
                     }
                 }
             }
@@ -96,8 +95,8 @@
             gap: 0.3rem;
             align-items: center;
 
-            .imageUser{
-                font-size: 5rem;
+            .imageUser {
+                font-size: 6rem;
             }
         }
 
@@ -105,11 +104,11 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 2rem;
 
             .iconInformation{
                 display: flex;
-                font-size: 0.9rem;
+                font-size: 1.1rem;
 
                 .description{
                     margin-left: 0.9rem;
@@ -117,6 +116,4 @@
             }
         }
     }
-
-
 }
