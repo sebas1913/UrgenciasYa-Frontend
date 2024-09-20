@@ -32,7 +32,7 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                 <div className={styles.filterInformation}>
                     <div className={styles.iconInformation}>
                         <Button className={styles.informationButton}><FaRegHospital className={styles.iconDescription}/></Button>
-                        <p>{name}</p>
+                        <p><b>{name}</b></p>
                     </div>
 
                     <div className={styles.iconInformation}>
@@ -47,11 +47,6 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                     <div className={styles.iconInformation}>
                         <Button className={styles.informationButton}><FaPhoneAlt className={styles.iconDescription}/></Button>
                         <p>{phone_number}</p>
-                    </div>
-
-                    <div className={styles.iconInformation}>
-                        <Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription}/></Button>
-                        <p>Agendar un turno</p>
                     </div>
                 </div>
                 <div className={styles.filterButtons}>

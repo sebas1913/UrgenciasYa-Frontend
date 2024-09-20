@@ -36,6 +36,9 @@
 
         .filterInformation {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
 
             p {
                 font-weight: 300;
@@ -47,6 +50,7 @@
             .iconInformation {
                 display: flex;
                 align-items: center;
+                gap: 0.5rem;
             }
 
             .informationButton {
@@ -57,7 +61,7 @@
                 cursor: pointer;
 
                 .iconDescription {
-                    font-size: 1.3rem;
+                    font-size: 1.4rem;
 
                     &:active {
                         transform: scale(0.95);
@@ -74,8 +78,8 @@
             .filterButton {
                 background-color: $turquoise-color;
                 border: none;
-                width: 2.9rem;
-                height: 2.9rem;
+                width: 3.1rem;
+                height: 3.1rem;
                 cursor: pointer;
                 @include shadow($black-color, 0.2);
                 @include border-radius(50%);
@@ -85,7 +89,7 @@
                 }
 
                 .buttonIcon {
-                    font-size: 1.4rem;
+                    font-size: 1.5rem;
                     color: $white-color;
                 }
             }
