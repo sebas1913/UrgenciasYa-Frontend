@@ -3,7 +3,9 @@ import { Raleway } from "next/font/google";
 import Footer from "../components/footer/Footer";
 import Navbar from "../components/navbar/Navbar";
 import "../style/globals.scss";
-const raleway = Raleway({ subsets: ["latin"]});
+import { AuthProvider } from "@/components/context/AuthContext";
+
+const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Urgencias YA",
@@ -18,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={raleway.className}>
-        <Navbar></Navbar>
-        <main>{children}</main>
-        <Footer></Footer>
+        <AuthProvider>
+          <Navbar></Navbar>
+          <main>{children}</main>
+          <Footer></Footer>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,107 +1,133 @@
 @import '../../style/variables';
 @import '../../style/mixins.scss';
 
-.informationContainer {
+.profileContainer {
+    width: 100%;
     display: flex;
-    padding: 3rem;
-    align-items: center;
-    width: 80%;
-    margin: 2rem auto;
-    gap: 3.5rem;
+    justify-content: center;
 
-    .containerLeft {
-        width: 55%;
+    .profileInformation {
+        margin: 5rem 0;
+        width: 80%;
+        display: flex;
+        gap: 2.1rem;
 
-        .title {
-            font-size: 4rem;
-            color: $turquoise-color;
-            font-weight: 800;
-            text-shadow: 0.05rem 0.05rem 0.05rem $ligh-gray-color;
-        }
+        .information {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 2.1rem;
+            justify-content: center;
 
-        .nameUser{
-            line-height: 1rem;
-            font-size: 1.3rem;
-            color: $gray-color;
-        }
+            .welcome {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 1.8rem;
 
-        .description {
-            margin-top: 2rem;
-            font-size: 1.05rem;
-            letter-spacing: 0.05rem;
-            line-height: 1.5rem;
-            font-weight: 300;
-        }
+                .profileTitle {
+                    color: $turquoise-color;
+                    font-size: 3.1rem;
+                    font-weight: 700;
+                }
 
-        .button {
-            font-family: var(--font-principal);
-            background: none;
-            margin: 0.8rem 0;
-            padding: 0.9rem;
-            background-color: $turquoise-color;
-            border: none;
-            cursor: pointer;
-            color: $white-color;
-            font-weight: 600;
-            font-size: 1.1rem;
-            width: 50%;
-            letter-spacing: 0.05rem;
-            @include border-radius(0.3rem);
-            @include shadow($black-color, 0.1);
+                .welcomeInformation {
+                    text-align: left;
+                    font-size: 1.1rem;
+                }
 
-            &:active {
-                transform: scale(0.95);
+                .containerButton {
+
+                    .searchButton {
+                        margin-top: 0.2rem;
+                        font-family: var(--font-principal);
+                        background: none;
+                        @include border-radius(0.5rem);
+                        width: 30%;
+                        padding: 0.7rem 2rem;
+                        background-color: $turquoise-color;
+                        border: none;
+                        @include shadow($black-color, 0.1);
+                        cursor: pointer;
+                        color: $white-color;
+                        font-weight: 600;
+                        font-size: 1rem;
+                        letter-spacing: 0.05rem;
+
+                        &:active {
+                            transform: scale(0.95);
+                        }
+                    }
+                }
+            }
+
+            .tickets {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+
+                .ticketTitle {
+                    color: $turquoise-color;
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                }
             }
         }
     }
 
-    .containerRight {
-        width: 50%;
-        @include shadow($black-color, 0.2);
-        @include border-radius(0.5rem);
+    .profileData {
+        width: 30%;
         background-color: $white-color;
-        padding: 2.5rem;
-    }
-
-
-    @include mediaQuery(small) {
+        text-align: center;
         display: flex;
         flex-direction: column;
-        padding: 0.5rem;
+        gap: 1.5rem;
         align-items: center;
-        width: 90%;
-        gap: 2rem;
+        padding: 1.5rem;
+        @include border-radius(0.3rem);
+        @include shadow($black-color, 0.2);
 
-
-        .containerLeft {
+        .dataHeader {
             width: 100%;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            align-items: center;
 
-            .title {
-                font-size: 2.1rem;
+            .imageUser {
+                font-size: 6rem;
             }
+        }
 
-            .description {
-                margin-top: 1rem;
+        .data {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .iconInformation{
+                display: flex;
                 font-size: 1.1rem;
-                letter-spacing: 0.05rem;
-                line-height: 1.1rem;
-                font-weight: 300;
-                text-align: justify;
-            }
+                align-items: center;
+                .editButton{
+                    background: none;
+                    border: none;
+                    font-family: var(--font-principal);
+                    font-size: 1.1rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
 
-            .admiration {
-                display: none
+                    b{
+                        margin-left: 0.9rem;
+                    }
+                }
+
+                .description{
+                    margin-left: 0.9rem;
+                }
             }
         }
-
-        .containerRight {
-            width: 100%;
-            @include shadow($black-color, 0.2);
-            @include border-radius(0.5rem);
-            background-color: $white-color;
-            padding: 2rem;
-        }
-
     }
 }
