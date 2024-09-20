@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import { getMessages, sendMessage } from "../api/services/chat";
+import { getMessages, sendMessage } from "../../api/services/chat";
 import { FaRegHeart, FaMapPin, FaPhoneAlt } from "react-icons/fa";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import styles from './chat.module.scss';
-import Form from "../../components/UI/form/Form";
-import Label from "../../components/UI/label/Label";
-import TextArea from "../../components/UI/textarea/TextArea";
-import Button from "../../components/UI/button/Button";
+import Form from "../../../components/UI/form/Form";
+import Label from "../../../components/UI/label/Label";
+import TextArea from "../../../components/UI/textarea/TextArea";
+import Button from "../../../components/UI/button/Button";
+import { useParams } from 'next/navigation';
 
 
 const Chat: React.FC = () => {
@@ -15,9 +16,16 @@ const Chat: React.FC = () => {
   const [message, setMessage] = useState("");
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  const { id } = useParams();
+
   useEffect(() => {
-    getMessages(setMessages);
-  }, []);
+    const hospitalId = Array.isArray(id) ? id[0] : id;
+
+    if (hospitalId) {
+      console.log("Hospital ID:", hospitalId); // Verifica el ID
+      getMessages(setMessages, hospitalId); // Llama a getMessages con el ID
+    }
+  }, [id]); // Escucha cambios en id
 
   useEffect(() => {
     const container = containerRef.current;
@@ -29,7 +37,8 @@ const Chat: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (message) {
-      await sendMessage(message); 
+      const hospitalId = Array.isArray(id) ? id[0] : id;
+      await sendMessage(message, hospitalId); 
       setMessage("");
     }
   };
@@ -56,15 +65,19 @@ const Chat: React.FC = () => {
               <h2 className={styles.chatTitle}>Entérate de lo que está sucediendo en la sede:</h2>
             </div>
             <div ref={containerRef} className={styles.containerRef}>
-              {messages.map((message) => (
-                <div className={styles.chatMessage} key={message.ID}>
-                  <div className={styles.containerLeft}>
-                    <p className={styles.name}><strong>{message.Nombre}</strong></p>
-                    <p> {message.Mensaje}</p>
-                  </div>
-                  <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
-                </div>
-              ))}
+            {messages.length > 0 ? (
+  messages.map((message) => (
+    <div className={styles.chatMessage} key={message.ID}>
+      <div className={styles.containerLeft}>
+        <p className={styles.name}><strong>{message.Nombre}</strong></p>
+        <p>{message.Mensaje}</p>
+      </div>
+      <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
+    </div>
+  ))
+) : (
+  <p>No hay mensajes disponibles.</p>
+)}
             </div>
           </div>
           <div className={styles.informationContainer}>

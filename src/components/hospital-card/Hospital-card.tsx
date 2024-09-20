@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation';
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { IHospital } from '@/interfaces/IHospital';
 
-const HospitalCard: React.FC<IHospital> = ({ name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
+const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
 
     const router = useRouter();
 
     const onClick = () => {
-        router.push(`/chat`);
+        router.push(`/chat/${id}`);
       };
 
     return (
@@ -23,7 +23,8 @@ const HospitalCard: React.FC<IHospital> = ({ name, phone_number, rating, url_ima
                     <img className={styles.filterImage} src={url_image} alt={name} />
                 </div>
                 <div>
-                    <p>{rating}</p>
+                    <p>{id}</p>
+
                 </div>
             </div>
 
