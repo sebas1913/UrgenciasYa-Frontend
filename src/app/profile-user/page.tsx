@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./profile-user.module.scss";
 import Button from "../../components/UI/button/Button";
 import { useState } from "react";
@@ -8,17 +8,49 @@ import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd } from "react
 import { FaPenToSquare } from "react-icons/fa6";
 import { useAuth } from "@/components/context/AuthContext";
 import UserForm from "@/components/user-form/user-form";
+import { IUserInformation } from "@/interfaces/IUser";
+import cookie from 'cookie';
 
 
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
+    const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); // Estado para almacenar la información del usuario
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
-    const { user } = useAuth(); // Obtén la información del usuario
-    const firstName = user?.name.split(' ')[0];
+    const cookies = cookie.parse(document.cookie || '');
+    const token = cookies.auth;
+
+    useEffect(() => {
+
+        const responseID = localStorage.getItem('userID');
+
+        const fetchUser = async () => {
+
+            if (responseID) {
+
+                const userID = JSON.parse(responseID);
+
+                try {
+                    const response : Response = await fetch(`http://localhost:8080/${userID.id}`, {
+                        headers : {
+                            'accept' : 'application/json',
+                            'Authorization' : `Bearer ${token} `
+                        }
+                    });
+
+                    const data : IUserInformation = await response.json();
+                    setUserInfo(data);
+
+                } catch (error) {
+                    console.error(`No se pudo realizar la petición: ${error}`);
+                }
+            }
+        }
+        fetchUser();
+    }, []);
 
     return (
         <>
@@ -26,7 +58,7 @@ const Profile = () => {
                 <div className={styles.profileInformation}>
                     <div className={styles.information}>
                         <div className={styles.welcome}>
-                            <h1 className={styles.profileTitle}>¡Hola, {firstName}!</h1>
+                            <h1 className={styles.profileTitle}>¡Hola, {userInfo?.name.split(' ')[0]}!</h1>
                             <div className={styles.welcomeInformation}>
                                 <p>Al autenticarte tienes nuevas opciones de accesbilidad. Ahora, al darle click al botón, puedes realizar tu <b>búsqueda</b> de manera autmática.</p>
                                 <br />
@@ -44,25 +76,25 @@ const Profile = () => {
                     <div className={styles.profileData}>
                         <div className={styles.dataHeader}>
                             <FaUserMd className={styles.imageUser} />
-                            <h2>{user?.name}</h2>
+                            <h2>{userInfo?.name}</h2>
                             <p>Usuario</p>
                         </div>
                         <div className={styles.data}>
                             <div className={styles.iconInformation}>
                                 <FaRegHeart />
-                                <p className={styles.description}>{user?.eps}</p>
+                                <p className={styles.description}>{userInfo?.eps.name}</p>
                             </div>
                             <div className={styles.iconInformation}>
                                 <FaIdCard />
-                                <p className={styles.description}>{user?.document}</p>
+                                <p className={styles.description}>{userInfo?.document}</p>
                             </div>
                             <div className={styles.iconInformation}>
                                 <FaRegEnvelope />
-                                <p className={styles.description}>{user?.email}</p>
+                                <p className={styles.description}>{userInfo?.email}</p>
                             </div>
                             <div className={styles.iconInformation}>
                                 <FaPhoneAlt />
-                                <p className={styles.description}></p>
+                                <p className={styles.description}>{userInfo?.number}</p>
                             </div>
                             <div className={styles.iconInformation}>
                                 <Button className={styles.editButton} onClick={toggleModal}>

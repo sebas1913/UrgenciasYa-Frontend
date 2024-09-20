@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const token = cookies.auth;
 
         if (token) {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+            const userInfo = JSON.parse(localStorage.getItem('userID') || '{}');
             setIsAuthenticated(true);
             setUser(userInfo);
         }
@@ -33,14 +33,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = (token: string, userInfo: IUser) => {
         document.cookie = `auth=${token}; path=/;`;
-        localStorage.setItem('userInfo', JSON.stringify(userInfo)); // Guardamos la info del usuario localmente
+        localStorage.setItem('userID', JSON.stringify(userInfo)); // Guardamos la info del usuario localmente
         setIsAuthenticated(true);
         setUser(userInfo);
     };
 
     const logout = () => {
         document.cookie = `auth=; Max-Age=0; path=/;`;
-        localStorage.removeItem('userInfo'); // Eliminamos la info del usuario
+        localStorage.removeItem('userID'); // Eliminamos la info del usuario
         setIsAuthenticated(false);
         setUser(null);
         router.replace('/');

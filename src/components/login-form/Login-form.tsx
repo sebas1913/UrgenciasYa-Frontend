@@ -44,10 +44,7 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
             if (token) {
                 const userInfo = {
-                    name: data.name,
-                    email: data.email,
-                    eps: data.eps,
-                    document: data.document,
+                    id : data.id
                 };
                 login(token, userInfo); // Guarda el token y la info del usuario
                 router.push('/profile-user');
