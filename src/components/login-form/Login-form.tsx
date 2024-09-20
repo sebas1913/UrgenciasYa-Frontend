@@ -30,7 +30,7 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: selectedEmail,
+                    email: selectedEmail,
                     password: selectedPassword
                 }),
             });
@@ -78,7 +78,7 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                     </Label>
                     <Input
                         id='email'
-                        type='text'
+                        type='email'
                         name='email'
                         value={selectedEmail}
                         onChange={handleChangeEmail}
