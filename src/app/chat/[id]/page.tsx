@@ -139,8 +139,12 @@ const Chat: React.FC = () => {
             </div>
             <div className={styles.formContainer}>
               <Form className={styles.form} onSubmit={handleSubmit}>
-                <h2 className={styles.title}>Escribe tu mensaje:</h2>
+                <h2 className={styles.title}>Participa del chat</h2>
                 <div className={styles.formElement}>
+                  <Label
+                    htmlFor="message"
+                    className={styles.label}
+                  >Mensaje:</Label>
                   <TextArea
                     id='message'
                     value={message}
