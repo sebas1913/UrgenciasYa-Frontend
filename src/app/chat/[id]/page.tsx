@@ -22,6 +22,8 @@ const Chat: React.FC = () => {
 
   const { id } = useParams();
 
+  console.log(id);
+
   const cookies = cookie.parse(document.cookie || '');
   const token = cookies.auth;
 
@@ -85,10 +87,9 @@ const Chat: React.FC = () => {
         <div className={styles.hospitalBanner}>
           <div className={styles.hospitalDescription}>
             <h1>{hospitalInformation?.name}</h1>
-            <p>Un centro de excelencia médica y calidez humana. Desde nuestra fundación, nos hemos dedicado a brindar atención de salud integral, combinando tecnología avanzada con un trato compasivo y personalizado.</p>
           </div>
           <div className={styles.hospitalImage}>
-            <img className={styles.img} src="https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/ZUCFKCZCZJFUHEGZIXW46MZCKM.jpg" />
+            <img className={styles.img} src={hospitalInformation?.url_image}/>
           </div>
         </div>
         <div className={styles.chatMessagesContainer}>
@@ -127,7 +128,7 @@ const Chat: React.FC = () => {
 
                 <div className={styles.iconInformation}>
                   <Button className={styles.informationButton}><FaPhoneAlt className={styles.iconDescription} /></Button>
-                  <p>3218825621</p>
+                  <p>{hospitalInformation?.phone_number}</p>
                 </div>
 
                 <div className={styles.iconInformation}>
@@ -138,12 +139,8 @@ const Chat: React.FC = () => {
             </div>
             <div className={styles.formContainer}>
               <Form className={styles.form} onSubmit={handleSubmit}>
-                <h2 className={styles.title}>Escribe un comentario</h2>
+                <h2 className={styles.title}>Escribe tu mensaje:</h2>
                 <div className={styles.formElement}>
-                  <Label
-                    htmlFor="message"
-                    className={styles.label}
-                  >Mensaje:</Label>
                   <TextArea
                     id='message'
                     value={message}
