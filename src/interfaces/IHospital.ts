@@ -5,5 +5,10 @@ export interface IHospital {
     howtogetthere?: string;  
     rating: string | number;        
     url_image: string; 
-    nameTown : string;   
+    nameTown : string; 
+    town_id?: ITownID;  
 };
+
+interface ITownID {
+    name : string;
+}
