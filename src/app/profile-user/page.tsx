@@ -4,21 +4,33 @@ import styles from "./profile-user.module.scss";
 import Button from "../../components/UI/button/Button";
 import { useState } from "react";
 import Modal from "@/components/modal/Modal";
-import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd } from "react-icons/fa";
+import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd, FaLock } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { useAuth } from "@/components/context/AuthContext";
 import UpdateUserForm from "@/components/user-form/user-form";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
+import ContactEmergency from "@/components/emergency-form/emergency-form";
+import PasswordForm from "@/components/password-form/password-form";
 
 
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);
+    const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
     const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); // Estado para almacenar la información del usuario
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
+    const toggleModalEmergency = () => {
+        setEmergencyModalVisible(!isEmergencyModalVisible)
+    }
+
+    const toggleModalPassword = () => {
+        setPasswordModalVisible(!isPasswordModalVisible)
+    }
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
@@ -96,10 +108,22 @@ const Profile = () => {
                                 <FaPhoneAlt />
                                 <p className={styles.description}>{userInfo?.number}</p>
                             </div>
-                            <div className={styles.iconInformation}>
-                                <Button className={styles.editButton} onClick={toggleModal}>
-                                    <FaPenToSquare className={styles.iconEditButton} /><b>Editar</b>
-                                </Button>
+                            <div className={styles.buttonsContainer}>
+                                <div className={styles.iconInformation}>
+                                    <Button title='Editar contraseña' className={styles.editButton} onClick={toggleModalPassword}>
+                                        <FaLock className={styles.iconEditButton} />
+                                    </Button>
+                                </div>
+                                <div className={styles.iconInformation}>
+                                    <Button title='Editar contacto de emergencia' className={styles.editButton} onClick={toggleModalEmergency}>
+                                        <FaPhoneAlt  className={styles.iconEditButton} />
+                                    </Button>
+                                </div>
+                                <div className={styles.iconInformation}>
+                                    <Button title='Editar información' className={styles.editButton} onClick={toggleModal}>
+                                        <FaPenToSquare className={styles.iconEditButton} />
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -107,6 +131,12 @@ const Profile = () => {
             </div>
             <Modal isVisible={isModalVisible} onClose={toggleModal}>
                 <UpdateUserForm />
+            </Modal>
+            <Modal isVisible={isEmergencyModalVisible} onClose={toggleModalEmergency}>
+                <ContactEmergency />
+            </Modal>
+            <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
+                <PasswordForm />
             </Modal>
         </>
     );

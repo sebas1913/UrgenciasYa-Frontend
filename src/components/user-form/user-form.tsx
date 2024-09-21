@@ -104,7 +104,7 @@ const UpdateUserForm: React.FC = () => {
                     }),
                 });
 
-                const data = await response.json(); // Solo lo llamamos una vez aquí
+                const data = await response.json();
 
                 if (response.ok) {
                     setIsFormVisible(false);
@@ -133,13 +133,13 @@ const UpdateUserForm: React.FC = () => {
         <div className={styles.formContainer}>
             {isFormVisible ? (
                 <>
-                    <h2 className={styles.title}>Actualiza tus datos</h2>
+                    <h2 className={styles.title}>Actualizar información</h2>
                     <Form onSubmit={onSubmit} className={styles.updateForm}>
                         <div className={styles.formElement}>
                             <Label
                                 htmlFor="name"
                                 className={styles.label}
-                            >Ingresa tu nombre completo</Label>
+                            >Ingresa tu nombre completo:</Label>
                             <Input
                                 id='name'
                                 type='text'
