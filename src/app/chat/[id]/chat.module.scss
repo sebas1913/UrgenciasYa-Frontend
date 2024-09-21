@@ -22,7 +22,6 @@
             display: flex;
             gap: 1.2rem;
 
-
             .hospitalImage {
                 width: 65%;
                 text-align: center;
@@ -31,7 +30,7 @@
                     width: 100%;
                     height: 13.7rem;
                     object-fit: cover;
-                    @include border-radius( 0 0.3rem 0.3rem 0)
+                    @include border-radius( 0 0.3rem 0.3rem 0);
                 }
             }
 
@@ -41,10 +40,18 @@
                 justify-content: center;
                 gap: 1rem;
                 width: 35%;
-                text-align: center;
                 color: $turquoise-color;
                 padding: 1.2rem;
-                font-size: 1.3rem;
+                font-size: 1.1rem;
+                margin-left: 1rem;
+            }
+
+            .text {
+                color: $black-color;
+                font-size: 1rem;
+                letter-spacing: 0.02rem;
+                font-weight: 300;
+                text-align: left;
             }
         }
 
@@ -203,6 +210,14 @@
                             
                             &:active {
                                 transform: scale(0.95);
+                            }
+
+                            &.exception {
+                                cursor: default; // Cambia el cursor a default (o el que prefieras)
+                    
+                                &:active {
+                                    transform: scale(1); // O cualquier otro estilo que desees
+                                }
                             }
 
                             .iconDescription {

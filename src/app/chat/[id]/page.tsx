@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { getMessages, sendMessage } from "../../api/services/chat";
 import { FaMapPin, FaPhoneAlt } from "react-icons/fa";
-import { FaCalendarCheck, FaRegHospital } from "react-icons/fa6";
+import { FaCalendarCheck, FaRegHospital, FaLocationDot } from "react-icons/fa6";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import styles from './chat.module.scss';
 import Form from "../../../components/UI/form/Form";
@@ -31,26 +31,27 @@ const Chat: React.FC = () => {
 
     const fetchHospital = async () => {
 
-        if (id) {
+      if (id) {
 
-            try {
-                const response : Response = await fetch(`http://localhost:8080/api/v1/hospitals/${id}`, {
-                    headers : {
-                        'accept' : 'application/json',
-                        'Authorization' : `Bearer ${token} `
-                    }
-                });
-
-                const data : IHospital = await response.json();
-                setHospitalInformation(data);
-
-            } catch (error) {
-                console.error(`No se pudo realizar la petición: ${error}`);
+        try {
+          const response: Response = await fetch(`http://localhost:8080/api/v1/hospitals/${id}`, {
+            headers: {
+              'accept': 'application/json',
+              'Authorization': `Bearer ${token} `
             }
+          });
+
+          const data: IHospital = await response.json();
+          setHospitalInformation(data);
+          console.log(data.town_id?.name)
+
+        } catch (error) {
+          console.error(`No se pudo realizar la petición: ${error}`);
         }
+      }
     }
     fetchHospital();
-}, []);
+  }, []);
 
   useEffect(() => {
     const hospitalId = Array.isArray(id) ? id[0] : id;
@@ -72,7 +73,7 @@ const Chat: React.FC = () => {
     e.preventDefault();
     if (message) {
       const hospitalId = Array.isArray(id) ? id[0] : id;
-      await sendMessage(message, hospitalId); 
+      await sendMessage(message, hospitalId);
       setMessage("");
     }
   };
@@ -87,38 +88,40 @@ const Chat: React.FC = () => {
         <div className={styles.hospitalBanner}>
           <div className={styles.hospitalDescription}>
             <h1>{hospitalInformation?.name}</h1>
+            <p className={styles.text}>En <b>Urgencias Ya</b>, sabemos lo vital que es para ti estar informado sobre el servicio en cada sede de atención.</p>
           </div>
           <div className={styles.hospitalImage}>
-            <img className={styles.img} src={hospitalInformation?.url_image}/>
+            <img className={styles.img} src={hospitalInformation?.url_image} />
           </div>
         </div>
         <div className={styles.chatMessagesContainer}>
           <div className={styles.chatMessages}>
             <div>
-              <h2 className={styles.chatTitle}>Entérate de lo que está sucediendo en la sede:</h2>
+              <h2 className={styles.chatTitle}>Entérate de lo que está sucediendo:</h2>
             </div>
             <div ref={containerRef} className={styles.containerRef}>
-            {messages.length > 0 ? (
-  messages.map((message) => (
-    <div className={styles.chatMessage} key={message.ID}>
-      <div className={styles.containerLeft}>
-        <p className={styles.name}><strong>{message.Nombre}</strong></p>
-        <p>{message.Mensaje}</p>
-      </div>
-      <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
-    </div>
-  ))
-) : (
-  <p>No hay mensajes disponibles.</p>
-)}
+              {messages.length > 0 ? (
+                messages.map((message) => (
+                  <div className={styles.chatMessage} key={message.ID}>
+                    <div className={styles.containerLeft}>
+                      <p className={styles.name}><strong>{message.Nombre}</strong></p>
+                      <p>{message.Mensaje}</p>
+                    </div>
+                    <span className={styles.date}>{new Date(message.Hora.seconds * 1000).toLocaleString()}</span>
+                  </div>
+                ))
+              ) : (
+                <p>No hay mensajes disponibles.</p>
+              )}
             </div>
           </div>
           <div className={styles.informationContainer}>
             <div className={styles.hospitalInformation}>
               <div className={styles.card}>
                 <div className={styles.iconInformation}>
-                  <Button className={styles.informationButton}><FaMapPin className={styles.iconDescription} /></Button>
-                  <p>Ubicación</p>
+                  <a href={hospitalInformation?.howtogetthere} target="_blank" rel="noopener noreferrer"><Button className={styles.informationButton}><FaLocationDot className={styles.iconDescription} /></Button>
+                  </a>
+                  <p>{hospitalInformation?.town_id?.name}</p>
                 </div>
 
                 <div className={styles.iconInformation}>
@@ -127,14 +130,14 @@ const Chat: React.FC = () => {
                 </div>
 
                 <div className={styles.iconInformation}>
-                  <Button className={styles.informationButton}><FaPhoneAlt className={styles.iconDescription} /></Button>
+                  <Button className={`${styles.informationButton} ${styles.exception}`}><FaPhoneAlt className={styles.iconDescription}/></Button>
                   <p>{hospitalInformation?.phone_number}</p>
                 </div>
 
                 <div className={styles.iconInformation}>
-                        <Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription}/></Button>
-                        <p>Agendar un turno</p>
-                    </div>
+                  <Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription} /></Button>
+                  <p>Agendar un turno</p>
+                </div>
               </div>
             </div>
             <div className={styles.formContainer}>
