@@ -1,4 +1,5 @@
 export interface IHospital {
+    id: number;
     name: string;           
     phone_number: string;   
     howtogetthere?: string;  

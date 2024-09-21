@@ -21,6 +21,7 @@ const Navbar: React.FC = () => {
   const handleCloseLoginForm = () => setShowLoginForm(false);
 
   const home = () => router.push('/');
+  const profile = () => router.push('/profile-user');
 
   return (
     <header className={styles.header}>
@@ -41,9 +42,14 @@ const Navbar: React.FC = () => {
               </Button>
             </>
           ) : (
-            <Button type="button" onClick={logout} className={styles.navButton}>
-              Cerrar sesión
-            </Button>
+            <>
+              <Button type="button" onClick={profile} className={styles.navButton}>
+                  Mi perfil
+              </Button>
+              <Button type="button" onClick={logout} className={styles.navButton}>
+                Cerrar sesión
+              </Button>
+            </>
           )}
         </div>
       </nav>

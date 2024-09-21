@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation';
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { IHospital } from '@/interfaces/IHospital';
 
-const HospitalCard: React.FC<IHospital> = ({ name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
+const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
 
     const router = useRouter();
 
     const onClick = () => {
-        router.push(`/chat`);
+        router.push(`/chat/${id}`);
       };
 
     return (
@@ -23,7 +23,8 @@ const HospitalCard: React.FC<IHospital> = ({ name, phone_number, rating, url_ima
                     <img className={styles.filterImage} src={url_image} alt={name} />
                 </div>
                 <div>
-                    <p>{rating}</p>
+                    <p>{id}</p>
+
                 </div>
             </div>
 
@@ -31,7 +32,7 @@ const HospitalCard: React.FC<IHospital> = ({ name, phone_number, rating, url_ima
                 <div className={styles.filterInformation}>
                     <div className={styles.iconInformation}>
                         <Button className={styles.informationButton}><FaRegHospital className={styles.iconDescription}/></Button>
-                        <p>{name}</p>
+                        <p><b>{name}</b></p>
                     </div>
 
                     <div className={styles.iconInformation}>
@@ -46,11 +47,6 @@ const HospitalCard: React.FC<IHospital> = ({ name, phone_number, rating, url_ima
                     <div className={styles.iconInformation}>
                         <Button className={styles.informationButton}><FaPhoneAlt className={styles.iconDescription}/></Button>
                         <p>{phone_number}</p>
-                    </div>
-
-                    <div className={styles.iconInformation}>
-                        <Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription}/></Button>
-                        <p>Agendar un turno</p>
                     </div>
                 </div>
                 <div className={styles.filterButtons}>

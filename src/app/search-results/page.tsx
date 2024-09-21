@@ -50,6 +50,7 @@ const ResultsPage: React.FC = () => {
         <div className={styles.bigFilterContainer}>
           {results.map((hospital) => (
             <HospitalCard 
+              id={hospital.id}
               key={hospital.name} 
               name={hospital.name} 
               url_image={hospital.url_image} 
