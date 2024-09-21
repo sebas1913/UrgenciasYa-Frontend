@@ -112,5 +112,18 @@
                 letter-spacing: 0;
             }
         }
+
+        .modalContainer {
+            .closeButton {
+                top: 1rem;
+                right: 1rem;
+            }
+    
+            .formContainer {
+                width: 25rem;
+                height: 100vh;
+            }
+
+        }
     }
 }

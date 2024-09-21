@@ -106,11 +106,12 @@
             flex-direction: column;
             gap: 2rem;
 
-            .iconInformation{
+            .iconInformation {
                 display: flex;
                 font-size: 1.1rem;
                 align-items: center;
-                .editButton{
+
+                .editButton {
                     background: none;
                     border: none;
                     font-family: var(--font-principal);
@@ -119,15 +120,23 @@
                     display: flex;
                     align-items: center;
 
-                    b{
+                    b {
                         margin-left: 0.9rem;
                     }
                 }
 
-                .description{
+                .description {
                     margin-left: 0.9rem;
                 }
             }
+        }
+    }
+}
+
+@include mediaQuery(small) {
+    .profileContainer {
+        .profileInformation {
+            
         }
     }
 }
