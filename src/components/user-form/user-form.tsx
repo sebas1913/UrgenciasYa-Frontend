@@ -104,7 +104,7 @@ const UpdateUserForm: React.FC = () => {
                     }),
                 });
 
-                const data = await response.json(); // Solo lo llamamos una vez aquí
+                const data = await response.json(); 
 
                 if (response.ok) {
                     setIsFormVisible(false);

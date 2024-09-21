@@ -10,15 +10,27 @@ import { useAuth } from "@/components/context/AuthContext";
 import UpdateUserForm from "@/components/user-form/user-form";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
+import ContactEmergency from "@/components/emergency-form/emergency-form";
+import PasswordForm from "@/components/password-form/password-form";
 
 
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);
+    const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
     const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); // Estado para almacenar la información del usuario
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
+    const toggleModalEmergency = () => {
+        setEmergencyModalVisible(!isEmergencyModalVisible)
+    }
+
+    const toggleModalPassword = () => {
+        setPasswordModalVisible(!isPasswordModalVisible)
+    }
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
@@ -97,8 +109,18 @@ const Profile = () => {
                                 <p className={styles.description}>{userInfo?.number}</p>
                             </div>
                             <div className={styles.iconInformation}>
+                                <Button className={styles.editButton} onClick={toggleModalPassword}>
+                                    <FaPenToSquare className={styles.iconEditButton} /><b>Contraseña</b>
+                                </Button>
+                            </div>
+                            <div className={styles.iconInformation}>
+                                <Button className={styles.editButton} onClick={toggleModalEmergency}>
+                                    <FaPenToSquare className={styles.iconEditButton} /><b>Contacto de emergencia</b>
+                                </Button>
+                            </div>
+                            <div className={styles.iconInformation}>
                                 <Button className={styles.editButton} onClick={toggleModal}>
-                                    <FaPenToSquare className={styles.iconEditButton} /><b>Editar</b>
+                                    <FaPenToSquare className={styles.iconEditButton} /><b>Editar info</b>
                                 </Button>
                             </div>
                         </div>
@@ -107,6 +129,12 @@ const Profile = () => {
             </div>
             <Modal isVisible={isModalVisible} onClose={toggleModal}>
                 <UpdateUserForm />
+            </Modal>
+            <Modal isVisible={isEmergencyModalVisible} onClose={toggleModalEmergency}>
+                <ContactEmergency />
+            </Modal>
+            <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
+                <PasswordForm />
             </Modal>
         </>
     );
