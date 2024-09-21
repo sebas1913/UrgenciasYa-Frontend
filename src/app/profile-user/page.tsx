@@ -4,7 +4,7 @@ import styles from "./profile-user.module.scss";
 import Button from "../../components/UI/button/Button";
 import { useState } from "react";
 import Modal from "@/components/modal/Modal";
-import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd } from "react-icons/fa";
+import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd, FaLock } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { useAuth } from "@/components/context/AuthContext";
 import UpdateUserForm from "@/components/user-form/user-form";
@@ -108,20 +108,22 @@ const Profile = () => {
                                 <FaPhoneAlt />
                                 <p className={styles.description}>{userInfo?.number}</p>
                             </div>
-                            <div className={styles.iconInformation}>
-                                <Button className={styles.editButton} onClick={toggleModalPassword}>
-                                    <FaPenToSquare className={styles.iconEditButton} /><b>Contraseña</b>
-                                </Button>
-                            </div>
-                            <div className={styles.iconInformation}>
-                                <Button className={styles.editButton} onClick={toggleModalEmergency}>
-                                    <FaPenToSquare className={styles.iconEditButton} /><b>Contacto de emergencia</b>
-                                </Button>
-                            </div>
-                            <div className={styles.iconInformation}>
-                                <Button className={styles.editButton} onClick={toggleModal}>
-                                    <FaPenToSquare className={styles.iconEditButton} /><b>Editar info</b>
-                                </Button>
+                            <div className={styles.buttonsContainer}>
+                                <div className={styles.iconInformation}>
+                                    <Button title='Editar contraseña' className={styles.editButton} onClick={toggleModalPassword}>
+                                        <FaLock className={styles.iconEditButton} />
+                                    </Button>
+                                </div>
+                                <div className={styles.iconInformation}>
+                                    <Button title='Editar contacto de emergencia' className={styles.editButton} onClick={toggleModalEmergency}>
+                                        <FaPhoneAlt  className={styles.iconEditButton} />
+                                    </Button>
+                                </div>
+                                <div className={styles.iconInformation}>
+                                    <Button title='Editar información' className={styles.editButton} onClick={toggleModal}>
+                                        <FaPenToSquare className={styles.iconEditButton} />
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>

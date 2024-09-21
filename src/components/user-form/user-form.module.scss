@@ -2,6 +2,7 @@
 @import '../../style/mixins';
 
 .formContainer{
+
     .title {
         text-align: center;
     }
@@ -63,7 +64,6 @@
             letter-spacing: 0.05rem;
             @include border-radius(0.3rem);
             @include shadow($black-color, 0.2);
-
 
             &:active {
                 transform: scale(0.95);

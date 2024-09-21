@@ -70,28 +70,22 @@ const PasswordForm: React.FC = () => {
                 }
 
             } catch (error) {
-
+                console.log(error);
             }
         }
-
-
-
-
     }
-
-
 
     return (
         <div className={styles.formContainer}>
             {isFormVisible ? (
                 <>
-                    <h2 className={styles.title}>Actualiza tus datos</h2>
+                    <h2 className={styles.title}>Actualizar contraseña</h2>
                     <Form onSubmit={onSubmit} className={styles.updateForm}>
                         <div className={styles.formElement}>
                             <Label
                                 htmlFor="password"
                                 className={styles.label}
-                            >Ingresa tu contraseña actual</Label>
+                            >Ingresa tu contraseña actual:</Label>
                             <Input
                                 id='password'
                                 type='password'
@@ -121,7 +115,7 @@ const PasswordForm: React.FC = () => {
                             <Label
                                 htmlFor="confirmPassword"
                                 className={styles.label}
-                            >Repite tu contraseña:</Label>
+                            >Confirma tu nueva contraseña:</Label>
                             <Input
                                 id='confirmPassword'
                                 type='password'
