@@ -36,6 +36,17 @@
                     outline: none;
                 }
             }
+
+            .selectEPS{
+                font-family: var(--font-principal);
+                @include border-radius(0.25rem);
+                padding: 0.7rem;
+                border: none;
+                background-color: $background-modal;
+                @include shadow($black-color, 0.1);
+                font-size: 0.9rem;
+                letter-spacing: 0.01rem;
+            }
         }
 
         .updateButton{

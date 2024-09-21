@@ -7,7 +7,7 @@ import Modal from "@/components/modal/Modal";
 import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { useAuth } from "@/components/context/AuthContext";
-import UserForm from "@/components/user-form/user-form";
+import UpdateUserForm from "@/components/user-form/user-form";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
 
@@ -106,7 +106,7 @@ const Profile = () => {
                 </div>
             </div>
             <Modal isVisible={isModalVisible} onClose={toggleModal}>
-                <UserForm />
+                <UpdateUserForm />
             </Modal>
         </>
     );
