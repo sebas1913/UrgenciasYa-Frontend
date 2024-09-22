@@ -21,6 +21,9 @@ const PasswordForm: React.FC = () => {
     const [isAlertSuccess, setAlertSuccess] = useState(false);
     const [isAlertError, setAlertError] = useState(false);
     const [isAlertNull, setAlertNull] = useState(false);
+    const [isAlertPassword, setAlertPassword] = useState(false);
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 
     const handleChangeCurrentPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentPassword(event.target.value);
@@ -46,6 +49,10 @@ const PasswordForm: React.FC = () => {
         setAlertNull(!isAlertNull);
     };
 
+    const toggleAlertPassword = () => {
+        setAlertPassword(!isAlertPassword);
+    };
+
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
 
@@ -55,6 +62,11 @@ const PasswordForm: React.FC = () => {
 
         if (!currentPassword || !newPassword || !confirmNewPassword) {
             setAlertNull(true)
+            return;
+        }
+
+        if (!passwordRegex.test(newPassword)) {
+            setAlertPassword(true);
             return;
         }
 
@@ -79,7 +91,7 @@ const PasswordForm: React.FC = () => {
 
                 const data = await response.json();
                 console.log(data);
-                
+
                 setAlertSuccess(true)
 
             } catch (error) {
@@ -169,6 +181,14 @@ const PasswordForm: React.FC = () => {
                 icono={< TiWarningOutline />}
                 title='¡Oops, ha ocurrido un error!'
                 description='Ha ocurrido un error al actualizar tu contraseña. Inténtalo nuevamente'
+            />
+
+            <Alert
+                isVisible={isAlertPassword}
+                onClose={toggleAlertPassword}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial'
             />
         </>
 

@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
             </div>
 
             <Modal isVisible={isFormVisible} onClose={toggleForm}>
-                <WorkWithUsForm />
+                <WorkWithUsForm onClose={toggleForm}/>
             </Modal>
         </footer>
     );
