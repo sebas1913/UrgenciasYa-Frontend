@@ -11,6 +11,8 @@ import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
 import EmergencyContact from "@/components/emergency-form/emergency-form";
 import PasswordForm from "@/components/password-form/password-form";
+import { MdOutlineEmergency } from "react-icons/md";
+
 
 
 const Profile = () => {
@@ -106,8 +108,8 @@ const Profile = () => {
                                 <p className={styles.description}>{userInfo?.email}</p>
                             </div>
                             <div className={styles.iconInformation}>
-                                <FaPhoneAlt />
-                                <p className={styles.description}>{userInfo?.number}</p>
+                                <MdOutlineEmergency />
+                                <p className={styles.description}>{userInfo?.contact?.phone}</p>
                             </div>
                             <div className={styles.buttonsContainer}>
                                 <div className={styles.iconInformation}>
