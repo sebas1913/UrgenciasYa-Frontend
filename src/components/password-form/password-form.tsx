@@ -41,7 +41,7 @@ const PasswordForm: React.FC = () => {
             const userID = JSON.parse(responseID);
 
             try {
-                const response = await fetch(`http://localhost:8080/${userID.id}/change-password`, {
+                const response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}/change-password`, {
                     method: 'PUT',
                     headers: {
                         'accept': '*/*',
@@ -53,7 +53,9 @@ const PasswordForm: React.FC = () => {
                         newPassword: newPassword,
                         confirmNewPassword: confirmNewPassword
                     }),
-                });const data = await response.json(); 
+                });
+                
+                const data = await response.json(); 
 
                 if (response.ok) {
                     // setIsFormVisible(false);

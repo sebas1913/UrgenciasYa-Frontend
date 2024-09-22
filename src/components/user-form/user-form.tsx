@@ -16,7 +16,8 @@ const UpdateUserForm: React.FC = () => {
     const [selectedEps, setSelectedEps] = useState('');
     const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
     const [selectedDocument, setSelectedDocument] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [isAlertSuccess, setAlertSuccess] = useState(false);
+    const [isAlertError, setAlertError] = useState(false);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -37,7 +38,6 @@ const UpdateUserForm: React.FC = () => {
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
-                setErrorMessage('Error al obtener datos del usuario.');
             }
         };
 
@@ -79,6 +79,14 @@ const UpdateUserForm: React.FC = () => {
         setSelectedDocument(event.target.value);
     };
 
+    const toggleAlertSuccess = () => {
+        setAlertSuccess(!isAlertSuccess);
+    };
+
+    const toggleAlertError = () => {
+        setAlertError(!isAlertError);
+    };
+
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -99,7 +107,7 @@ const UpdateUserForm: React.FC = () => {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization' : `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         name: selectedName,
@@ -129,93 +137,84 @@ const UpdateUserForm: React.FC = () => {
 
             } catch (error) {
                 console.error("Error en la solicitud:", error);
-                setErrorMessage('Error al actualizar la información.');
             }
         }
     };
 
     return (
-        <div className={styles.formContainer}>
-            {isFormVisible ? (
-                <>
-                    <h2 className={styles.title}>Actualizar información</h2>
-                    <Form onSubmit={onSubmit} className={styles.updateForm}>
-                        <div className={styles.formElement}>
-                            <Label
-                                htmlFor="name"
-                                className={styles.label}
-                            >Ingresa tu nombre completo:</Label>
-                            <Input
-                                id='name'
-                                type='text'
-                                name='name'
-                                value={selectedName}
-                                onChange={handleChangeName}
-                                className={styles.input}
-                            />
-                        </div>
+        <>
+            <div className={styles.formContainer}>
+                <h2 className={styles.title}>Actualizar información</h2>
+                <Form onSubmit={onSubmit} className={styles.updateForm}>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="name"
+                            className={styles.label}
+                        >Ingresa tu nombre completo:</Label>
+                        <Input
+                            id='name'
+                            type='text'
+                            name='name'
+                            value={selectedName}
+                            onChange={handleChangeName}
+                            className={styles.input}
+                        />
+                    </div>
 
-                        <div className={styles.formElement}>
-                            <Label
-                                htmlFor="document"
-                                className={styles.label}
-                            >Ingresa tu documento:</Label>
-                            <Input
-                                id='document'
-                                type='number'
-                                name='document'
-                                value={selectedDocument}
-                                onChange={handleChangeDocument}
-                                className={styles.input}
-                            />
-                        </div>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="document"
+                            className={styles.label}
+                        >Ingresa tu documento:</Label>
+                        <Input
+                            id='document'
+                            type='number'
+                            name='document'
+                            value={selectedDocument}
+                            onChange={handleChangeDocument}
+                            className={styles.input}
+                        />
+                    </div>
 
-                        <div className={styles.formElement}>
-                            <Label
-                                htmlFor="eps"
-                                className={styles.label}
-                            >Ingresa tu EPS afiliada:</Label>
-                            <Select
-                                id="eps"
-                                options={eps}
-                                value={selectedEps}
-                                onChange={handleChangeEps}
-                                className={styles.selectEPS}
-                                disabled={false}
-                            />
-                        </div>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="eps"
+                            className={styles.label}
+                        >Ingresa tu EPS afiliada:</Label>
+                        <Select
+                            id="eps"
+                            options={eps}
+                            value={selectedEps}
+                            onChange={handleChangeEps}
+                            className={styles.selectEPS}
+                            disabled={false}
+                        />
+                    </div>
 
-                        <div className={styles.formElement}>
-                            <Label
-                                htmlFor="email"
-                                className={styles.label}
-                            >Ingresa tu correo electrónico:</Label>
-                            <Input
-                                id='email'
-                                type='email'
-                                name='email'
-                                value={selectedEmail}
-                                onChange={handleChangeEmail}
-                                className={styles.input}
-                            />
-                        </div>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="email"
+                            className={styles.label}
+                        >Ingresa tu correo electrónico:</Label>
+                        <Input
+                            id='email'
+                            type='email'
+                            name='email'
+                            value={selectedEmail}
+                            onChange={handleChangeEmail}
+                            className={styles.input}
+                        />
+                    </div>
 
-                        <div>
-                            <Button
-                                type='submit'
-                                className={styles.updateButton}
-                            >Enviar</Button>
-                        </div>
-                    </Form>
-                </>
-            ) : (
-                errorMessage ? (
-                    <p className={styles.errorMessage}>{errorMessage}</p>
-                ) : (
-                    <p className={styles.successMessage}>¡Tu información ha sido actualizada!</p>
-                )
-            )}
-        </div>
+                    <div>
+                        <Button
+                            type='submit'
+                            className={styles.updateButton}
+                        >Enviar</Button>
+                    </div>
+                </Form>
+            </div >
+        </>
     );
 };
 

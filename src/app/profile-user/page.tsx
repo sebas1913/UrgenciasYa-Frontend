@@ -9,7 +9,7 @@ import { FaPenToSquare } from "react-icons/fa6";
 import UpdateUserForm from "@/components/user-form/user-form";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
-import ContactEmergency from "@/components/emergency-form/emergency-form";
+import EmergencyContact from "@/components/emergency-form/emergency-form";
 import PasswordForm from "@/components/password-form/password-form";
 
 
@@ -33,7 +33,8 @@ const Profile = () => {
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
-    console.log(token)
+    console.log(token);
+    
 
     useEffect(() => {
 
@@ -134,7 +135,7 @@ const Profile = () => {
                 <UpdateUserForm />
             </Modal>
             <Modal isVisible={isEmergencyModalVisible} onClose={toggleModalEmergency}>
-                <ContactEmergency />
+                <EmergencyContact />
             </Modal>
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
                 <PasswordForm />

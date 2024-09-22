@@ -16,12 +16,15 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const [isAlertSuccess, setAlertSuccess] = useState(false);
     const [isAlertError, setAlertError] = useState(false);
     const [isAlertNull, setAlertNull] = useState(false);
+    const [isAlertPassword, setAlertPassword] = useState(false);
     const [selectedName, setSelectedName] = useState('');
     const [selectedEps, setSelectedEps] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedPassword, setSelectedPassword] = useState('');
     const [selectedDocument, setSelectedDocument] = useState('');
     const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 
     const toggleAlertSuccess = () => {
         setAlertSuccess(!isAlertSuccess);
@@ -35,16 +38,23 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         setAlertError(!isAlertError);
     };
 
+    const toggleAlertPassword = () => {
+        setAlertPassword(!isAlertPassword);
+    };
+
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-    
+
         if (!selectedName || !selectedEps || !selectedEmail || !selectedPassword || !selectedDocument) {
-            setAlertSuccess(false);
-            setAlertError(false);
             setAlertNull(true);
             return;
         }
-    
+
+        if (!passwordRegex.test(selectedPassword)) {
+            setAlertPassword(true);
+            return;
+        }
+
         try {
             const response: Response = await fetch('http://localhost:8080/api/v1/users/register', {
                 method: 'POST',
@@ -59,28 +69,21 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                     password: selectedPassword
                 }),
             });
-    
-            if (!response.ok) {
-                throw new Error(`Error en el registro: ${response.statusText}`);
-            }
-    
+
             const data = await response.json();
-            console.log("Registro exitoso:", data);
-    
-            setAlertNull(false);
-            setAlertError(false);
             setAlertSuccess(true);
-            console.log("Estado de isAlertSuccess después de setAlertSuccess(true):", isAlertSuccess);
-    
-            onSuccess();
+
+            setTimeout(() => {
+                onSuccess();
+            }, 2500);
+                
+
         } catch (error) {
             console.error("Error en la solicitud:", error);
-            setAlertSuccess(false);
-            setAlertNull(false);
             setAlertError(true);
         }
     };
-    
+
 
     useEffect(() => {
         // Obtener eps
@@ -235,7 +238,15 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                 onClose={toggleAlertError}
                 icono={< TiWarningOutline />}
                 title='¡Oops, ha ocurrido un error!'
-                description='Ha ocurrido un error al registrar tus datos. Inténtalo nuevamente.'
+                description='Ha ocurrido un error al registrar tus datos. Inténtalo nuevamente'
+            />
+
+            <Alert
+                isVisible={isAlertPassword}
+                onClose={toggleAlertPassword}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial'
             />
         </>
     );
