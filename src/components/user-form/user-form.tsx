@@ -19,13 +19,24 @@ const UpdateUserForm: React.FC = () => {
     const [isAlertSuccess, setAlertSuccess] = useState(false);
     const [isAlertError, setAlertError] = useState(false);
 
+    const cookies = cookie.parse(document.cookie || '');
+    const token = cookies.auth;
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const responseID = localStorage.getItem('userID');
+
                 if (responseID) {
                     const userID = JSON.parse(responseID);
-                    const userResponse = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`);
+                    const userResponse = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'accept': 'application/json',
+                            'Authorization': `Bearer ${token}` // Añade el token aquí
+                        }
+                    });
+
                     if (userResponse.ok) {
                         const userData = await userResponse.json();
                         setSelectedName(userData.name);
