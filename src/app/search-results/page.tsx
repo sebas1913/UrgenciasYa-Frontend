@@ -20,7 +20,7 @@ const ResultsPage: React.FC = () => {
     const fetchHospitals = async () => {
       try {
         const response: Response = await fetch(
-          `http://localhost:8080/api/v1/hospitals?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}&latitude=${encodeURIComponent('123.556')}&longitude=${encodeURIComponent('78.910')}`
+          `http://localhost:8080/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}&latitude=${encodeURIComponent('123.556')}&longitude=${encodeURIComponent('78.910')}`
         );
 
         if (!response.ok) {

@@ -20,7 +20,7 @@ const SearchForm: React.FC = () => {
   useEffect(() => {
     const fetchTowns = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/town"); 
+        const response: Response = await fetch("http://localhost:8080/api/v1/town/getAll");
         const data = await response.json(); 
         const townOptions = data.map((element: any) => ({
           label: element.name,
@@ -41,7 +41,7 @@ const SearchForm: React.FC = () => {
 
     const fetchEps = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/eps"); 
+        const response: Response = await fetch("http://localhost:8080/api/v1/eps/getAll");
         const data = await response.json();
         const epsOptions = data.map((element: any) => ({
           label: element.name, 

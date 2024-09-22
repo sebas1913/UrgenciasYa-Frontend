@@ -46,7 +46,7 @@ const UpdateUserForm: React.FC = () => {
 
     const fetchEps = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/v1/eps");
+            const response: Response = await fetch("http://localhost:8080/api/v1/eps/getAll");
             const data = await response.json();
             const epsOptions = data.map((element: any) => ({
                 label: element.name,

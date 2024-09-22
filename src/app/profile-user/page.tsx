@@ -6,7 +6,6 @@ import { useState } from "react";
 import Modal from "@/components/modal/Modal";
 import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd, FaLock } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
-import { useAuth } from "@/components/context/AuthContext";
 import UpdateUserForm from "@/components/user-form/user-form";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';

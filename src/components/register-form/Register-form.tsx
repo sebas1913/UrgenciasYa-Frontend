@@ -5,6 +5,7 @@ import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import Select from "../UI/select/Select";
+import Alert from "../UI/alert/Alert";
 
 const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
     
@@ -56,7 +57,7 @@ const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
         // Obtener eps
         const fetchEps = async () => {
             try {
-                const response: Response = await fetch("http://localhost:8080/api/v1/eps"); 
+                const response: Response = await fetch("http://localhost:8080/api/v1/eps/getAll");
                 const data = await response.json();
                 const epsOptions = data.map((element: any) => ({
                     label: element.name, 
