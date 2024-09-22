@@ -33,7 +33,6 @@ const Profile = () => {
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
-    console.log(token);
     
 
     useEffect(() => {

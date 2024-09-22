@@ -7,6 +7,10 @@ import Label from "../UI/label/Label";
 import Select from "../UI/select/Select";
 import { useAuth } from "../context/AuthContext";
 import cookie from 'cookie';
+import Alert from "../UI/alert/Alert";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { TiWarningOutline } from "react-icons/ti";
+
 
 const UpdateUserForm: React.FC = () => {
     const { login } = useAuth();
@@ -18,6 +22,8 @@ const UpdateUserForm: React.FC = () => {
     const [selectedDocument, setSelectedDocument] = useState('');
     const [isAlertSuccess, setAlertSuccess] = useState(false);
     const [isAlertError, setAlertError] = useState(false);
+    const [isAlertNull, setAlertNull] = useState(false);
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -87,11 +93,15 @@ const UpdateUserForm: React.FC = () => {
         setAlertError(!isAlertError);
     };
 
+    const toggleAlertNull = () => {
+        setAlertNull(!isAlertNull);
+    };
+
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (!selectedName || !selectedEps || !selectedEmail || !selectedDocument) {
-            alert('Por favor, completa todos los campos.');
+            setAlertNull(true)
             return;
         }
 
@@ -133,10 +143,10 @@ const UpdateUserForm: React.FC = () => {
                     throw new Error(`Error en la actualización: ${data.message || response.statusText}`);
                 }
 
-                console.log("Actualización exitosa:", data);
+                setAlertSuccess(true)
 
             } catch (error) {
-                console.error("Error en la solicitud:", error);
+                setAlertError(true)
             }
         }
     };
@@ -214,6 +224,30 @@ const UpdateUserForm: React.FC = () => {
                     </div>
                 </Form>
             </div >
+
+            <Alert
+                isVisible={isAlertSuccess}
+                onClose={toggleAlertSuccess}
+                icono={< FaRegCircleCheck />}
+                title='Actualización exitosa'
+                description='Tu usuario ha sido actualizado exitosamente'
+            />
+
+            <Alert
+                isVisible={isAlertNull}
+                onClose={toggleAlertNull}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='Por favor, completa todos los campos'
+            />
+
+            <Alert
+                isVisible={isAlertError}
+                onClose={toggleAlertError}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='Ha ocurrido un error al actualizar tus datos. Inténtalo nuevamente'
+            />
         </>
     );
 };

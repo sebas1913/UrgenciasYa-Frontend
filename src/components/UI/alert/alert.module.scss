@@ -16,11 +16,11 @@
 
 }
 
-.alertContent {
+.alertContent{
     text-align: center;
     background-color: $background-modal;
-    margin: 10% auto;
-    padding: 1rem 1rem;
+    margin: 20% auto;
+    padding: 1rem;
     width: 100%;
     max-width: 32rem;
     @include shadow($black-color, 0.2);
