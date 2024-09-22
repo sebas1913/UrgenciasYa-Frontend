@@ -24,6 +24,10 @@
             @include shadow($black-color, 0.15);
             @include border-radius(0.3rem);
         }
+
+        .containerStars{
+            margin: 0.5rem;
+        }
     }
 
     .filterCardTwo {

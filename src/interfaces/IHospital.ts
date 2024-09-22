@@ -3,7 +3,7 @@ export interface IHospital {
     name: string;           
     phone_number: string;   
     howtogetthere?: string;  
-    rating: string | number;        
+    rating: number;        
     url_image: string; 
     nameTown : string; 
     town_id?: ITownID;  
