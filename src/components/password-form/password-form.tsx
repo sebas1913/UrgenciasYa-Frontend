@@ -10,11 +10,13 @@ import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
 
+interface PasswordFormProps {
+    onClose: () => void;
+}
 
 
-const PasswordForm: React.FC = () => {
-    const { login } = useAuth();
-    const [isFormVisible, setIsFormVisible] = useState(true);
+const PasswordForm : React.FC<PasswordFormProps> = ({ onClose }) => {
+    
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -22,8 +24,8 @@ const PasswordForm: React.FC = () => {
     const [isAlertError, setAlertError] = useState(false);
     const [isAlertNull, setAlertNull] = useState(false);
     const [isAlertPassword, setAlertPassword] = useState(false);
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const handleChangeCurrentPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentPassword(event.target.value);
@@ -63,14 +65,15 @@ const PasswordForm: React.FC = () => {
         if (!currentPassword || !newPassword || !confirmNewPassword) {
             setAlertNull(true)
             return;
-        }
+        };
 
         if (!passwordRegex.test(newPassword)) {
             setAlertPassword(true);
             return;
-        }
+        };
 
         const responseID = localStorage.getItem('userID');
+
         if (responseID) {
             const userID = JSON.parse(responseID);
 
@@ -89,17 +92,22 @@ const PasswordForm: React.FC = () => {
                     }),
                 });
 
-                const data = await response.json();
+                const data = response.status;
                 console.log(data);
 
-                setAlertSuccess(true)
+                if (data === 200) {
+                    setAlertSuccess(true);
+                    setTimeout(() => {
+                        onClose();
+                    }, 2500);
+                };
 
             } catch (error) {
                 setAlertError(true)
                 console.log(error);
-            }
-        }
-    }
+            };
+        };
+    };
 
     return (
         <>
@@ -191,9 +199,8 @@ const PasswordForm: React.FC = () => {
                 description='La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial'
             />
         </>
-
-    )
-}
+    );
+};
 
 export default PasswordForm;
 

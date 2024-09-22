@@ -46,7 +46,7 @@ const Profile = () => {
                 const userID = JSON.parse(responseID);
 
                 try {
-                    const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+                    const response: Response = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',
@@ -137,7 +137,7 @@ const Profile = () => {
                 <EmergencyContact />
             </Modal>
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
-                <PasswordForm />
+                <PasswordForm onClose={toggleModalPassword} />
             </Modal>
         </>
     );

@@ -35,7 +35,7 @@ const UpdateUserForm: React.FC = () => {
 
                 if (responseID) {
                     const userID = JSON.parse(responseID);
-                    const userResponse = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+                    const userResponse = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',

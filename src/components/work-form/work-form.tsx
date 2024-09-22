@@ -14,7 +14,6 @@ interface ContactFormProps {
 }
 
 const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
-    const [isFormVisible, setIsFormVisible] = useState(true);
     const [selectedName, setSelectedName] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
@@ -35,42 +34,6 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
         setAlertError(!isAlertError);
     };
 
-
-    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (!selectedName || !selectedEmail || selectedSubject || !text) {
-            setAlertNull(true);
-            return;
-        }
-
-        try {
-            const response = await fetch('/ap/workEmails', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: selectedName, email: selectedEmail, subject: selectedSubject, message: text }),
-            });
-
-            setSelectedName('');
-            setSelectedEmail('');
-            setSelectedSubject('');
-            setText('');
-            setAlertSuccess(true);
-
-
-            setTimeout(() => {
-                setIsFormVisible(false);
-                onClose();
-            }, 2500);
-        }
-        catch (error) {
-            setAlertError(true)
-            console.error('Error:', error);
-        }
-    };
-
-
-
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedName(event.target.value);
     };
@@ -87,6 +50,42 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
         setText(event.target.value);
     };
 
+
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (!selectedName || !selectedEmail || !selectedSubject || !text) {
+            setAlertNull(true);
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/workEmails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: selectedName, email: selectedEmail, subject: selectedSubject, message: text }),
+            });
+
+            if (response.ok) {
+                setSelectedName('');
+                setSelectedEmail('');
+                setSelectedSubject('');
+                setAlertSuccess(true);
+
+                setTimeout(() => {
+                    
+                    onClose();
+                }, 2500);
+
+            } else {
+                throw new Error('Error al enviar el formulario.');
+            }
+        }
+        catch (error) {
+            setAlertError(true);
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <>
@@ -130,7 +129,7 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
                         >Ingresa el asunto</Label>
                         <Input
                             id='subject'
-                            type='subject'
+                            type='text'
                             name='subject'
                             value={selectedSubject}
                             onChange={handleChangeSubject}
