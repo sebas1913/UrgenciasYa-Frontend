@@ -46,7 +46,7 @@ const Profile = () => {
                 const userID = JSON.parse(responseID);
 
                 try {
-                    const response: Response = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`, {
+                    const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',
