@@ -6,11 +6,10 @@ import { useState } from "react";
 import Modal from "@/components/modal/Modal";
 import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd, FaLock } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
-import { useAuth } from "@/components/context/AuthContext";
 import UpdateUserForm from "@/components/user-form/user-form";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
-import ContactEmergency from "@/components/emergency-form/emergency-form";
+import EmergencyContact from "@/components/emergency-form/emergency-form";
 import PasswordForm from "@/components/password-form/password-form";
 
 
@@ -34,6 +33,8 @@ const Profile = () => {
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
+    console.log(token);
+    
 
     useEffect(() => {
 
@@ -46,10 +47,11 @@ const Profile = () => {
                 const userID = JSON.parse(responseID);
 
                 try {
-                    const response : Response = await fetch(`http://localhost:8080/${userID.id}`, {
+                    const response : Response = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`, {
+                        method: 'GET',
                         headers : {
                             'accept' : 'application/json',
-                            'Authorization' : `Bearer ${token} `
+                            'Authorization' : `Bearer ${token}`
                         }
                     });
 
@@ -133,7 +135,7 @@ const Profile = () => {
                 <UpdateUserForm />
             </Modal>
             <Modal isVisible={isEmergencyModalVisible} onClose={toggleModalEmergency}>
-                <ContactEmergency />
+                <EmergencyContact />
             </Modal>
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
                 <PasswordForm />
