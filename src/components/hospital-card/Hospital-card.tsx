@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { TiWarningOutline } from "react-icons/ti";
 
 
+
 const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
 
     const [isAlertVisible, setAlertVisible] = useState(false);
@@ -77,7 +78,7 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                             icono = {<TiWarningOutline/>}
                             title='¡Oops, ha ocurrido un error!'
                             description='Debes iniciar sesión para acceder al chat del hospital'
-                            >
+                        >
 
                         </Alert>
                     )}

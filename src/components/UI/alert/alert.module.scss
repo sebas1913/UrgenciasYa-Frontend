@@ -3,7 +3,7 @@
 
 .alertContainer {
     position: fixed;
-    z-index: 2;
+    z-index: 100;
     left: 0;
     top: 0;
     width: 100%;
@@ -17,6 +17,7 @@
 }
 
 .alertContent {
+    text-align: center;
     background-color: $background-modal;
     margin: 10% auto;
     padding: 1rem 1rem;
@@ -24,23 +25,6 @@
     max-width: 32rem;
     @include shadow($black-color, 0.2);
     @include border-radius(0.5rem);
-
-    .containerButton {
-        text-align: right;
-        height: 1rem;
-
-        .closeButton {
-            background: transparent;
-            border: none;
-            font-size: 2.3rem;
-            cursor: pointer;
-            color: $turquoise-color;
-
-            &:active{
-                transform: scale(0.95);
-            }
-        }
-    }
 
     .alertDescription{
         padding: 1rem;

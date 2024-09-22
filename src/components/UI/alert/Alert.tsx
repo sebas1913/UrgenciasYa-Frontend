@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
 import styles from './alert.module.scss';
-import Button from '../button/Button';
 
 interface AlertProps {
     isVisible: boolean;

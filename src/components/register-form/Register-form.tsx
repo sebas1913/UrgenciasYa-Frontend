@@ -6,9 +6,16 @@ import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import Select from "../UI/select/Select";
 import Alert from "../UI/alert/Alert";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { TiWarningOutline } from "react-icons/ti";
 
-const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
-    
+
+
+const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+
+    const [isAlertSuccess, setAlertSuccess] = useState(false);
+    const [isAlertError, setAlertError] = useState(false);
+    const [isAlertNull, setAlertNull] = useState(false);
     const [selectedName, setSelectedName] = useState('');
     const [selectedEps, setSelectedEps] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
@@ -16,15 +23,28 @@ const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
     const [selectedDocument, setSelectedDocument] = useState('');
     const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
 
+    const toggleAlertSuccess = () => {
+        setAlertSuccess(!isAlertSuccess);
+    };
+
+    const toggleAlertNull = () => {
+        setAlertNull(!isAlertNull);
+    };
+
+    const toggleAlertError = () => {
+        setAlertError(!isAlertError);
+    };
+
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+    
         if (!selectedName || !selectedEps || !selectedEmail || !selectedPassword || !selectedDocument) {
-            alert('Por favor, completa todos los campos.');
+            setAlertSuccess(false);
+            setAlertError(false);
+            setAlertNull(true);
             return;
-
-        };
-
+        }
+    
         try {
             const response: Response = await fetch('http://localhost:8080/register', {
                 method: 'POST',
@@ -32,26 +52,35 @@ const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: selectedName,  
-                    document: selectedDocument,  
-                    eps: selectedEps,       
-                    email: selectedEmail,   
-                    password: selectedPassword 
+                    name: selectedName,
+                    document: selectedDocument,
+                    eps: selectedEps,
+                    email: selectedEmail,
+                    password: selectedPassword
                 }),
             });
-
+    
             if (!response.ok) {
                 throw new Error(`Error en el registro: ${response.statusText}`);
             }
-
-            const data = await response.json(); 
-            console.log("Registro exitoso:", data); 
+    
+            const data = await response.json();
+            console.log("Registro exitoso:", data);
+    
+            setAlertNull(false);
+            setAlertError(false);
+            setAlertSuccess(true);
+            console.log("Estado de isAlertSuccess después de setAlertSuccess(true):", isAlertSuccess);
+    
             onSuccess();
-            
         } catch (error) {
             console.error("Error en la solicitud:", error);
+            setAlertSuccess(false);
+            setAlertNull(false);
+            setAlertError(true);
         }
     };
+    
 
     useEffect(() => {
         // Obtener eps
@@ -60,7 +89,7 @@ const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
                 const response: Response = await fetch("http://localhost:8080/api/v1/eps/getAll");
                 const data = await response.json();
                 const epsOptions = data.map((element: any) => ({
-                    label: element.name, 
+                    label: element.name,
                     value: element.name
                 }));
 
@@ -69,7 +98,7 @@ const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
 
                 setEps(optionsWithDefault); // Guardamos las opciones de EPS.
             } catch (error) {
-                console.error("Error fetching EPS:", error); 
+                console.error("Error fetching EPS:", error);
             }
         };
         fetchEps(); // Llamamos la función para mostrar las EPS.
@@ -97,95 +126,118 @@ const RegisterForm: React.FC<{onSuccess:() => void}> = ({onSuccess}) => {
     };
 
     return (
-        <div className={styles.formContainer}>
+        <>
+            <div className={styles.formContainer}>
+                <img className={styles.image} src="./images/turquoise_logo.png" ></img>
+                <h2 className={styles.title}>Registrarse</h2>
 
-            <img className={styles.image} src="./images/turquoise_logo.png" ></img>
+                <Form onSubmit={onSubmit} className={styles.contactForm}>
 
-            <h2 className={styles.title}>Registrarse</h2>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="name"
+                            className={styles.label}
+                        >Ingresa tu nombre completo:</Label>
+                        <Input
+                            id='name'
+                            type='text'
+                            name='name'
+                            value={selectedName}
+                            onChange={handleChangeName}
+                            className={styles.input}
+                        ></Input>
+                    </div>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="document"
+                            className={styles.label}
+                        >Ingresa tu documento:</Label>
+                        <Input
+                            id='document'
+                            type='number'
+                            name='document'
+                            value={selectedDocument}
+                            onChange={handleChangeDocument}
+                            className={styles.input}
+                        ></Input>
+                    </div>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="eps"
+                            className={styles.label}
+                        >Ingresa tu EPS afiliada:</Label>
+                        <Select
+                            id="eps"
+                            options={eps}
+                            value={selectedEps}
+                            onChange={handleChangeEps}
+                            className={styles.selectEPS}
+                            disabled={false}
+                        />
+                    </div>
 
-            <Form onSubmit={onSubmit} className={styles.contactForm}>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="email"
+                            className={styles.label}
+                        >Ingresa tu correo electrónico:</Label>
+                        <Input
+                            id='email'
+                            type='email'
+                            name='email'
+                            value={selectedEmail}
+                            onChange={handleChangeEmail}
+                            className={styles.input}
+                        ></Input>
+                    </div>
 
-                <div className={styles.formElement}>
-                    <Label
-                        htmlFor="name"
-                        className={styles.label}
-                    >Ingresa tu nombre completo:</Label>
-                    <Input
-                        id='name'
-                        type='text'
-                        name='name'
-                        value={selectedName}
-                        onChange={handleChangeName}
-                        className={styles.input}
-                    ></Input>
-                </div>
-                <div className={styles.formElement}>
-                    <Label
-                        htmlFor="document"
-                        className={styles.label}
-                    >Ingresa tu documento:</Label>
-                    <Input
-                        id='document'
-                        type='number'
-                        name='document'
-                        value={selectedDocument}
-                        onChange={handleChangeDocument}
-                        className={styles.input}
-                    ></Input>
-                </div>
-                <div className={styles.formElement}>
-                    <Label
-                        htmlFor="eps"
-                        className={styles.label}
-                    >Ingresa tu EPS afiliada:</Label>
-                    <Select
-                        id="eps"
-                        options={eps} 
-                        value={selectedEps} 
-                        onChange={handleChangeEps} 
-                        className={styles.selectEPS}
-                        disabled={false}
-                    />
-                </div>
+                    <div className={styles.formElement}>
+                        <Label
+                            htmlFor="password"
+                            className={styles.label}
+                        >Ingresa tu contraseña:</Label>
+                        <Input
+                            id='password'
+                            type='password'
+                            name='password'
+                            value={selectedPassword}
+                            onChange={handleChangePassword}
+                            className={styles.input}
+                        ></Input>
+                    </div>
 
-                <div className={styles.formElement}>
-                    <Label
-                        htmlFor="email"
-                        className={styles.label}
-                    >Ingresa tu correo electrónico:</Label>
-                    <Input
-                        id='email'
-                        type='email'
-                        name='email'
-                        value={selectedEmail}
-                        onChange={handleChangeEmail}
-                        className={styles.input}
-                    ></Input>
-                </div>
+                    <div>
+                        <Button
+                            type='submit'
+                            className={styles.contactButton}
+                        >Enviar</Button>
+                    </div>
+                </Form>
+            </div>
+            <Alert
+                isVisible={isAlertSuccess}
+                onClose={toggleAlertSuccess}
+                icono={< FaRegCircleCheck />}
+                title='Registro exitoso'
+                description='Tu usuario ha sido registrado exitosamente'
+            />
 
-                <div className={styles.formElement}>
-                    <Label
-                        htmlFor="password"
-                        className={styles.label}
-                    >Ingresa tu contraseña:</Label>
-                    <Input
-                        id='password'
-                        type='password'
-                        name='password'
-                        value={selectedPassword}
-                        onChange={handleChangePassword}
-                        className={styles.input}
-                    ></Input>
-                </div>
+            <Alert
+                isVisible={isAlertNull}
+                onClose={toggleAlertNull}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='Por favor, completa todos los campos'
+            />
 
-                <div>
-                    <Button
-                        type='submit'
-                        className={styles.contactButton}
-                    >Enviar</Button>
-                </div>
-            </Form>
-        </div>
+            <Alert
+                isVisible={isAlertError}
+                onClose={toggleAlertError}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='Ha ocurrido un error al registrar tus datos. Inténtalo nuevamente.'
+            />
+        </>
     );
 };
 
