@@ -6,6 +6,7 @@ import Form from "../UI/form/Form";
 import Label from "../UI/label/Label";
 import Select from "../UI/select/Select";
 import { useAuth } from "../context/AuthContext";
+import cookie from 'cookie';
 
 const UpdateUserForm: React.FC = () => {
     const { login } = useAuth();
@@ -23,7 +24,7 @@ const UpdateUserForm: React.FC = () => {
                 const responseID = localStorage.getItem('userID');
                 if (responseID) {
                     const userID = JSON.parse(responseID);
-                    const userResponse = await fetch(`http://localhost:8080/${userID.id}`);
+                    const userResponse = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`);
                     if (userResponse.ok) {
                         const userData = await userResponse.json();
                         setSelectedName(userData.name);
@@ -86,15 +87,19 @@ const UpdateUserForm: React.FC = () => {
             return;
         }
 
+        const cookies = cookie.parse(document.cookie || '');
+        const token = cookies.auth;
+
         const responseID = localStorage.getItem('userID');
         if (responseID) {
             const userID = JSON.parse(responseID);
 
             try {
-                const response = await fetch(`http://localhost:8080/${userID.id}`, {
+                const response = await fetch(`http://localhost:8080/api/v1/users/update/${userID.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         name: selectedName,

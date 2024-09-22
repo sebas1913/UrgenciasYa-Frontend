@@ -27,7 +27,7 @@ const SearchForm: React.FC = () => {
   useEffect(() => {
     const fetchTowns = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/town/getAll");
+        const response: Response = await fetch("http://localhost:8080/api/v1/towns/getAll");
         const data = await response.json();
         const townOptions = data.map((element: any) => ({
           label: element.name,

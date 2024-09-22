@@ -46,7 +46,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         }
     
         try {
-            const response: Response = await fetch('http://localhost:8080/register', {
+            const response: Response = await fetch('http://localhost:8080/api/v1/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
