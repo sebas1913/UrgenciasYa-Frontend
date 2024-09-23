@@ -60,35 +60,29 @@ const EmergencyContact: React.FC = () => {
 
         if (responseID) {
             const userID = JSON.parse(responseID);
-            const body = JSON.stringify({ 
-                    name: contactName, 
-                    phone: contactPhone 
-                });
-            
-            console.log(body);
+            console.log(userID.id);
+            const endpoint = userInfo?.contact
+                ? `http://localhost:8080/api/v1/contacts/${userInfo.contact.id
+                }?name=${encodeURIComponent(contactName)}&phone=${encodeURIComponent(contactPhone)}`
+                : `http://localhost:8080/api/v1/contacts/create/${userID.id}?name=${encodeURIComponent(contactName)}&phone=${encodeURIComponent(contactPhone)}`;
 
             try {
-                const endpoint = userInfo?.contact ? `http://localhost:8080/api/v1/contacts/${userID.id}` : `http://localhost:8080/api/v1/contacts/create/${userID.id}`;
-                const method = userInfo?.contact ? 'PUT' : 'POST'; // Cambiar a 'POST' si es creación
-
                 const response = await fetch(endpoint, {
-                    method: method,
+                    method: userInfo?.contact ? 'PUT' : 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
-                    },
-                    body: body,
+                    }
                 });
 
                 const data = await response.json();
 
                 if (response.ok) {
-                    console.log('éxito');
+                    console.log('éxito', data);
                 } else {
-                    console.log('érror');
+                    console.error('Error:', data);
                 }
             } catch (error) {
-                console.log(error);
+                console.error('Fetch error:', error);
             }
         }
     };
