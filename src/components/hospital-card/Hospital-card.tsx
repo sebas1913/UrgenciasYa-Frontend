@@ -14,7 +14,6 @@ import StarRatings from 'react-star-ratings';
 
 
 
-
 const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
 
     const [isAlertVisible, setAlertVisible] = useState(false);
@@ -25,7 +24,6 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
     const router = useRouter();
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
-
 
 
     const onClick = () => {

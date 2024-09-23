@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { getMessages, sendMessage } from "../../api/services/chat";
-import { FaMapPin, FaPhoneAlt } from "react-icons/fa";
-import { FaCalendarCheck, FaRegHospital, FaLocationDot } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaCalendarCheck, FaLocationDot } from "react-icons/fa6";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import styles from './chat.module.scss';
 import Form from "../../../components/UI/form/Form";
@@ -12,17 +12,19 @@ import Button from "../../../components/UI/button/Button";
 import { useParams } from 'next/navigation';
 import cookie from 'cookie';
 import { IHospital } from "@/interfaces/IHospital";
+import { IUserInformation } from "@/interfaces/IUser";
 
 
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [userInfo, setUserInfo] = useState<IUserInformation | null>(null);
   const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null); // Estado para almacenar la información del usuario
 
   const { id } = useParams();
-
   console.log(id);
+
 
   const cookies = cookie.parse(document.cookie || '');
   const token = cookies.auth;
@@ -82,6 +84,60 @@ const Chat: React.FC = () => {
     setMessage(event.target.value);
   };
 
+  const shift = async () => {
+    const responseID = localStorage.getItem('userID');
+    const fetchUser = async () => {
+
+      if (responseID) {
+        const userID = JSON.parse(responseID);
+        try {
+          const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+            method: 'GET',
+            headers: {
+              'accept': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          const data: IUserInformation = await response.json();
+          setUserInfo(data);
+
+
+        } catch (error) {
+          console.error(`No se pudo realizar la petición: ${error}`);
+        }
+      }
+    }
+
+    fetchUser();
+
+    const userDocument = userInfo?.document;
+    const userEps = userInfo?.eps.id;
+    const { id } = useParams();
+    const hospitalId = Array.isArray(id) ? id[0] : id;
+
+
+    if (userDocument && userEps && id) {
+      try {
+        const response: Response = await fetch(`http://localhost:8080/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
+
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+        );
+        const data = response.json();
+        console.log(data);
+
+      } catch (error) {
+        console.log(error);
+
+      }
+    }
+  }
+
+
   return (
     <div className={styles.chatContainer}>
       <div className={styles.chatInformation}>
@@ -130,12 +186,12 @@ const Chat: React.FC = () => {
                 </div>
 
                 <div className={styles.iconInformation}>
-                  <Button className={`${styles.informationButton} ${styles.exception}`}><FaPhoneAlt className={styles.iconDescription}/></Button>
+                  <Button className={`${styles.informationButton} ${styles.exception}`}><FaPhoneAlt className={styles.iconDescription} /></Button>
                   <p>{hospitalInformation?.phone_number}</p>
                 </div>
 
                 <div className={styles.iconInformation}>
-                  <Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription} /></Button>
+                  <Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription} onClick={shift} /></Button>
                   <p>Agendar un turno</p>
                 </div>
               </div>
