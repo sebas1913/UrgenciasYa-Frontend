@@ -6,66 +6,80 @@ import HospitalCard from '../../components/hospital-card/Hospital-card';
 import Spinner from "../../components/UI/spinner/Spinner";
 import { IHospital } from '@/interfaces/IHospital';
 
+// Importa las variables de latitud y longitud
+import { latitude, longitude } from '@/components/location/location';
+
 const ResultsPage: React.FC = () => {
+  const searchParams = useSearchParams();
+  const town = searchParams.get('town');
+  const eps = searchParams.get('eps');
 
-	const searchParams = useSearchParams();
-	const town = searchParams.get('town');
-	const eps = searchParams.get('eps');
+  const [results, setResults] = useState<IHospital[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-	const [results, setResults] = useState<IHospital[] | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchHospitals = async () => {
+      try {
+        let url = '';
 
-	useEffect(() => {
-		const fetchHospitals = async () => {
-			try {
-				const response: Response = await fetch(
-					`http://localhost:8080/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}&latitude=${encodeURIComponent('123.556')}&longitude=${encodeURIComponent('78.910')}`
-				);
+        // Si hay `town`, realiza la búsqueda como antes
+        if (town && eps) {
+          url = `http://localhost:8080/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}`;
+        } 
+        // Si no hay `town` pero sí `eps`, usa las coordenadas
+        else if (eps && latitude !== null && longitude !== null) {
+          url = `http://localhost:8080/api/v1/hospitals/filter?eps=${encodeURIComponent(eps)}&latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+        }
 
-				if (!response.ok) {
-					throw new Error(`Error fetching data: ${response.status}`);
-				}
+        if (url) {
+          const response = await fetch(url);
 
-				const data: IHospital[] = await response.json();
-				setResults(data);
-			} catch (error: any) {
-				setError(error.message);
-			} finally {
-				setLoading(false);
-			}
-		};
+          if (!response.ok) {
+            throw new Error(`Error fetching data: ${response.status}`);
+          }
 
-		if (town && eps) {
-			fetchHospitals();
-		}
-	}, [town, eps]);
+          const data: IHospital[] = await response.json();
+          setResults(data);
+        }
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-	if (loading) return <Spinner />;
+    // Llama a la función si se cumplen las condiciones
+    if ((town && eps) || (eps && latitude !== null && longitude !== null)) {
+      fetchHospitals();
+    }
+  }, [town, eps]);
 
-	return (
-		<div className={styles.containerResults}>
-			<h1>Resultados de búsqueda:</h1>
-			{results && results.length > 0 ? (
-				<div className={styles.bigFilterContainer}>
-					{results.map((hospital) => (
-						<HospitalCard
-							id={hospital.id}
-							key={hospital.name}
-							name={hospital.name}
-							url_image={hospital.url_image}
-							phone_number={hospital.phone_number}
-							rating={hospital.rating}
-							howtogetthere={hospital.howtogetthere}
-							nameTown={hospital.nameTown}
-						/>
-					))}
-				</div>
-			) : (
-				<p>No se encontraron hospitales :(</p>
-			)}
-		</div>
-	);
+  if (loading) return <Spinner />;
+
+  return (
+    <div className={styles.containerResults}>
+      <h1>Resultados de búsqueda:</h1>
+      {results && results.length > 0 ? (
+        <div className={styles.bigFilterContainer}>
+          {results.map((hospital) => (
+            <HospitalCard
+              id={hospital.id}
+              key={hospital.name}
+              name={hospital.name}
+              url_image={hospital.url_image}
+              phone_number={hospital.phone_number}
+              rating={hospital.rating}
+              howtogetthere={hospital.howtogetthere}
+              nameTown={hospital.nameTown}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>No se encontraron hospitales :(</p>
+      )}
+    </div>
+  );
 };
 
 export default ResultsPage;
