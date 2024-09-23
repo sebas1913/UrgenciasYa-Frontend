@@ -16,6 +16,8 @@ import { IUserInformation } from "@/interfaces/IUser";
 import Alert from "@/components/UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
+import Modal from "@/components/modal/Modal";
+import MapComponent from "@/components/map/Map";
 
 
 const Chat: React.FC = () => {
@@ -26,6 +28,12 @@ const Chat: React.FC = () => {
 	const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null); // Estado para almacenar la información del usuario
 	const [isAlertSuccess, setAlertSuccess] = useState(false);
 	const [isAlertError, setAlertError] = useState(false);
+
+	const [isModalVisible, setModalVisible] = useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
 
 	const { id } = useParams();
@@ -188,9 +196,11 @@ const Chat: React.FC = () => {
 							<div className={styles.hospitalInformation}>
 								<div className={styles.card}>
 									<div className={styles.iconInformation}>
-										<a href={hospitalInformation?.howtogetthere} target="_blank" rel="noopener noreferrer"><Button className={styles.informationButton}><FaLocationDot className={styles.iconDescription} /></Button>
-										</a>
+										<Button className={styles.informationButton} onClick={toggleModal}><FaLocationDot className={styles.iconDescription} /></Button>
 										<p>{hospitalInformation?.town_id?.name}</p>
+										<Modal isVisible={isModalVisible} onClose={toggleModal} >
+											<MapComponent/>
+										</Modal>
 									</div>
 
 									<div className={styles.iconInformation}>

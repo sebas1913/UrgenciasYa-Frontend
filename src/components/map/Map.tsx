@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
-import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 const MapComponent: React.FC = () => {
     useEffect(() => {
         // Inicializa el mapa
-        const map = L.map('map').setView([6.16820, -75.58851], 13);
+        const map = L.map('my_map').setView([6.16820, -75.58851], 13);
 
         // Capa de tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,10 +15,11 @@ const MapComponent: React.FC = () => {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Marcadores de inicio y fin
+        // Coordenadas de inicio y fin
         const startLatLng = L.latLng(6.16820, -75.58851);
         const endLatLng = L.latLng(6.213893, -75.594885);
 
+        // Marcadores
         L.marker(startLatLng).addTo(map).bindPopup("Mi nueva ubicación").openPopup();
         L.marker(endLatLng).addTo(map).bindPopup("Mi hospital").openPopup();
 
@@ -28,9 +29,10 @@ const MapComponent: React.FC = () => {
             routeWhileDragging: true,
             router: L.Routing.osrmv1({
                 serviceUrl: 'https://router.project-osrm.org/route/v1',
-                profile: 'driving',
+                profile: 'driving'
             }),
-            createMarker: () => null, // Deshabilitar marcadores adicionales
+            // @ts-ignore
+            createMarker: () => null // Opcional: deshabilitar marcadores adicionales
         }).addTo(map);
 
         // Limpieza al desmontar el componente
@@ -40,7 +42,7 @@ const MapComponent: React.FC = () => {
     }, []);
 
     return (
-        <div id="map" style={{ height: '400px', width: '600px' }}></div>
+        <div id="my_map" style={{ height: '400px', width: '400px' }}></div>
     );
 };
 
