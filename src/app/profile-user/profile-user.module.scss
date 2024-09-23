@@ -17,7 +17,6 @@
             display: flex;
             flex-direction: column;
             gap: 2.1rem;
-            justify-content: center;
 
             .welcome {
                 width: 100%;
@@ -34,6 +33,9 @@
                 .welcomeInformation {
                     text-align: left;
                     font-size: 1.1rem;
+                    letter-spacing: 0.05rem;
+                    line-height: 1.6rem;
+                    font-weight: 300;
                 }
 
                 .containerButton {
@@ -92,7 +94,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.9rem;
             align-items: center;
 
             .imageUser {
@@ -104,29 +106,39 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.8rem;
 
-            .iconInformation {
+            .iconInformation{
                 display: flex;
-                font-size: 1.1rem;
-                align-items: center;
+                font-size: 1.4rem;
 
-                .editButton {
-                    background: none;
+                .description{
+                    margin-left: 0.9rem;
+                    font-size: 1.1rem;
+                    font-weight: 300;
+                }
+            }
+
+            .buttonsContainer {
+                width: 100%;
+                display: flex;
+                gap: 1.5rem;
+                justify-content: center;
+
+                .editButton{
+                    color: $white-color;
                     border: none;
+                    width: 2.7rem;
+                    height: 2.7rem;
+                    background-color: $turquoise-color;
                     font-family: var(--font-principal);
                     font-size: 1.1rem;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
-
-                    b {
-                        margin-left: 0.9rem;
-                    }
-                }
-
-                .description {
-                    margin-left: 0.9rem;
+                    justify-content: center;
+                    @include border-radius(50%);
+                    @include shadow($black-color, 0.2);
                 }
             }
         }
@@ -134,9 +146,49 @@
 }
 
 @include mediaQuery(small) {
+
     .profileContainer {
+    
         .profileInformation {
-            
+            flex-direction: column;
+    
+            .information {
+                width: 100%;
+    
+                .welcome {
+                    width: 100%;
+    
+                    .profileTitle {
+                        font-size: 2.3rem;
+                        text-align: center;
+                    }
+    
+                    .welcomeInformation {
+                        text-align: justify;
+                    }
+    
+                    .containerButton {
+                        text-align: center;
+                        
+                        .searchButton {
+                            width: 70%;
+                            padding: 1rem 2rem;
+                        }
+                    }
+                }
+    
+                .tickets {
+                    
+                    .ticketTitle {
+                        display: none;
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    
+        .profileData {
+            width: 100%;
         }
     }
 }

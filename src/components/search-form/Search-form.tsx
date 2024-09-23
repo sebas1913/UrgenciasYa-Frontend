@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react"; 
-import { useRouter } from 'next/navigation'; 
+import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import styles from "./search-form.module.scss";
-import Form from "../UI/form/Form"; 
-import Select from "../UI/select/Select"; 
+import Form from "../UI/form/Form";
+import Select from "../UI/select/Select";
 import Button from "../UI/button/Button";
-import Label from "../UI/label/Label"; 
+import Label from "../UI/label/Label";
+import { TiWarningOutline } from "react-icons/ti";
+import Alert from "../UI/alert/Alert";
 
 const SearchForm: React.FC = () => {
   const router = useRouter();
+  const [isAlertNull, setAlertNull] = useState(false);
+
+  const toggleAlertNull = () => {
+    setAlertNull(!isAlertNull);
+  };
 
   // Creamos dos "estados" para guardar el municipio y la EPS.
   const [selectedTown, setSelectedTown] = useState('');
@@ -20,8 +27,8 @@ const SearchForm: React.FC = () => {
   useEffect(() => {
     const fetchTowns = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/town"); 
-        const data = await response.json(); 
+        const response: Response = await fetch("http://localhost:8080/api/v1/towns/getAll");
+        const data = await response.json();
         const townOptions = data.map((element: any) => ({
           label: element.name,
           value: element.name
@@ -33,7 +40,7 @@ const SearchForm: React.FC = () => {
         setTowns(optionsWithDefault);
 
       } catch (error) {
-        console.error("Error fetching towns:", error); 
+        console.error("Error fetching towns:", error);
       }
     };
 
@@ -41,10 +48,10 @@ const SearchForm: React.FC = () => {
 
     const fetchEps = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/eps"); 
+        const response: Response = await fetch("http://localhost:8080/api/v1/eps/getAll");
         const data = await response.json();
         const epsOptions = data.map((element: any) => ({
-          label: element.name, 
+          label: element.name,
           value: element.name
         }));
 
@@ -62,16 +69,16 @@ const SearchForm: React.FC = () => {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedTown || !selectedEPS) {
-      alert('Por favor, completa todos los campos.');
+      setAlertNull(true)
       return;
-    }      
+    }
     console.log(`Selected town: ${selectedTown}, Selected EPS: ${selectedEPS}`);
 
     router.push(`/search-results?town=${encodeURIComponent(selectedTown)}&eps=${encodeURIComponent(selectedEPS)}`);
   };
 
   const handleChangeTown = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTown(event.target.value); 
+    setSelectedTown(event.target.value);
   };
 
   const handleChangeEPS = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -79,44 +86,53 @@ const SearchForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <Form onSubmit={onSubmit} className={styles.searchForm}>
-        <div className={styles.formElement}>
-          <Label htmlFor="Town" className={styles.label}>
-            Selecciona tu <b>municipio</b>
-          </Label>
-          <Select
-            id="Town"
-            options={towns} 
-            value={selectedTown}
-            onChange={handleChangeTown} 
-            className={styles.selectTown} 
-            disabled={false} 
-          />
-        </div>
+    <>
+      <div>
+        <Form onSubmit={onSubmit} className={styles.searchForm}>
+          <div className={styles.formElement}>
+            <Label htmlFor="Town" className={styles.label}>
+              Selecciona tu <b>municipio</b>
+            </Label>
+            <Select
+              id="Town"
+              options={towns}
+              value={selectedTown}
+              onChange={handleChangeTown}
+              className={styles.selectTown}
+              disabled={false}
+            />
+          </div>
 
-        <div className={styles.formElement}>
-          <Label htmlFor="EPS" className={styles.label}>
-            Selecciona tu <b>EPS</b>
-          </Label>
-          <Select
-            id="EPS"
-            options={eps} 
-            value={selectedEPS} 
-            onChange={handleChangeEPS} 
-            className={styles.selectEPS}
-            disabled={false}
-          />
-        </div>
+          <div className={styles.formElement}>
+            <Label htmlFor="EPS" className={styles.label}>
+              Selecciona tu <b>EPS</b>
+            </Label>
+            <Select
+              id="EPS"
+              options={eps}
+              value={selectedEPS}
+              onChange={handleChangeEPS}
+              className={styles.selectEPS}
+              disabled={false}
+            />
+          </div>
 
-        <Button
-          type="submit"
-          className={styles.buttonSearch} 
-        >
-          Enviar 
-        </Button>
-      </Form>
-    </div>
+          <Button
+            type="submit"
+            className={styles.buttonSearch}
+          >
+            Enviar
+          </Button>
+        </Form>
+      </div>
+      <Alert
+        isVisible={isAlertNull}
+        onClose={toggleAlertNull}
+        icono={< TiWarningOutline />}
+        title='¡Oops, ha ocurrido un error!'
+        description='Por favor, completa todos los campos'
+      />
+    </>
   );
 };
 

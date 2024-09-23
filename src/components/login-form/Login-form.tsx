@@ -7,9 +7,24 @@ import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import { useRouter } from "next/navigation";
 import { useAuth } from '../context/AuthContext'; // Importa el contexto
+import Alert from "../UI/alert/Alert";
+import { TiWarningOutline } from "react-icons/ti";
+
+
 
 const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const router = useRouter();
+    const [isAlertNull, setAlertNull] = useState(false);
+    const [isAlertError, setAlertError] = useState(false);
+
+    const toggleAlertNull = () => {
+        setAlertNull(!isAlertNull);
+    };
+
+    const toggleAlertError = () => {
+        setAlertError(!isAlertError);
+    };
+
     const { login } = useAuth(); // Usa el contexto
 
     const [selectedEmail, setSelectedEmail] = useState('');
@@ -19,12 +34,12 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         event.preventDefault();
 
         if (!selectedEmail || !selectedPassword) {
-            alert('Por favor, completa todos los campos.');
+            setAlertNull(true)
             return;
         };
 
         try {
-            const response: Response = await fetch('http://localhost:8080/login', {
+            const response: Response = await fetch('http://localhost:8080/api/v1/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,15 +59,16 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
             if (token) {
                 const userInfo = {
-                    id : data.id
+                    id: data.id
                 };
                 login(token, userInfo); // Guarda el token y la info del usuario
                 router.push('/profile-user');
                 onSuccess();
             };
-            
+
         } catch (error) {
             console.error("Error en la solicitud:", error);
+            setAlertError(true)
         }
     };
 
@@ -65,43 +81,61 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     };
 
     return (
-        <div className={styles.formContainer}>
-            <img className={styles.image} src="./images/turquoise_logo.png" />
-            <h2 className={styles.title}>Iniciar sesión</h2>
-            <Form onSubmit={onSubmit} className={styles.contactForm}>
-                <div className={styles.formElement}>
-                    <Label htmlFor="email" className={styles.label}>
-                        Ingresa tu correo electrónico:
-                    </Label>
-                    <Input
-                        id='email'
-                        type='email'
-                        name='email'
-                        value={selectedEmail}
-                        onChange={handleChangeEmail}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.formElement}>
-                    <Label htmlFor="password" className={styles.label}>
-                        Ingresa tu contraseña:
-                    </Label>
-                    <Input
-                        id='password'
-                        type='password'
-                        name='password'
-                        value={selectedPassword}
-                        onChange={handleChangePassword}
-                        className={styles.input}
-                    />
-                </div>
-                <div>
-                    <Button type='submit' className={styles.contactButton}>
-                        Enviar
-                    </Button>
-                </div>
-            </Form>
-        </div>
+        <>
+            <div className={styles.formContainer}>
+                <img className={styles.image} src="./images/turquoise_logo.png" />
+                <h2 className={styles.title}>Iniciar sesión</h2>
+                <Form onSubmit={onSubmit} className={styles.contactForm}>
+                    <div className={styles.formElement}>
+                        <Label htmlFor="email" className={styles.label}>
+                            Ingresa tu correo electrónico:
+                        </Label>
+                        <Input
+                            id='email'
+                            type='email'
+                            name='email'
+                            value={selectedEmail}
+                            onChange={handleChangeEmail}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles.formElement}>
+                        <Label htmlFor="password" className={styles.label}>
+                            Ingresa tu contraseña:
+                        </Label>
+                        <Input
+                            id='password'
+                            type='password'
+                            name='password'
+                            value={selectedPassword}
+                            onChange={handleChangePassword}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div>
+                        <Button type='submit' className={styles.contactButton}>
+                            Enviar
+                        </Button>
+                    </div>
+                </Form>
+            </div>
+
+            <Alert
+                isVisible={isAlertNull}
+                onClose={toggleAlertNull}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='Por favor, completa todos los campos'
+            />
+
+            <Alert
+                isVisible={isAlertError}
+                onClose={toggleAlertError}
+                icono={< TiWarningOutline />}
+                title='¡Oops, ha ocurrido un error!'
+                description='Ha ocurrido un error al iniciar sesión con tus datos. Inténtalo nuevamente.'
+            />
+        </>
     );
 };
 

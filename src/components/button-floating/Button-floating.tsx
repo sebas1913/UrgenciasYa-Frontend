@@ -19,7 +19,7 @@ const ButtonFloating: React.FC = () => {
             </Button>
 
             <Modal isVisible={isModalVisible} onClose={toggleModal}>
-                <ContactForm />
+                <ContactForm onClose={toggleModal}/>
             </Modal>
         </>
     );

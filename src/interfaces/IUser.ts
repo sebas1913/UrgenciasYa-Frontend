@@ -8,10 +8,16 @@ export interface IUserInformation {
     email: string;
     eps: IEPS;
     document: string;
-    number? : string;
+    contact?: IEmergency;
 };
 
 export interface IEPS {
     id: number;
     name: string;
 };
+
+export interface IEmergency{
+    id: number;
+    name: string;
+    phone: string;
+}
