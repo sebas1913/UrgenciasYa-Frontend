@@ -57,7 +57,7 @@ const Chat: React.FC = () => {
 			if (id) {
 
 				try {
-					const response: Response = await fetch(`http://localhost:8080/api/v1/hospitals/${id}`, {
+					const response: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/hospitals/${id}`, {
 						headers: {
 							'accept': 'application/json',
 							'Authorization': `Bearer ${token} `
@@ -113,7 +113,7 @@ const Chat: React.FC = () => {
 		if (responseID) {
 			const userID = JSON.parse(responseID);
 			try {
-				const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+				const response: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/users/${userID.id}`, {
 					method: 'GET',
 					headers: {
 						'accept': 'application/json',
@@ -130,7 +130,7 @@ const Chat: React.FC = () => {
 				const hospitalId = Array.isArray(id) ? id[0] : id;
 
 				if (userDocument && userEps && hospitalId) {
-					const shiftResponse: Response = await fetch(`http://localhost:8080/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
+					const shiftResponse: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
 						method: 'POST',
 						headers: {
 							'Authorization': `Bearer ${token}`,

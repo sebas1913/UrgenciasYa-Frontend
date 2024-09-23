@@ -78,7 +78,7 @@ const PasswordForm : React.FC<PasswordFormProps> = ({ onClose }) => {
             const userID = JSON.parse(responseID);
 
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}/change-password`, {
+                const response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/users/${userID.id}/change-password`, {
                     method: 'PUT',
                     headers: {
                         'accept': '*/*',
