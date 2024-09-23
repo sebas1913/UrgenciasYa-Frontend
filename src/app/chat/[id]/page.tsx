@@ -18,6 +18,11 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
 import Modal from "@/components/modal/Modal";
 import MapComponent from "@/components/map/Map";
+import PDFGenerator from "@/components/pdf-generator/PdfGenerator";
+import Shift from "@/components/pdf-generator/PdfGenerator";
+import { jsPDF } from 'jspdf';
+import emailjs from 'emailjs-com';
+import { userInfo } from "os";
 
 
 const Chat: React.FC = () => {
@@ -28,12 +33,12 @@ const Chat: React.FC = () => {
 	const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null); // Estado para almacenar la información del usuario
 	const [isAlertSuccess, setAlertSuccess] = useState(false);
 	const [isAlertError, setAlertError] = useState(false);
-
+	const [generatedShift, setGeneratedShift] = useState<any>(null); // Para guardar el turno generado
 	const [isModalVisible, setModalVisible] = useState(false);
 
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
-    };
+	const toggleModal = () => {
+		setModalVisible(!isModalVisible);
+	};
 
 
 	const { id } = useParams();
@@ -74,8 +79,7 @@ const Chat: React.FC = () => {
 			}
 		}
 		fetchHospital();
-	}, []);
-
+	}, [id]);
 
 	useEffect(() => {
 		const hospitalId = Array.isArray(id) ? id[0] : id;
@@ -109,7 +113,6 @@ const Chat: React.FC = () => {
 	};
 
 	const shift = async () => {
-
 		const responseID = localStorage.getItem('userID');
 
 		if (responseID) {
@@ -126,8 +129,9 @@ const Chat: React.FC = () => {
 				const data: IUserInformation = await response.json();
 				setUserInfo(data);
 
-				const userDocument = data.document; // Cambiar a data
-				const userEps = data.eps.id; // Cambiar a data
+				const userDocument = data.document;
+				const userEps = data.eps.id;
+				const userEmail = data.email; // Aquí obtenemos el correo del usuario
 				const hospitalId = Array.isArray(id) ? id[0] : id;
 
 				if (userDocument && userEps && hospitalId) {
@@ -135,18 +139,18 @@ const Chat: React.FC = () => {
 						method: 'POST',
 						headers: {
 							'Authorization': `Bearer ${token}`,
-							'Content-Type': 'application/json' // Asegúrate de que el tipo de contenido sea correcto
+							'Content-Type': 'application/json'
 						}
 					});
 
-					const shiftData = await shiftResponse.json(); // Espera la respuesta
-					console.log(shiftData);
+					const shiftData = await shiftResponse.json();
+					setGeneratedShift(shiftData); // Guardar turno generado
 					setAlertSuccess(true);
 
-
+					// Llamar a la función para enviar el email
+					sendEmail(shiftData, data.email); // Envía los detalles del turno y el correo del usuario
 				} else {
 					console.error('Faltan datos para crear el turno.');
-
 				}
 
 			} catch (error) {
@@ -155,7 +159,52 @@ const Chat: React.FC = () => {
 		} else {
 			console.error('No se encontró el ID del usuario en localStorage.');
 		}
-	}
+	};
+
+
+	const sendEmail = (shiftData: any, recipientEmail: string) => {
+		const templateParams = {
+			destinatarioEmail: 'diegomejiasobsu@gmail.com',  // Correo del destinatario
+			shiftId: shiftData.id,
+			shiftNumber: shiftData.shiftNumber,
+			estimatedTime: shiftData.estimatedTime,
+			status: shiftData.status,
+			userId: shiftData.userId,
+			hospitalId: shiftData.hospitalId,
+			epsId: shiftData.epsId,
+		};
+
+		emailjs.send("service_Urg3nci4sY4", "template_bked83i", templateParams, "tFwtcqbxOv1yYEl3A")
+			.then((response) => {
+				console.log("Email sent successfully!", response.status, response.text);
+			})
+			.catch((err) => {
+				console.error("Failed to send email. Error: ", err);
+			});
+	};
+
+
+
+
+	const generatePDF = (shiftData: any) => {
+		const doc = new jsPDF();
+		doc.text(`Shift ID: ${shiftData.id}`, 10, 10);
+		doc.text(`Shift Number: ${shiftData.shiftNumber}`, 10, 20);
+		doc.text(`Estimated Time: ${shiftData.estimatedTime}`, 10, 30);
+		doc.text(`Status: ${shiftData.status}`, 10, 40);
+		doc.text(`User ID: ${shiftData.userId}`, 10, 50);
+		doc.text(`Hospital ID: ${shiftData.hospitalId}`, 10, 60);
+		doc.text(`EPS ID: ${shiftData.epsId}`, 10, 70);
+
+		// Descargar el PDF inmediatamente
+		doc.save('shift_details.pdf');
+	};
+
+	useEffect(() => {
+		if (generatedShift) {
+			generatePDF(generatedShift); // Llamada directa para descargar el PDF
+		}
+	}, [generatedShift]); // Escucha los cambios en generatedShift
 
 
 	return (
@@ -199,7 +248,7 @@ const Chat: React.FC = () => {
 										<Button className={styles.informationButton} onClick={toggleModal}><FaLocationDot className={styles.iconDescription} /></Button>
 										<p>{hospitalInformation?.town_id?.name}</p>
 										<Modal isVisible={isModalVisible} onClose={toggleModal} >
-											<MapComponent/>
+											<MapComponent />
 										</Modal>
 									</div>
 

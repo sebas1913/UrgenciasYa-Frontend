@@ -11,7 +11,9 @@
   "dependencies": {
     "@types/nodemailer": "^6.4.15",
     "cookie": "^0.6.0",
+    "emailjs-com": "^3.2.0",
     "firebase": "^10.13.1",
+    "jspdf": "^2.5.2",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
     "next": "14.2.7",
@@ -22,7 +24,8 @@
     "react-star-ratings": "^2.3.0",
     "sass": "^1.78.0",
     "styled-components": "^6.1.13",
-    "swiper": "^11.1.12"
+    "swiper": "^11.1.12",
+    "urgencias-ya": "file:"
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
