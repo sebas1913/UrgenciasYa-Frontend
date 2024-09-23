@@ -21,6 +21,12 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
         setAlertVisible(!isAlertVisible);
     };
 
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
+
     const router = useRouter();
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
@@ -63,7 +69,7 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                     </div>
 
                     <div className={styles.iconInformation}>
-                        <a href={howtogetthere} target="_blank" rel="noopener noreferrer"><Button className={styles.informationButton}><FaLocationDot className={styles.iconDescription} /></Button></a><p>{nameTown}</p>
+                        <Button className={styles.informationButton}><FaLocationDot className={styles.iconDescription} /></Button><p>{nameTown}</p>
                     </div>
 
                     <div className={styles.iconInformation}>

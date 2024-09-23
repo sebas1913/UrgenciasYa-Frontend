@@ -27,7 +27,7 @@ const SearchForm: React.FC = () => {
   useEffect(() => {
     const fetchTowns = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/towns/getAll");
+        const response: Response = await fetch("Https://urgenciasya-frontend-3.onrender.com/api/v1/towns/getAll");
         const data = await response.json();
         const townOptions = data.map((element: any) => ({
           label: element.name,
@@ -48,7 +48,7 @@ const SearchForm: React.FC = () => {
 
     const fetchEps = async () => {
       try {
-        const response: Response = await fetch("http://localhost:8080/api/v1/eps/getAll");
+        const response: Response = await fetch("Https://urgenciasya-frontend-3.onrender.com/api/v1/eps/getAll");
         const data = await response.json();
         const epsOptions = data.map((element: any) => ({
           label: element.name,

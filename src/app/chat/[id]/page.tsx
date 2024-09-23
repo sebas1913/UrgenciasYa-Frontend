@@ -15,8 +15,10 @@ import { IHospital } from "@/interfaces/IHospital";
 import { IUserInformation } from "@/interfaces/IUser";
 import Alert from "@/components/UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { TiWarningOutline } from "react-icons/ti";
-
+import Modal from "@/components/modal/Modal";
+import MapComponent from "@/components/map/Map";
+import { jsPDF } from 'jspdf';
+import emailjs from 'emailjs-com';
 
 const Chat: React.FC = () => {
 	const [messages, setMessages] = useState<any[]>([]);
@@ -26,6 +28,12 @@ const Chat: React.FC = () => {
 	const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null); // Estado para almacenar la información del usuario
 	const [isAlertSuccess, setAlertSuccess] = useState(false);
 	const [isAlertError, setAlertError] = useState(false);
+	const [generatedShift, setGeneratedShift] = useState<any>(null); // Para guardar el turno generado
+	const [isModalVisible, setModalVisible] = useState(false);
+
+	const toggleModal = () => {
+		setModalVisible(!isModalVisible);
+	};
 
 
 	const { id } = useParams();
@@ -49,7 +57,7 @@ const Chat: React.FC = () => {
 			if (id) {
 
 				try {
-					const response: Response = await fetch(`http://localhost:8080/api/v1/hospitals/${id}`, {
+					const response: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/hospitals/${id}`, {
 						headers: {
 							'accept': 'application/json',
 							'Authorization': `Bearer ${token} `
@@ -66,8 +74,7 @@ const Chat: React.FC = () => {
 			}
 		}
 		fetchHospital();
-	}, []);
-
+	}, [id]);
 
 	useEffect(() => {
 		const hospitalId = Array.isArray(id) ? id[0] : id;
@@ -101,13 +108,12 @@ const Chat: React.FC = () => {
 	};
 
 	const shift = async () => {
-
 		const responseID = localStorage.getItem('userID');
 
 		if (responseID) {
 			const userID = JSON.parse(responseID);
 			try {
-				const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+				const response: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/users/${userID.id}`, {
 					method: 'GET',
 					headers: {
 						'accept': 'application/json',
@@ -118,27 +124,28 @@ const Chat: React.FC = () => {
 				const data: IUserInformation = await response.json();
 				setUserInfo(data);
 
-				const userDocument = data.document; // Cambiar a data
-				const userEps = data.eps.id; // Cambiar a data
+				const userDocument = data.document;
+				const userEps = data.eps.id;
+				const userEmail = data.email; // Aquí obtenemos el correo del usuario
 				const hospitalId = Array.isArray(id) ? id[0] : id;
 
 				if (userDocument && userEps && hospitalId) {
-					const shiftResponse: Response = await fetch(`http://localhost:8080/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
+					const shiftResponse: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
 						method: 'POST',
 						headers: {
 							'Authorization': `Bearer ${token}`,
-							'Content-Type': 'application/json' // Asegúrate de que el tipo de contenido sea correcto
+							'Content-Type': 'application/json'
 						}
 					});
 
-					const shiftData = await shiftResponse.json(); // Espera la respuesta
-					console.log(shiftData);
+					const shiftData = await shiftResponse.json();
+					setGeneratedShift(shiftData); // Guardar turno generado
 					setAlertSuccess(true);
 
-
+					// Llamar a la función para enviar el email
+					sendEmail(shiftData, data.email); // Envía los detalles del turno y el correo del usuario
 				} else {
 					console.error('Faltan datos para crear el turno.');
-
 				}
 
 			} catch (error) {
@@ -147,7 +154,52 @@ const Chat: React.FC = () => {
 		} else {
 			console.error('No se encontró el ID del usuario en localStorage.');
 		}
-	}
+	};
+
+
+	const sendEmail = (shiftData: any, recipientEmail: string) => {
+		const templateParams = {
+			destinatarioEmail: 'diegomejiasobsu@gmail.com',  // Correo del destinatario
+			shiftId: shiftData.id,
+			shiftNumber: shiftData.shiftNumber,
+			estimatedTime: shiftData.estimatedTime,
+			status: shiftData.status,
+			userId: shiftData.userId,
+			hospitalId: shiftData.hospitalId,
+			epsId: shiftData.epsId,
+		};
+
+		emailjs.send("service_Urg3nci4sY4", "template_bked83i", templateParams, "tFwtcqbxOv1yYEl3A")
+			.then((response) => {
+				console.log("Email sent successfully!", response.status, response.text);
+			})
+			.catch((err) => {
+				console.error("Failed to send email. Error: ", err);
+			});
+	};
+
+
+
+
+	const generatePDF = (shiftData: any) => {
+		const doc = new jsPDF();
+		doc.text(`Shift ID: ${shiftData.id}`, 10, 10);
+		doc.text(`Shift Number: ${shiftData.shiftNumber}`, 10, 20);
+		doc.text(`Estimated Time: ${shiftData.estimatedTime}`, 10, 30);
+		doc.text(`Status: ${shiftData.status}`, 10, 40);
+		doc.text(`User ID: ${shiftData.userId}`, 10, 50);
+		doc.text(`Hospital ID: ${shiftData.hospitalId}`, 10, 60);
+		doc.text(`EPS ID: ${shiftData.epsId}`, 10, 70);
+
+		// Descargar el PDF inmediatamente
+		doc.save('shift_details.pdf');
+	};
+
+	useEffect(() => {
+		if (generatedShift) {
+			generatePDF(generatedShift); // Llamada directa para descargar el PDF
+		}
+	}, [generatedShift]); // Escucha los cambios en generatedShift
 
 
 	return (
@@ -188,9 +240,11 @@ const Chat: React.FC = () => {
 							<div className={styles.hospitalInformation}>
 								<div className={styles.card}>
 									<div className={styles.iconInformation}>
-										<a href={hospitalInformation?.howtogetthere} target="_blank" rel="noopener noreferrer"><Button className={styles.informationButton}><FaLocationDot className={styles.iconDescription} /></Button>
-										</a>
+										<Button className={styles.informationButton} onClick={toggleModal}><FaLocationDot className={styles.iconDescription} /></Button>
 										<p>{hospitalInformation?.town_id?.name}</p>
+										<Modal isVisible={isModalVisible} onClose={toggleModal} >
+											<MapComponent />
+										</Modal>
 									</div>
 
 									<div className={styles.iconInformation}>
@@ -203,11 +257,12 @@ const Chat: React.FC = () => {
 										<p>{hospitalInformation?.phone_number}</p>
 									</div>
 
-									<div className={styles.iconInformation}>
-										<Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription} onClick={shift} /></Button>
-										<p>Agendar un turno</p>
+									<div className={styles.shift}>
+										<Button className={styles.shiftButton}><FaCalendarCheck className={styles.iconDescription} onClick={shift} /></Button>
+										<p className={styles.text}>Agendar un turno</p>
 									</div>
 								</div>
+
 							</div>
 							<div className={styles.formContainer}>
 								<Form className={styles.form} onSubmit={handleSubmit}>

@@ -25,11 +25,11 @@ const ResultsPage: React.FC = () => {
 
         // Si hay `town`, realiza la búsqueda como antes
         if (town && eps) {
-          url = `http://localhost:8080/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}`;
+          url = `Https://urgenciasya-frontend-3.onrender.com/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}`;
         } 
         // Si no hay `town` pero sí `eps`, usa las coordenadas
         else if (eps && latitude !== null && longitude !== null) {
-          url = `http://localhost:8080/api/v1/hospitals/filter?eps=${encodeURIComponent(eps)}&latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+          url = `Https://urgenciasya-frontend-3.onrender.com/api/v1/hospitals/filter?eps=${encodeURIComponent(eps)}&latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
         }
 
         if (url) {
