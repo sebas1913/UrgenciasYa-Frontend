@@ -15,15 +15,10 @@ import { IHospital } from "@/interfaces/IHospital";
 import { IUserInformation } from "@/interfaces/IUser";
 import Alert from "@/components/UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { TiWarningOutline } from "react-icons/ti";
 import Modal from "@/components/modal/Modal";
 import MapComponent from "@/components/map/Map";
-import PDFGenerator from "@/components/pdf-generator/PdfGenerator";
-import Shift from "@/components/pdf-generator/PdfGenerator";
 import { jsPDF } from 'jspdf';
 import emailjs from 'emailjs-com';
-import { userInfo } from "os";
-
 
 const Chat: React.FC = () => {
 	const [messages, setMessages] = useState<any[]>([]);
