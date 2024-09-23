@@ -35,7 +35,7 @@ const UpdateUserForm: React.FC = () => {
 
                 if (responseID) {
                     const userID = JSON.parse(responseID);
-                    const userResponse = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/users/${userID.id}`, {
+                    const userResponse = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',
@@ -64,7 +64,7 @@ const UpdateUserForm: React.FC = () => {
 
     const fetchEps = async () => {
         try {
-            const response: Response = await fetch("Https://urgenciasya-frontend-3.onrender.com/api/v1/eps/getAll");
+            const response: Response = await fetch("https://urgenciasya-backend.onrender.com/api/v1/eps/getAll");
             const data = await response.json();
             const epsOptions = data.map((element: any) => ({
                 label: element.name,
@@ -124,7 +124,7 @@ const UpdateUserForm: React.FC = () => {
             const userID = JSON.parse(responseID);
 
             try {
-                const response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/users/update/${userID.id}`, {
+                const response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/update/${userID.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ export const sendMessage = async (message: string, hospitalId: string) => {
     try {
       const userID = JSON.parse(responseID);
       try {
-        const response: Response = await fetch(`Https://urgenciasya-frontend-3.onrender.com/api/v1/users/${userID.id}`, {
+        const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
           method: 'GET',
           headers: {
             'accept': 'application/json',
