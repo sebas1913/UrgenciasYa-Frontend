@@ -85,55 +85,48 @@ const Chat: React.FC = () => {
   };
 
   const shift = async () => {
-    const responseID = localStorage.getItem('userID');
-    const fetchUser = async () => {
 
-      if (responseID) {
-        const userID = JSON.parse(responseID);
-        try {
-          const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
-            method: 'GET',
+    const responseID = localStorage.getItem('userID');
+
+    if (responseID) {
+      const userID = JSON.parse(responseID);
+      try {
+        const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        const data: IUserInformation = await response.json();
+        setUserInfo(data);
+
+        const userDocument = data.document; // Cambiar a data
+        const userEps = data.eps.id; // Cambiar a data
+        const hospitalId = Array.isArray(id) ? id[0] : id;
+
+        if (userDocument && userEps && hospitalId) {
+          const shiftResponse: Response = await fetch(`http://localhost:8080/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
+            method: 'POST',
             headers: {
-              'accept': 'application/json',
-              'Authorization': `Bearer ${token}`
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json' // Asegúrate de que el tipo de contenido sea correcto
             }
           });
 
-          const data: IUserInformation = await response.json();
-          setUserInfo(data);
+          const shiftData = await shiftResponse.json(); // Espera la respuesta
+          console.log(shiftData);
 
-
-        } catch (error) {
-          console.error(`No se pudo realizar la petición: ${error}`);
+        } else {
+          console.error('Faltan datos para crear el turno.');
         }
-      }
-    }
-
-    fetchUser();
-
-    const userDocument = userInfo?.document;
-    const userEps = userInfo?.eps.id;
-    const { id } = useParams();
-    const hospitalId = Array.isArray(id) ? id[0] : id;
-
-
-    if (userDocument && userEps && id) {
-      try {
-        const response: Response = await fetch(`http://localhost:8080/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
-
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-        );
-        const data = response.json();
-        console.log(data);
 
       } catch (error) {
-        console.log(error);
-
+        console.error(`No se pudo realizar la petición: ${error}`);
       }
+    } else {
+      console.error('No se encontró el ID del usuario en localStorage.');
     }
   }
 
