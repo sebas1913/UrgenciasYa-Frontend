@@ -56,7 +56,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         }
 
         try {
-            const response: Response = await fetch('Https://urgenciasya-frontend-3.onrender.com/api/v1/users/register', {
+            const response: Response = await fetch('https://urgenciasya-backend.onrender.com/api/v1/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         // Obtener eps
         const fetchEps = async () => {
             try {
-                const response: Response = await fetch("Https://urgenciasya-frontend-3.onrender.com/api/v1/eps/getAll");
+                const response: Response = await fetch("https://urgenciasya-backend.onrender.com/api/v1/eps/getAll");
                 const data = await response.json();
                 const epsOptions = data.map((element: any) => ({
                     label: element.name,
