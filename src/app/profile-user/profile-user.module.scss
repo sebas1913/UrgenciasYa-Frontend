@@ -144,3 +144,51 @@
         }
     }
 }
+
+@include mediaQuery(small) {
+
+    .profileContainer {
+    
+        .profileInformation {
+            flex-direction: column;
+    
+            .information {
+                width: 100%;
+    
+                .welcome {
+                    width: 100%;
+    
+                    .profileTitle {
+                        font-size: 2.3rem;
+                        text-align: center;
+                    }
+    
+                    .welcomeInformation {
+                        text-align: justify;
+                    }
+    
+                    .containerButton {
+                        text-align: center;
+                        
+                        .searchButton {
+                            width: 70%;
+                            padding: 1rem 2rem;
+                        }
+                    }
+                }
+    
+                .tickets {
+                    
+                    .ticketTitle {
+                        display: none;
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    
+        .profileData {
+            width: 100%;
+        }
+    }
+}

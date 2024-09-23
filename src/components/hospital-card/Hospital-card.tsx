@@ -49,8 +49,8 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                         starRatedColor="#00BFA5"
                         numberOfStars={5}
                         name='rating'
-                        starDimension="1.8rem"
-                        starSpacing="0.15rem"
+                        starDimension="1.7rem"
+                        starSpacing="0.1rem"
                     />
                 </div>
             </div>
