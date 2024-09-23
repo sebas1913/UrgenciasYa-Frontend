@@ -10,6 +10,7 @@ import cookie from 'cookie';
 import Alert from '../UI/alert/Alert';
 import { useState } from 'react';
 import { TiWarningOutline } from "react-icons/ti";
+import StarRatings from 'react-star-ratings';
 
 
 
@@ -23,7 +24,6 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
     const router = useRouter();
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
-
 
 
     const onClick = () => {
@@ -43,8 +43,15 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                 <div>
                     <img className={styles.filterImage} src={url_image} alt={name} />
                 </div>
-                <div>
-                    <p>{rating}</p>
+                <div className={styles.containerStars}>
+                    <StarRatings
+                        rating={rating}
+                        starRatedColor="#00BFA5"
+                        numberOfStars={5}
+                        name='rating'
+                        starDimension="1.8rem"
+                        starSpacing="0.15rem"
+                    />
                 </div>
             </div>
 
@@ -72,10 +79,10 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                 <div className={styles.filterButtons}>
                     <Button title='Chat del hospital' className={styles.filterButton}><TbMessageCircleFilled className={styles.buttonIcon} onClick={onClick} /></Button>
                     {isAlertVisible && (
-                        <Alert 
+                        <Alert
                             isVisible={isAlertVisible}
                             onClose={toggleAlert}
-                            icono = {<TiWarningOutline/>}
+                            icono={<TiWarningOutline />}
                             title='¡Oops, ha ocurrido un error!'
                             description='Debes iniciar sesión para acceder al chat del hospital'
                         >

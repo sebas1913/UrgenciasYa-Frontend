@@ -1,17 +1,19 @@
-"use client";
+'use client';
 import React, { useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from 'next/navigation';  // Importa useRouter para redirección
 import styles from "./profile-user.module.scss";
 import Button from "../../components/UI/button/Button";
-import { useState } from "react";
 import Modal from "@/components/modal/Modal";
 import { FaRegHeart, FaIdCard, FaRegEnvelope, FaPhoneAlt, FaUserMd, FaLock } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import UpdateUserForm from "@/components/user-form/user-form";
-import { IUserInformation } from "@/interfaces/IUser";
-import cookie from 'cookie';
 import EmergencyContact from "@/components/emergency-form/emergency-form";
 import PasswordForm from "@/components/password-form/password-form";
-
+import { MdOutlineEmergency } from "react-icons/md";
+import Location, { latitude, longitude } from "@/components/location/location";  // Importa la latitud y longitud
+import cookie from 'cookie';
+import { IUserInformation } from "@/interfaces/IUser";
 
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -24,47 +26,45 @@ const Profile = () => {
     };
 
     const toggleModalEmergency = () => {
-        setEmergencyModalVisible(!isEmergencyModalVisible)
-    }
+        setEmergencyModalVisible(!isEmergencyModalVisible);
+    };
 
     const toggleModalPassword = () => {
-        setPasswordModalVisible(!isPasswordModalVisible)
-    }
+        setPasswordModalVisible(!isPasswordModalVisible);
+    };
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
-    console.log(token);
-    
+    const router = useRouter();  // Inicializa useRouter
 
     useEffect(() => {
-
         const responseID = localStorage.getItem('userID');
 
         const fetchUser = async () => {
-
             if (responseID) {
-
                 const userID = JSON.parse(responseID);
-
                 try {
-                    const response : Response = await fetch(`http://localhost:8080/api/v1/users/get/${userID.id}`, {
+                    const response: Response = await fetch(`http://localhost:8080/api/v1/users/${userID.id}`, {
                         method: 'GET',
-                        headers : {
-                            'accept' : 'application/json',
-                            'Authorization' : `Bearer ${token}`
+                        headers: {
+                            'accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
                         }
                     });
 
-                    const data : IUserInformation = await response.json();
+                    const data: IUserInformation = await response.json();
                     setUserInfo(data);
-
                 } catch (error) {
                     console.error(`No se pudo realizar la petición: ${error}`);
                 }
             }
-        }
+        };
         fetchUser();
-    }, []);
+    }, [token]);
+
+    const handleSearch = () => {
+        router.push(`/search-results?eps=${userInfo?.eps.name}&latitude=${latitude}&longitude=${longitude}`);
+    };
 
     return (
         <>
@@ -74,12 +74,14 @@ const Profile = () => {
                         <div className={styles.welcome}>
                             <h1 className={styles.profileTitle}>¡Hola, {userInfo?.name.split(' ')[0]}!</h1>
                             <div className={styles.welcomeInformation}>
-                                <p>Al autenticarte tienes nuevas opciones de accesbilidad. Ahora, al darle click al botón, puedes realizar tu <b>búsqueda</b> de manera autmática.</p>
+                                <p>Al autenticarte tienes nuevas opciones de accesibilidad. Ahora, al darle click al botón, puedes realizar tu <b>búsqueda</b> de manera automática.</p>
                                 <br />
-                                <p>¡También puedes participar de los <b>chats grupales </b>de cada hospital y solicitar un <b>turno</b>!</p>
+                                <p>¡También puedes participar de los <b>chats grupales</b> de cada hospital y solicitar un <b>turno</b>!</p>
                             </div>
                             <div className={styles.containerButton}>
-                                <Button className={styles.searchButton} type="button">Realizar búsqueda</Button>
+                                <Button className={styles.searchButton} type="button" onClick={handleSearch}>
+                                    Realizar búsqueda
+                                </Button>
                             </div>
                         </div>
                         <div className={styles.tickets}>
@@ -107,8 +109,8 @@ const Profile = () => {
                                 <p className={styles.description}>{userInfo?.email}</p>
                             </div>
                             <div className={styles.iconInformation}>
-                                <FaPhoneAlt />
-                                <p className={styles.description}>{userInfo?.number}</p>
+                                <MdOutlineEmergency />
+                                <p className={styles.description}>{userInfo?.contact?.phone}</p>
                             </div>
                             <div className={styles.buttonsContainer}>
                                 <div className={styles.iconInformation}>
@@ -118,7 +120,7 @@ const Profile = () => {
                                 </div>
                                 <div className={styles.iconInformation}>
                                     <Button title='Editar contacto de emergencia' className={styles.editButton} onClick={toggleModalEmergency}>
-                                        <FaPhoneAlt  className={styles.iconEditButton} />
+                                        <FaPhoneAlt className={styles.iconEditButton} />
                                     </Button>
                                 </div>
                                 <div className={styles.iconInformation}>
@@ -135,11 +137,13 @@ const Profile = () => {
                 <UpdateUserForm />
             </Modal>
             <Modal isVisible={isEmergencyModalVisible} onClose={toggleModalEmergency}>
-                <EmergencyContact />
+                <EmergencyContact onClose={toggleModalEmergency} />
             </Modal>
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
-                <PasswordForm />
+                <PasswordForm onClose={toggleModalPassword} />
             </Modal>
+            
+            <Location />
         </>
     );
 };

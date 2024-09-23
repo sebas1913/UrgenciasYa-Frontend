@@ -217,6 +217,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                     </div>
                 </Form>
             </div>
+            
             <Alert
                 isVisible={isAlertSuccess}
                 onClose={toggleAlertSuccess}
