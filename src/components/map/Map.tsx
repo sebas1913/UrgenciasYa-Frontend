@@ -42,7 +42,11 @@ const MapComponent: React.FC = () => {
     }, []);
 
     return (
-        <div id="my_map" style={{ height: '400px', width: '400px' }}></div>
+        <>
+            <div id="my_map" style={{ flexGrow: 1, height: '400px', width: '100%' }}></div>
+        </>
+
+
     );
 };
 

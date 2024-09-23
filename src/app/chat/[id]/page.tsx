@@ -257,11 +257,12 @@ const Chat: React.FC = () => {
 										<p>{hospitalInformation?.phone_number}</p>
 									</div>
 
-									<div className={styles.iconInformation}>
-										<Button className={styles.informationButton}><FaCalendarCheck className={styles.iconDescription} onClick={shift} /></Button>
-										<p>Agendar un turno</p>
+									<div className={styles.shift}>
+										<Button className={styles.shiftButton}><FaCalendarCheck className={styles.iconDescription} onClick={shift} /></Button>
+										<p className={styles.text}>Agendar un turno</p>
 									</div>
 								</div>
+
 							</div>
 							<div className={styles.formContainer}>
 								<Form className={styles.form} onSubmit={handleSubmit}>

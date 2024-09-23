@@ -194,12 +194,49 @@
                     justify-content: space-around;
 
 
+                    .shift{
+                        display: flex;
+                        align-items: center;
+                        
+                        .shiftButton{
+                            background: $turquoise-color;
+                            font-size: 1.2rem;
+                            color: $white-color;
+                            border: none;
+                            width: 2.5rem;
+                            height: 2.5rem;
+                            border-radius: 50%;
+                            margin: 0.5rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            @include shadow($black-color, 0.2);
+
+                            &:active {
+                                transform: scale(0.95);
+                            }
+                        }
+
+                        .text{
+                            font-weight: 700;
+                            color: $turquoise-color;
+                        }
+                    }
+
+
                     .iconInformation {
                         display: flex;
                         align-items: center;
                         gap: 0.6rem;
                         margin-left: 0.9rem;
                         font-weight: 300;
+
+                        .shift{
+                            font-size: 1rem;
+                            font-weight: 600;
+                            color: $turquoise-color;
+                        }
 
                         .informationButton {
                             display: flex;
@@ -298,3 +335,9 @@
         }
     }
 }
+
+#my_map {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%; // Asegúrate de que ocupe el 100% del contenedor padre
+  }
