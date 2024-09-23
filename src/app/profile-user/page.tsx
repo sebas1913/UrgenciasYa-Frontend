@@ -136,7 +136,7 @@ const Profile = () => {
                 <UpdateUserForm />
             </Modal>
             <Modal isVisible={isEmergencyModalVisible} onClose={toggleModalEmergency}>
-                <EmergencyContact />
+                <EmergencyContact onClose={toggleModalEmergency}/>
             </Modal>
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
                 <PasswordForm onClose={toggleModalPassword} />
