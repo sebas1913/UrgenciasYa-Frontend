@@ -13,9 +13,7 @@ const HomeInformation: React.FC = () => {
             <div className={styles.containerRight}>
                 <SearchForm></SearchForm>
             </div>
-
         </div>
-
     );
 };
 

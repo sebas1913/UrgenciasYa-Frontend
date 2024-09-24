@@ -10,8 +10,6 @@ import { useAuth } from '../context/AuthContext'; // Importa el contexto
 import Alert from "../UI/alert/Alert";
 import { TiWarningOutline } from "react-icons/ti";
 
-
-
 const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const router = useRouter();
     const [isAlertNull, setAlertNull] = useState(false);

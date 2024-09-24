@@ -24,9 +24,7 @@ const Footer: React.FC = () => {
                 />
             </div>
             <div className={styles.centerSection}>
-                <Button type="button" className={styles.buttonWork} onClick={toggleForm}>
-                    Trabaja con nosotros
-                </Button>
+                <Button type="button" className={styles.buttonWork} onClick={toggleForm}>Trabaja con nosotros</Button>
                 <p className={styles.copyright}>
                     ©2024 Urgencias YA
                 </p>
@@ -60,7 +58,7 @@ const Footer: React.FC = () => {
             </div>
 
             <Modal isVisible={isFormVisible} onClose={toggleForm}>
-                <WorkWithUsForm onClose={toggleForm}/>
+                <WorkWithUsForm onClose={toggleForm} />
             </Modal>
         </footer>
     );

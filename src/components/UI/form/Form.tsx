@@ -7,7 +7,7 @@ interface FormProps {
     className?: string;
     title?: string; 
     children: ReactNode; //Render input and button component
-}
+};
 
 //Component creation
 const Form: React.FC<FormProps> = ({ onSubmit, className, title, children }) => {
@@ -17,6 +17,6 @@ const Form: React.FC<FormProps> = ({ onSubmit, className, title, children }) => 
             {children}
         </form>
     );
-}
+};
 
 export default Form;

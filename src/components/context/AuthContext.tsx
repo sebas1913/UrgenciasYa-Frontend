@@ -9,7 +9,7 @@ interface AuthContextType {
     user: IUser | null;
     login: (token: string, userInfo: IUser) => void;
     logout: () => void;
-}
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

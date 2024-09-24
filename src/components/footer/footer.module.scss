@@ -2,109 +2,106 @@
 @import '../../style/mixins';
 
 .footerContainer {
-  background-color: $turquoise-color;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 5rem;
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  color: $white-color;
+	background-color: $turquoise-color;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 5rem;
+	width: 100%;
+	position: relative;
+	bottom: 0;
+	color: $white-color;
 
+	.leftSection {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		width: 33%;
 
-  .leftSection {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 33%;
+		.logo {
+			width: 12rem;
+			height: auto;
+		}
+	}
 
-    .logo {
-      width: 12rem;
-      height: auto;
-    }
-  }
+	.centerSection {
+		text-align: center;
 
-  .centerSection {
-    text-align: center;
+		.buttonWork {
+			font-family: var(--font-principal);
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			padding: 0.1rem;
+			font-weight: 600;
+			color: $white-color;
+			margin: 0.3rem;
+			letter-spacing: 0.1rem;
 
-    .buttonWork {
-      font-family: var(--font-principal);
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      padding: 0.1rem;
-      font-weight: 600;
-      color: $white-color;
-      margin: 0.3rem;
-      letter-spacing: 0.1rem;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
 
+	.rightSection {
+		display: flex;
+		gap: 1rem;
+		width: 33%;
+		justify-content: flex-end;
 
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .rightSection {
-    display: flex;
-    gap: 1rem;
-    width: 33%;
-    justify-content: flex-end;
-
-    .socialLink {
-      text-decoration: none;
-      color: $white-color;
-      font-size: 1.7rem;
-    }
-  }
+		.socialLink {
+			text-decoration: none;
+			color: $white-color;
+			font-size: 1.7rem;
+		}
+	}
 }
 
 @include mediaQuery(small) {
-  .footerContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	.footerContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 
-    .leftSection {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      width: 0;
-      width: 100%;
+		.leftSection {
+			display: flex;
+			justify-content: center;
+			gap: 0;
+			width: 0;
+			width: 100%;
 
-      .logo {
-        width: 12rem;
-        text-align: center;
-        height: auto;
-        display: flex;
-        justify-content: center;
-      }
-    }
+			.logo {
+				width: 12rem;
+				text-align: center;
+				height: auto;
+				display: flex;
+				justify-content: center;
+			}
+		}
 
-    .centerSection {
-      .buttonWork {
-        font-size: 1rem;
-        padding: 0;
-        font-weight: 700;
-        margin: 0.5rem;
-        letter-spacing: 0;
-      }
-    }
+		.centerSection {
+			.buttonWork {
+				font-size: 1rem;
+				padding: 0;
+				font-weight: 700;
+				margin: 0.5rem;
+				letter-spacing: 0;
+			}
+		}
 
-    .rightSection {
-      display: flex;
-      margin: 1rem;
-      gap: 0.5rem;
-      width: 100%;
-      justify-content: center;
-  
-      .socialLink {
-        text-decoration: none;
-        color: $white-color;
-        font-size: 1.8rem;
-      }
-    }
-  }
+		.rightSection {
+			display: flex;
+			margin: 1rem;
+			gap: 0.5rem;
+			width: 100%;
+			justify-content: center;
 
+			.socialLink {
+				text-decoration: none;
+				color: $white-color;
+				font-size: 1.8rem;
+			}
+		}
+	}
 }

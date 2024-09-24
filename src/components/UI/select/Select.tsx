@@ -1,7 +1,6 @@
 import React from "react";
 
 // UI select component interface.
-
 interface SelectProps {
     id?: string;
     options: { label: string; value: string | number }[]; // select options with its label and its value.
@@ -9,10 +8,9 @@ interface SelectProps {
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void; // useState.
     className?: string;
     disabled?: boolean; 
-}
+};
 
 // UI select component.
-
 const Select : React.FC<SelectProps> = ({ options, value, onChange, className, disabled }) => {
     return (
         <select
@@ -28,7 +26,7 @@ const Select : React.FC<SelectProps> = ({ options, value, onChange, className, d
         ))}
         </select>
     );
-}
+};
 
 export default Select;
 

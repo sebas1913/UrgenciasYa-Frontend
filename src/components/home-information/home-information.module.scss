@@ -44,7 +44,6 @@
         padding: 2.5rem;
     }
 
-
     @include mediaQuery(small) {
         display: flex;
         flex-direction: column;
@@ -53,7 +52,6 @@
         width: 90%;
         gap: 2rem;
         
-
         .containerLeft {
             width: 100%;
             text-align: center;
@@ -78,6 +76,5 @@
             background-color: $white-color;
             padding: 2rem;
         }
-
     }
 }

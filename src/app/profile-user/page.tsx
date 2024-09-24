@@ -79,9 +79,7 @@ const Profile = () => {
                                 <p>¡También puedes participar de los <b>chats grupales</b> de cada hospital y solicitar un <b>turno</b>!</p>
                             </div>
                             <div className={styles.containerButton}>
-                                <Button className={styles.searchButton} type="button" onClick={handleSearch}>
-                                    Realizar búsqueda
-                                </Button>
+                                <Button className={styles.searchButton} type="button" onClick={handleSearch}>Realizar búsqueda</Button>
                             </div>
                         </div>
                         <div className={styles.tickets}>
@@ -142,7 +140,7 @@ const Profile = () => {
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
                 <PasswordForm onClose={toggleModalPassword} />
             </Modal>
-            
+
             <Location />
         </>
     );

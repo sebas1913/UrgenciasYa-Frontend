@@ -8,24 +8,24 @@ import { AuthProvider } from "@/components/context/AuthContext";
 const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Urgencias YA",
-  description: "Encuentra rápidamente clínicas cercanas a tu ubicación basadas en tu EPS, que pueden atenderte en caso de urgencia.",
+	title: "Urgencias YA",
+	description: "Encuentra rápidamente clínicas cercanas a tu ubicación basadas en tu EPS, que pueden atenderte en caso de urgencia.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={raleway.className}>
-        <AuthProvider>
-          <Navbar></Navbar>
-          <main>{children}</main>
-          <Footer></Footer>
-        </AuthProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body className={raleway.className}>
+				<AuthProvider>
+					<Navbar></Navbar>
+					<main>{children}</main>
+					<Footer></Footer>
+				</AuthProvider>
+			</body>
+		</html>
+	);
 }

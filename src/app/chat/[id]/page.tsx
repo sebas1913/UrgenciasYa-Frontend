@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { getMessages, sendMessage } from "../../api/services/chat";
 import { FaPhoneAlt } from "react-icons/fa";
-import { FaCalendarCheck, FaLocationDot } from "react-icons/fa6";
+import { FaCalendarCheck, FaLocationDot, FaRegCircleCheck } from "react-icons/fa6";
 import { BiSolidBarChartAlt2 } from "react-icons/bi";
 import styles from './chat.module.scss';
 import Form from "../../../components/UI/form/Form";
@@ -14,7 +14,6 @@ import cookie from 'cookie';
 import { IHospital } from "@/interfaces/IHospital";
 import { IUserInformation } from "@/interfaces/IUser";
 import Alert from "@/components/UI/alert/Alert";
-import { FaRegCircleCheck } from "react-icons/fa6";
 import Modal from "@/components/modal/Modal";
 import MapComponent from "@/components/map/Map";
 import { jsPDF } from 'jspdf';
@@ -35,7 +34,6 @@ const Chat: React.FC = () => {
 		setModalVisible(!isModalVisible);
 	};
 
-
 	const { id } = useParams();
 	console.log(id);
 
@@ -46,7 +44,6 @@ const Chat: React.FC = () => {
 	const toggleAlertError = () => {
 		setAlertError(!isAlertError);
 	};
-
 
 	const cookies = cookie.parse(document.cookie || '');
 	const token = cookies.auth;
@@ -85,14 +82,12 @@ const Chat: React.FC = () => {
 		}
 	}, [id]); // Escucha cambios en id
 
-
 	useEffect(() => {
 		const container = containerRef.current;
 		if (container) {
 			container.scrollTop = container.scrollHeight; // Desplazarse al final del contenedor
 		}
 	}, [messages]); // Se ejecuta cuando un mensaje se envíe 
-
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -159,7 +154,7 @@ const Chat: React.FC = () => {
 
 	const sendEmail = (shiftData: any, recipientEmail: string) => {
 		const templateParams = {
-			destinatarioEmail: 'diegomejiasobsu@gmail.com',  // Correo del destinatario
+			destinatarioEmail: 'diegomejiasobsu@gmail.com',  // Correo del destinatario.
 			shiftId: shiftData.id,
 			shiftNumber: shiftData.shiftNumber,
 			estimatedTime: shiftData.estimatedTime,
@@ -177,9 +172,6 @@ const Chat: React.FC = () => {
 				console.error("Failed to send email. Error: ", err);
 			});
 	};
-
-
-
 
 	const generatePDF = (shiftData: any) => {
 		const doc = new jsPDF();
@@ -200,7 +192,6 @@ const Chat: React.FC = () => {
 			generatePDF(generatedShift); // Llamada directa para descargar el PDF
 		}
 	}, [generatedShift]); // Escucha los cambios en generatedShift
-
 
 	return (
 		<>
@@ -242,7 +233,7 @@ const Chat: React.FC = () => {
 									<div className={styles.iconInformation}>
 										<Button className={styles.informationButton} onClick={toggleModal}><FaLocationDot className={styles.iconDescription} /></Button>
 										<p>{hospitalInformation?.town_id?.name}</p>
-										<Modal isVisible={isModalVisible} onClose={toggleModal} >
+										<Modal isVisible={isModalVisible} onClose={toggleModal}>
 											<MapComponent />
 										</Modal>
 									</div>
@@ -283,9 +274,7 @@ const Chat: React.FC = () => {
 										/>
 									</div>
 									<div className={styles.formElement}>
-										<Button className={styles.chatButton} type="submit">
-											Enviar
-										</Button>
+										<Button className={styles.chatButton} type="submit">Enviar</Button>
 									</div>
 								</Form>
 							</div>

@@ -7,7 +7,7 @@ interface AlertProps {
     title: string;
     description: string;
     icono: ReactNode;
-}
+};
 
 const Alert: React.FC<AlertProps> = ({ isVisible, onClose, title, description, icono }) => {
     

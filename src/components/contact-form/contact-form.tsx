@@ -11,8 +11,7 @@ import { TiWarningOutline } from "react-icons/ti";
 
 interface ContactFormProps {
     onClose: () => void;
-}
-
+};
 
 const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
     const [isFormVisible, setIsFormVisible] = useState(true);
@@ -39,7 +38,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if(!selectedName || !selectedMessage || !selectedEmail){
+        if (!selectedName || !selectedMessage || !selectedEmail) {
             setAlertNull(true);
             return;
         }

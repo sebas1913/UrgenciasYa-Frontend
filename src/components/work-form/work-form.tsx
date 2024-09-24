@@ -11,7 +11,7 @@ import { TiWarningOutline } from "react-icons/ti";
 
 interface ContactFormProps {
     onClose: () => void;
-}
+};
 
 const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
     const [selectedName, setSelectedName] = useState('');
@@ -57,7 +57,7 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
         if (!selectedName || !selectedEmail || !selectedSubject || !text) {
             setAlertNull(true);
             return;
-        }
+        };
 
         try {
             const response = await fetch('/api/workEmails', {
@@ -73,7 +73,6 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
                 setAlertSuccess(true);
 
                 setTimeout(() => {
-                    
                     onClose();
                 }, 2500);
 
@@ -157,8 +156,7 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
                     <div>
                         <Button
                             type='submit'
-                            className={styles.contactButton}
-                        >Enviar</Button>
+                            className={styles.contactButton}>Enviar</Button>
                     </div>
                 </Form>
             </div>

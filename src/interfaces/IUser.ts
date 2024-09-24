@@ -20,4 +20,4 @@ export interface IEmergency{
     id: number;
     name: string;
     phone: string;
-}
+};

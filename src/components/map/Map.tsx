@@ -45,8 +45,6 @@ const MapComponent: React.FC = () => {
         <>
             <div id="my_map" style={{ flexGrow: 1, height: '400px', width: '100%' }}></div>
         </>
-
-
     );
 };
 
