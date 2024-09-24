@@ -21,3 +21,19 @@ export interface IEmergency{
     name: string;
     phone: string;
 };
+
+export interface IHospitalID {
+    id: number;
+    name: string;
+};
+
+export interface IUserShift {
+    id: number;
+    shiftNumber: string;
+    estimatedTime: string;
+    status: string;
+    user: IUserInformation;
+    hospitalId: IHospitalID;
+    epsId: IEPS;
+
+};
