@@ -12,34 +12,24 @@ import { useState } from 'react';
 import { TiWarningOutline } from "react-icons/ti";
 import StarRatings from 'react-star-ratings';
 
-
-
 const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url_image, howtogetthere, nameTown }) => {
 
     const [isAlertVisible, setAlertVisible] = useState(false);
+
     const toggleAlert = () => {
         setAlertVisible(!isAlertVisible);
-    };
-
-    const [isModalVisible, setModalVisible] = useState(false);
-
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
     };
 
     const router = useRouter();
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
 
-
     const onClick = () => {
-
         if (token) {
             router.push(`/chat/${id}`);
         } else {
             setAlertVisible(true);
         }
-
     };
 
     return (
@@ -92,10 +82,8 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                             title='¡Oops, ha ocurrido un error!'
                             description='Debes iniciar sesión para acceder al chat del hospital'
                         >
-
                         </Alert>
                     )}
-
                 </div>
             </div>
         </div>

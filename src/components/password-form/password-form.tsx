@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from './password-form.module.scss'
 import Form from "../UI/form/Form";
 import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
-import { useAuth } from "../context/AuthContext";
 import cookie from 'cookie';
 import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -12,8 +11,7 @@ import { TiWarningOutline } from "react-icons/ti";
 
 interface PasswordFormProps {
     onClose: () => void;
-}
-
+};
 
 const PasswordForm : React.FC<PasswordFormProps> = ({ onClose }) => {
     

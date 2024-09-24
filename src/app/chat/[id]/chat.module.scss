@@ -126,11 +126,9 @@
                     @include border-radius(0.3rem);
                     @include shadow($black-color, 0.2);
 
-
                     .h2 {
                         margin: 0;
                     }
-
 
                     .form {
                         display: flex;
@@ -138,13 +136,11 @@
                         gap: 1.2rem;
                         padding: 1.2rem;
 
-
                         .formElement {
                             width: 100%;
                             display: flex;
                             flex-direction: column;
                             gap: 0.6rem;
-
 
                             .textarea {
                                 font-family: var(--font-principal);
@@ -193,7 +189,6 @@
                     flex-direction: column;
                     justify-content: space-around;
 
-
                     .shift{
                         display: flex;
                         align-items: center;
@@ -224,7 +219,6 @@
                         }
                     }
 
-
                     .iconInformation {
                         display: flex;
                         align-items: center;
@@ -250,10 +244,10 @@
                             }
 
                             &.exception {
-                                cursor: default; // Cambia el cursor a default (o el que prefieras)
+                                cursor: default; // Cambia el cursor a default (o el que prefieras.
 
                                 &:active {
-                                    transform: scale(1); // O cualquier otro estilo que desees
+                                    transform: scale(1); // O cualquier otro estilo que desees.
                                 }
                             }
 
@@ -274,7 +268,6 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-
 
             .hospitalBanner {
                 margin: auto;
@@ -323,7 +316,7 @@
                     .formContainer {
                         .form {
                             .formElement {
-                                .textarea{
+                                .textarea {
                                     height: 4rem;
                                 }
                             }
@@ -340,4 +333,4 @@
     flex-grow: 1;
     width: 100%;
     height: 100%; // Asegúrate de que ocupe el 100% del contenedor padre
-  }
+}

@@ -114,7 +114,7 @@ const UpdateUserForm: React.FC = () => {
         if (!selectedName || !selectedEps || !selectedEmail || !selectedDocument) {
             setAlertNull(true)
             return;
-        }
+        };
 
         const cookies = cookie.parse(document.cookie || '');
         const token = cookies.auth;
@@ -153,11 +153,10 @@ const UpdateUserForm: React.FC = () => {
                 } else {
                     throw new Error(`Error en la actualización: ${data.message || response.statusText}`);
                 }
-
-                setAlertSuccess(true)
+                setAlertSuccess(true);
 
             } catch (error) {
-                setAlertError(true)
+                setAlertError(true);
             }
         }
     };
@@ -230,8 +229,7 @@ const UpdateUserForm: React.FC = () => {
                     <div>
                         <Button
                             type='submit'
-                            className={styles.updateButton}
-                        >Enviar</Button>
+                            className={styles.updateButton}>Enviar</Button>
                     </div>
                 </Form>
             </div >

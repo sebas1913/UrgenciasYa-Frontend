@@ -1,13 +1,11 @@
 @import '../../../style/mixins.scss';
 @import '../../../style/variables.scss';
 
-
 .spinnerContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50vh;
-
 
     .spinner {
         border: 0.8rem solid $white-color;
@@ -18,8 +16,6 @@
         animation: spin 2s linear infinite;
     }
 }
-
-
 
 @keyframes spin {
     0% {

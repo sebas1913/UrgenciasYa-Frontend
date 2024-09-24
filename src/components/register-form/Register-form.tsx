@@ -48,12 +48,12 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         if (!selectedName || !selectedEps || !selectedEmail || !selectedPassword || !selectedDocument) {
             setAlertNull(true);
             return;
-        }
+        };
 
         if (!passwordRegex.test(selectedPassword)) {
             setAlertPassword(true);
             return;
-        }
+        };
 
         try {
             const response: Response = await fetch('https://urgenciasya-backend.onrender.com/api/v1/users/register', {
@@ -76,14 +76,12 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
             setTimeout(() => {
                 onSuccess();
             }, 2500);
-                
 
         } catch (error) {
             console.error("Error en la solicitud:", error);
             setAlertError(true);
         }
     };
-
 
     useEffect(() => {
         // Obtener eps
