@@ -13,13 +13,14 @@ import PasswordForm from "@/components/password-form/password-form";
 import { MdOutlineEmergency } from "react-icons/md";
 import Location, { latitude, longitude } from "@/components/location/location";  // Importa la latitud y longitud
 import cookie from 'cookie';
-import { IUserInformation } from "@/interfaces/IUser";
+import { IUserInformation, IUserShift } from "@/interfaces/IUser";
 
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);
     const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
     const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); // Estado para almacenar la información del usuario
+    const [userShift, setUserShift] = useState<IUserShift | null>(null);
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -59,7 +60,25 @@ const Profile = () => {
                 }
             }
         };
+
+        const fetchShift = async () => {
+            try {
+                const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/shifts/user/${userInfo?.document}`, {
+                    headers: {
+                        'accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data: IUserShift = await response.json();
+                console.log(data);
+                setUserShift(data);
+            } catch (error) {
+                console.error(`No se pudo realizar la petición: ${error}`);
+            }
+        }
         fetchUser();
+        fetchShift();
     }, [token]);
 
     const handleSearch = () => {
@@ -77,6 +96,7 @@ const Profile = () => {
                                 <p>Al autenticarte tienes nuevas opciones de accesibilidad. Ahora, al darle click al botón, puedes realizar tu <b>búsqueda</b> de manera automática.</p>
                                 <br />
                                 <p>¡También puedes participar de los <b>chats grupales</b> de cada hospital y solicitar un <b>turno</b>!</p>
+
                             </div>
                             <div className={styles.containerButton}>
                                 <Button className={styles.searchButton} type="button" onClick={handleSearch}>Realizar búsqueda</Button>
@@ -84,7 +104,11 @@ const Profile = () => {
                         </div>
                         <div className={styles.tickets}>
                             <h1 className={styles.ticketTitle}>Mis turnos</h1>
-                            {/* Tabla */}
+                            <p>{userShift?.status}</p>
+                            <p>{userShift?.shiftNumber}</p>
+                            <p>{userShift?.epsId.name}</p>
+                            <p>{userShift?.hospitalId.name}</p>
+                            <p>{userShift?.estimatedTime}</p>
                         </div>
                     </div>
                     <div className={styles.profileData}>
