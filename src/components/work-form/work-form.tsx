@@ -14,6 +14,9 @@ interface ContactFormProps {
 };
 
 const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
+
+    // useStates hooks needed for implementing the code.
+
     const [selectedName, setSelectedName] = useState('');
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedSubject, setSelectedSubject] = useState('');
@@ -21,6 +24,8 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
     const [isAlertError, setAlertError] = useState(false);
     const [isAlertNull, setAlertNull] = useState(false);
     const [text, setText] = useState<string>('');
+
+    // Functions for switching the useState hooks.
 
     const toggleAlertSuccess = () => {
         setAlertSuccess(!isAlertSuccess);
@@ -50,6 +55,7 @@ const WorkWithUsForm: React.FC<ContactFormProps> = ({ onClose }) => {
         setText(event.target.value);
     };
 
+    // Async function to send the 'POST' petition to the nodemailer library. 
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

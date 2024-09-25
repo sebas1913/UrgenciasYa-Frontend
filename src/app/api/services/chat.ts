@@ -3,21 +3,25 @@ import { db } from "../firebase/firebase-chat";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
 import { URL_BASE } from "@/config/apiConfig";
+
+// Services and functions for firebase hospital's chats. 
+
 export const getMessages = (callback: (messages: any[]) => void, id: string) => {
 	try {
-		// Query a Firestore, filtrando por el ID del hospital y ordenando por "Hora"
+
+		// Query to Firestore, filtering by hospital ID and sorting by “Time”.
 		const q = query(
 			collection(db, "messages"),
 			where("hospitalId", "==", id), // ID hospital
 			orderBy("Hora", "asc")
 		);
 
-		// Escuchar los mensajes en tiempo real
+		// Listen to messages in real time.
 		onSnapshot(q, (querySnapshot) => {
 			const messages: any[] = [];
 
 			querySnapshot.forEach((doc) => {
-				// Tomamos cada mensaje y lo guardamos en nuestro arreglo de mensajes.
+				// We take each message and store it in our message array.
 				messages.push({ ID: doc.id, ...doc.data() });
 			});
 
@@ -30,7 +34,8 @@ export const getMessages = (callback: (messages: any[]) => void, id: string) => 
 	}
 };
 
-// Función para enviar mensaje
+// Function to send menssages to firebase with the user's information. 
+
 export const sendMessage = async (message: string, hospitalId: string) => {
 	const responseID = localStorage.getItem('userID');
 
@@ -55,7 +60,7 @@ export const sendMessage = async (message: string, hospitalId: string) => {
 					Nombre: `${data.name}`,
 					Mensaje: message,
 					Hora: Timestamp.now(),
-					hospitalId, // Aquí se agrega el hospitalId
+					hospitalId,
 				});
 
 				console.log("Mensaje enviado correctamente");

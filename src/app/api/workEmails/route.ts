@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+// API route file for 'workEmails' endpoint. Includes Nodemailer library.
+
 const transporter = nodemailer.createTransport({
     service: 'Gmail', 
     auth: {
@@ -8,6 +10,8 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS, 
     },
 });
+
+// Async function with email's information.
 
 export async function POST(req: NextRequest) {
     const { name, email, subject, message } = await req.json();

@@ -8,16 +8,13 @@ import { latitudeHospital, longitudeHospital } from '@/app/chat/[id]/page';
 
 const MapComponent: React.FC = () => {
     useEffect(() => {
-        // Inicializa el mapa
         const map = L.map('my_map').setView([6.16820, -75.58851], 13);
 
-        // Capa de tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Coordenadas de inicio y fin
         if (latitude && longitude && latitudeHospital && longitudeHospital) {
             
         const startLatLng = L.latLng(latitude, longitude);
@@ -26,16 +23,15 @@ const MapComponent: React.FC = () => {
         L.marker(startLatLng).addTo(map).bindPopup("Mi nueva ubicación").openPopup();
         L.marker(endLatLng).addTo(map).bindPopup("Mi hospital").openPopup();
 
-        // Control de enrutamiento
         const controlRouting = L.Routing.control({
             waypoints: [startLatLng, endLatLng],
             routeWhileDragging: true,
             router: L.Routing.osrmv1({
                 serviceUrl: 'https://router.project-osrm.org/route/v1',
                 profile: 'driving'
-            }),
+            }), 
             // @ts-ignore
-            createMarker: () => null // Opcional: deshabilitar marcadores adicionales
+            createMarker: () => null
         }).addTo(map);
     }
         return () => {

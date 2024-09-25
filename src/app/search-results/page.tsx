@@ -5,28 +5,34 @@ import { useSearchParams } from 'next/navigation';
 import HospitalCard from '../../components/hospital-card/Hospital-card';
 import Spinner from "../../components/UI/spinner/Spinner";
 import { IHospital } from '@/interfaces/IHospital';
-// Importa las variables de latitud y longitud
 import { latitude, longitude } from '@/components/location/location';
 import { URL_BASE } from '@/config/apiConfig';
 
 const ResultsPage: React.FC = () => {
+
+	// useSearchParam for filter functionalities.
+
 	const searchParams = useSearchParams();
 	const town = searchParams.get('town');
 	const eps = searchParams.get('eps');
 
+	// useStates hooks needed for implementing the code.
+
 	const [results, setResults] = useState<IHospital[] | null>(null);
 	const [loading, setLoading] = useState(true);
+
+	// Function to initialize the search and filter the hospitals according to the user's location and EPS.
 
 	useEffect(() => {
 		const fetchHospitals = async () => {
 			try {
 				let url = '';
 
-				// Si hay `town`, realiza la búsqueda como antes
+				// Verification is made for the search, if there is town, the normal search is performed, but if there is no town, it is based on coordinates.
+
 				if (town && eps) {
 					url = `${URL_BASE}/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}`;
 				}
-				// Si no hay `town` pero sí `eps`, usa las coordenadas
 				else if (eps && latitude !== null && longitude !== null) {
 					url = `${URL_BASE}/api/v1/hospitals/filter?eps=${encodeURIComponent(eps)}&latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
 				}
@@ -48,7 +54,8 @@ const ResultsPage: React.FC = () => {
 			}
 		};
 
-		// Llama a la función si se cumplen las condiciones
+		// Verificatios to run the function to show the hospitals found.
+
 		if ((town && eps) || (eps && latitude !== null && longitude !== null)) {
 			fetchHospitals();
 		}

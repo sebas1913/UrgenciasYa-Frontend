@@ -25,16 +25,20 @@ export let latitudeHospital: number | null | undefined = null;
 export let longitudeHospital: number | null | undefined = null;
 
 const Chat: React.FC = () => {
+
+	// useStates hooks needed for implementing the code.
+
 	const [messages, setMessages] = useState<any[]>([]);
 	const [message, setMessage] = useState("");
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const [userInfo, setUserInfo] = useState<IUserInformation | null>(null);
-	const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null); // Estado para almacenar la información del usuario
+	const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null);
 	const [isAlertSuccess, setAlertSuccess] = useState(false);
 	const [isAlertError, setAlertError] = useState(false);
-	const [generatedShift, setGeneratedShift] = useState<any>(null); // Para guardar el turno generado
+	const [generatedShift, setGeneratedShift] = useState<any>(null); 
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isAfluencyModalVisible, setAfluencyModalVisible] = useState(false);
+
 
 	const toggleModal = () => {
 		setModalVisible(!isModalVisible);
@@ -57,6 +61,8 @@ const Chat: React.FC = () => {
 
 	const cookies = cookie.parse(document.cookie || '');
 	const token = cookies.auth;
+
+	// Autorun function to load a hospital information.
 
 	useEffect(() => {
 		const fetchHospital = async () => {
@@ -90,18 +96,20 @@ const Chat: React.FC = () => {
 		const hospitalId = Array.isArray(id) ? id[0] : id;
 
 		if (hospitalId) {
-			console.log("Hospital ID:", hospitalId); // Verifica el ID
-			getMessages(setMessages, hospitalId); // Llama a getMessages con el ID
+			console.log("Hospital ID:", hospitalId); // Verify hospital ID.
+			getMessages(setMessages, hospitalId); // Calls the function to get the messages from an specific hospital by its ID.
 		}
-	}, [id]); // Escucha cambios en id
+	}, [id]); // Listener.
 
+
+	// Chat functionality, scroll to the end of container when sending a new message.
 
 	useEffect(() => {
 		const container = containerRef.current;
 		if (container) {
-			container.scrollTop = container.scrollHeight; // Desplazarse al final del contenedor
+			container.scrollTop = container.scrollHeight; 
 		}
-	}, [messages]); // Se ejecuta cuando un mensaje se envíe 
+	}, [messages]); // It runs when a message is sent.
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -135,7 +143,7 @@ const Chat: React.FC = () => {
 
 				const userDocument = data.document;
 				const userEps = data.eps.id;
-				const userEmail = data.email; // Aquí obtenemos el correo del usuario
+				const userEmail = data.email; // User email.
 				const hospitalId = Array.isArray(id) ? id[0] : id;
 
 				if (userDocument && userEps && hospitalId) {
@@ -148,11 +156,11 @@ const Chat: React.FC = () => {
 					});
 
 					const shiftData = await shiftResponse.json();
-					setGeneratedShift(shiftData); // Guardar turno generado
+					setGeneratedShift(shiftData); // Save the shift.
 					setAlertSuccess(true);
 
-					// Llamar a la función para enviar el email
-					sendEmail(shiftData, data.email); // Envía los detalles del turno y el correo del usuario
+					// Send email function.
+					sendEmail(shiftData, data.email); // Shift information.
 				} else {
 					console.error('Faltan datos para crear el turno.');
 				}
@@ -168,7 +176,7 @@ const Chat: React.FC = () => {
 
 	const sendEmail = (shiftData: any, recipientEmail: string) => {
 		const templateParams = {
-			destinatarioEmail: 'diegomejiasobsu@gmail.com', 
+			destinatarioEmail: 'diegomejiasobsu@gmail.com',  // Test email (temporarily).
 			shiftId: shiftData.id,
 			shiftNumber: shiftData.shiftNumber,
 			estimatedTime: shiftData.estimatedTime,
@@ -197,15 +205,15 @@ const Chat: React.FC = () => {
 		doc.text(`Hospital ID: ${shiftData.hospitalId}`, 10, 60);
 		doc.text(`EPS ID: ${shiftData.epsId}`, 10, 70);
 
-		// Descargar el PDF inmediatamente
+		// Download the PDF file with the shift infotmation.
 		doc.save('shift_details.pdf');
 	};
 
 	useEffect(() => {
 		if (generatedShift) {
-			generatePDF(generatedShift); // Llamada directa para descargar el PDF
+			generatePDF(generatedShift); 
 		}
-	}, [generatedShift]); // Escucha los cambios en generatedShift
+	}, [generatedShift]); 
 
 	return (
 		<>

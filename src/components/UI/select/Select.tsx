@@ -1,16 +1,14 @@
 import React from "react";
 
-// UI select component interface.
 interface SelectProps {
     id?: string;
-    options: { label: string; value: string | number }[]; // select options with its label and its value.
-    value?: string | number; // selected value.
-    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void; // useState.
+    options: { label: string; value: string | number }[]; 
+    value?: string | number;
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     className?: string;
     disabled?: boolean; 
 };
 
-// UI select component.
 const Select : React.FC<SelectProps> = ({ options, value, onChange, className, disabled }) => {
     return (
         <select

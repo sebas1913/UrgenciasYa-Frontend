@@ -10,8 +10,9 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
 import { URL_BASE } from "@/config/apiConfig";
 
-
 const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+
+    // useStates hooks needed for implementing the code.
 
     const [isAlertSuccess, setAlertSuccess] = useState(false);
     const [isAlertError, setAlertError] = useState(false);
@@ -25,6 +26,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+    // Functions for switching the useState hooks.
 
     const toggleAlertSuccess = () => {
         setAlertSuccess(!isAlertSuccess);
@@ -41,6 +43,8 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const toggleAlertPassword = () => {
         setAlertPassword(!isAlertPassword);
     };
+
+    // Function to crate an user.
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -84,7 +88,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     };
 
     useEffect(() => {
-        // Obtener eps
+        // Get EPS.
         const fetchEps = async () => {
             try {
                 const response: Response = await fetch(`${URL_BASE}/api/v1/eps/getAll`);
@@ -105,6 +109,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         fetchEps(); // Llamamos la función para mostrar las EPS.
     }, []);
 
+    // Functions for switching the useState hooks.
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedName(event.target.value);
