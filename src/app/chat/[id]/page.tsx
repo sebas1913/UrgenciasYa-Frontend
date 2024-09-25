@@ -39,7 +39,6 @@ const Chat: React.FC = () => {
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isAfluencyModalVisible, setAfluencyModalVisible] = useState(false);
 
-	git add -A
 
 	const toggleModal = () => {
 		setModalVisible(!isModalVisible);
