@@ -7,6 +7,7 @@ import Button from "../UI/button/Button";
 import Label from "../UI/label/Label";
 import { TiWarningOutline } from "react-icons/ti";
 import Alert from "../UI/alert/Alert";
+import { URL_BASE } from "@/config/apiConfig";
 
 const SearchForm: React.FC = () => {
 	const router = useRouter();
@@ -27,7 +28,7 @@ const SearchForm: React.FC = () => {
 	useEffect(() => {
 		const fetchTowns = async () => {
 			try {
-				const response: Response = await fetch("https://urgenciasya-backend.onrender.com/api/v1/towns/getAll");
+				const response: Response = await fetch(`${URL_BASE}/api/v1/towns/getAll`);
 				const data = await response.json();
 				const townOptions = data.map((element: any) => ({
 					label: element.name,
@@ -48,7 +49,7 @@ const SearchForm: React.FC = () => {
 
 		const fetchEps = async () => {
 			try {
-				const response: Response = await fetch("https://urgenciasya-backend.onrender.com/api/v1/eps/getAll");
+				const response: Response = await fetch(`${URL_BASE}/api/v1/eps/getAll`);
 				const data = await response.json();
 				const epsOptions = data.map((element: any) => ({
 					label: element.name,

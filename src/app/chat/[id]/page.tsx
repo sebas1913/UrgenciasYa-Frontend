@@ -18,6 +18,11 @@ import Modal from "@/components/modal/Modal";
 import MapComponent from "@/components/map/Map";
 import { jsPDF } from 'jspdf';
 import emailjs from 'emailjs-com';
+import DynamicHourChart from "@/components/afluency/afluency";
+import { URL_BASE } from "@/config/apiConfig";
+
+export let latitudeHospital: number | null | undefined = null;
+export let longitudeHospital: number | null | undefined = null;
 
 const Chat: React.FC = () => {
 	const [messages, setMessages] = useState<any[]>([]);
@@ -29,6 +34,7 @@ const Chat: React.FC = () => {
 	const [isAlertError, setAlertError] = useState(false);
 	const [generatedShift, setGeneratedShift] = useState<any>(null); // Para guardar el turno generado
 	const [isModalVisible, setModalVisible] = useState(false);
+	const [isAfluencyModalVisible, setAfluencyModalVisible] = useState(false);
 
 	const toggleModal = () => {
 		setModalVisible(!isModalVisible);
@@ -45,6 +51,10 @@ const Chat: React.FC = () => {
 		setAlertError(!isAlertError);
 	};
 
+	const toggleModalAfluency = () => {
+		setAfluencyModalVisible(!isAfluencyModalVisible);
+	};
+
 	const cookies = cookie.parse(document.cookie || '');
 	const token = cookies.auth;
 
@@ -54,7 +64,7 @@ const Chat: React.FC = () => {
 			if (id) {
 
 				try {
-					const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/hospitals/${id}`, {
+					const response: Response = await fetch(`${URL_BASE}/api/v1/hospitals/${id}`, {
 						headers: {
 							'accept': 'application/json',
 							'Authorization': `Bearer ${token} `
@@ -63,7 +73,10 @@ const Chat: React.FC = () => {
 
 					const data: IHospital = await response.json();
 					setHospitalInformation(data);
-					console.log(data.town_id?.name)
+					console.log(data.concurrencyProfile)
+
+					longitudeHospital = data.longitude;
+					latitudeHospital = data.latitude;
 
 				} catch (error) {
 					console.error(`No se pudo realizar la petición: ${error}`);
@@ -108,7 +121,7 @@ const Chat: React.FC = () => {
 		if (responseID) {
 			const userID = JSON.parse(responseID);
 			try {
-				const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
+				const response: Response = await fetch(`${URL_BASE}/api/v1/users/${userID.id}`, {
 					method: 'GET',
 					headers: {
 						'accept': 'application/json',
@@ -125,7 +138,7 @@ const Chat: React.FC = () => {
 				const hospitalId = Array.isArray(id) ? id[0] : id;
 
 				if (userDocument && userEps && hospitalId) {
-					const shiftResponse: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
+					const shiftResponse: Response = await fetch(`${URL_BASE}/api/v1/shifts/create?document=${encodeURIComponent(userDocument)}&hospitalId=${encodeURIComponent(hospitalId)}&epsId=${encodeURIComponent(userEps)}`, {
 						method: 'POST',
 						headers: {
 							'Authorization': `Bearer ${token}`,
@@ -239,8 +252,19 @@ const Chat: React.FC = () => {
 									</div>
 
 									<div className={styles.iconInformation}>
-										<Button className={styles.informationButton}><BiSolidBarChartAlt2 className={styles.iconDescription} /></Button>
+										<Button className={styles.informationButton} onClick={toggleModalAfluency}><BiSolidBarChartAlt2 className={styles.iconDescription} /></Button>
 										<p>Concurrencia</p>
+										{hospitalInformation && hospitalInformation.concurrencyProfile && (
+											<Modal isVisible={isAfluencyModalVisible}
+												onClose={toggleModalAfluency}>
+												<div className={styles.title}>
+													<h1>Concurrencia</h1>
+												</div>
+												<DynamicHourChart
+													hourData={hospitalInformation.concurrencyProfile}
+												/>
+											</Modal>
+										)}
 									</div>
 
 									<div className={styles.iconInformation}>

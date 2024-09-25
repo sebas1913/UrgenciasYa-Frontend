@@ -8,6 +8,7 @@ import Select from "../UI/select/Select";
 import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
+import { URL_BASE } from "@/config/apiConfig";
 
 
 
@@ -56,7 +57,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         };
 
         try {
-            const response: Response = await fetch('https://urgenciasya-backend.onrender.com/api/v1/users/register', {
+            const response: Response = await fetch(`${URL_BASE}/api/v1/users/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         // Obtener eps
         const fetchEps = async () => {
             try {
-                const response: Response = await fetch("https://urgenciasya-backend.onrender.com/api/v1/eps/getAll");
+                const response: Response = await fetch(`${URL_BASE}/api/v1/eps/getAll`);
                 const data = await response.json();
                 const epsOptions = data.map((element: any) => ({
                     label: element.name,

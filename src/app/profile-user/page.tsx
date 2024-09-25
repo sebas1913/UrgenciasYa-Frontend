@@ -14,13 +14,15 @@ import { MdOutlineEmergency } from "react-icons/md";
 import Location, { latitude, longitude } from "@/components/location/location";  // Importa la latitud y longitud
 import cookie from 'cookie';
 import { IUserInformation, IUserShift } from "@/interfaces/IUser";
+import DynamicHourChart from "@/components/afluency/afluency";
+import { URL_BASE } from "@/config/apiConfig";
 
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);
     const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
     const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); // Estado para almacenar la información del usuario
-    const [userShift, setUserShift] = useState<IUserShift | null>(null);
+    const [userShift, setUserShift] = useState<IUserShift[]>([])
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -34,6 +36,7 @@ const Profile = () => {
         setPasswordModalVisible(!isPasswordModalVisible);
     };
 
+
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
     const router = useRouter();  // Inicializa useRouter
@@ -44,14 +47,16 @@ const Profile = () => {
         const fetchUser = async () => {
             if (responseID) {
                 const userID = JSON.parse(responseID);
+
                 try {
-                    const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
+                    const response: Response = await fetch(`${URL_BASE}/api/v1/users/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',
                             'Authorization': `Bearer ${token}`
                         }
                     });
+
 
                     const data: IUserInformation = await response.json();
                     setUserInfo(data);
@@ -60,26 +65,31 @@ const Profile = () => {
                 }
             }
         };
-
-        const fetchShift = async () => {
-            try {
-                const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/shifts/user/${userInfo?.document}`, {
-                    headers: {
-                        'accept': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                const data: IUserShift = await response.json();
-                console.log(data);
-                setUserShift(data);
-            } catch (error) {
-                console.error(`No se pudo realizar la petición: ${error}`);
-            }
-        }
         fetchUser();
-        fetchShift();
     }, [token]);
+
+    useEffect(() => {
+        const fetchShift = async () => {
+            if (userInfo?.document) {
+                try {
+                    const response: Response = await fetch(`${URL_BASE}/api/v1/shifts/user/${userInfo.document}`, {
+                        headers: {
+                            'accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    const data: IUserShift[] = await response.json();
+
+                    setUserShift(data);
+                } catch (error) {
+                    console.error(`No se pudo realizar la petición: ${error}`);
+                }
+            }
+        };
+        fetchShift();
+    }, [userInfo?.document, token]);  // Cambia `userShift` por `userInfo?.document`
+
 
     const handleSearch = () => {
         router.push(`/search-results?eps=${userInfo?.eps.name}&latitude=${latitude}&longitude=${longitude}`);
@@ -102,13 +112,18 @@ const Profile = () => {
                                 <Button className={styles.searchButton} type="button" onClick={handleSearch}>Realizar búsqueda</Button>
                             </div>
                         </div>
-                        <div className={styles.tickets}>
-                            <h1 className={styles.ticketTitle}>Mis turnos</h1>
-                            <p>{userShift?.status}</p>
-                            <p>{userShift?.shiftNumber}</p>
-                            <p>{userShift?.epsId.name}</p>
-                            <p>{userShift?.hospitalId.name}</p>
-                            <p>{userShift?.estimatedTime}</p>
+                        <h1 className={styles.title}>Mis turnos</h1>
+
+                        <div className={styles.containerShifts}>
+                            {userShift?.length > 0 && userShift.map((shift) => (
+                                <div key={shift.id} className={styles.shiftItem}>
+                                    <p><b>Turno N°:</b> {shift.shiftNumber}</p>
+                                    <p><b>Estado:</b> {shift.status}</p>
+                                    <p><b>Tiempo estimado:</b> {shift.estimatedTime}</p>
+                                    <p><b>Hospital:</b> {shift.hospitalId.name}</p>
+                                    <p><b>EPS:</b> {shift.epsId.name}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className={styles.profileData}>
@@ -164,7 +179,6 @@ const Profile = () => {
             <Modal isVisible={isPasswordModalVisible} onClose={toggleModalPassword}>
                 <PasswordForm onClose={toggleModalPassword} />
             </Modal>
-
             <Location />
         </>
     );

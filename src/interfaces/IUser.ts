@@ -1,6 +1,7 @@
 // src/context/AuthContext.tsx
 export interface IUser {
     id : number;
+    role? : number;
 };
 
 export interface IUserInformation {

@@ -2,14 +2,14 @@ import { collection, query, orderBy, onSnapshot, addDoc, Timestamp, where } from
 import { db } from "../firebase/firebase-chat";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
+import { URL_BASE } from "@/config/apiConfig";
 
-// Traer mensajes filtrados por ID del hospital
 export const getMessages = (callback: (messages: any[]) => void, id: string) => {
 	try {
 		// Query a Firestore, filtrando por el ID del hospital y ordenando por "Hora"
 		const q = query(
 			collection(db, "messages"),
-			where("hospitalId", "==", id), // Filtra por el ID del hospital
+			where("hospitalId", "==", id), // ID hospital
 			orderBy("Hora", "asc")
 		);
 
@@ -42,7 +42,7 @@ export const sendMessage = async (message: string, hospitalId: string) => {
 		try {
 			const userID = JSON.parse(responseID);
 			try {
-				const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
+				const response: Response = await fetch(`${URL_BASE}/api/v1/users/${userID.id}`, {
 					method: 'GET',
 					headers: {
 						'accept': 'application/json',

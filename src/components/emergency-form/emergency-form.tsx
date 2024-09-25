@@ -9,6 +9,7 @@ import { IUserInformation } from "@/interfaces/IUser";
 import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
+import { URL_BASE } from "@/config/apiConfig";
 
 interface EmergencyFormProps {
     onClose: () => void;
@@ -54,7 +55,7 @@ const EmergencyContact: React.FC<EmergencyFormProps> = ({ onClose }) => {
                 const userID = JSON.parse(responseID);
 
                 try {
-                    const response: Response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
+                    const response: Response = await fetch(`${URL_BASE}/api/v1/users/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',
@@ -90,9 +91,9 @@ const EmergencyContact: React.FC<EmergencyFormProps> = ({ onClose }) => {
             const userID = JSON.parse(responseID);
 
             const endpoint = userInfo?.contact
-                ? `https://urgenciasya-backend.onrender.com/api/v1/contacts/${userInfo.contact.id
+                ? `${URL_BASE}/api/v1/contacts/${userInfo.contact.id
                 }?name=${encodeURIComponent(contactName)}&phone=${encodeURIComponent(contactPhone)}`
-                : `https://urgenciasya-backend.onrender.com/api/v1/contacts/create/${userID.id}?name=${encodeURIComponent(contactName)}&phone=${encodeURIComponent(contactPhone)}`;
+                : `${URL_BASE}/api/v1/contacts/create/${userID.id}?name=${encodeURIComponent(contactName)}&phone=${encodeURIComponent(contactPhone)}`;
 
             try {
                 const response = await fetch(endpoint, {
