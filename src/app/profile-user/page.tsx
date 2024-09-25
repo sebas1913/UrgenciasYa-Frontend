@@ -11,16 +11,21 @@ import UpdateUserForm from "@/components/user-form/user-form";
 import EmergencyContact from "@/components/emergency-form/emergency-form";
 import PasswordForm from "@/components/password-form/password-form";
 import { MdOutlineEmergency } from "react-icons/md";
-import Location, { latitude, longitude } from "@/components/location/location";  // Importa la latitud y longitud
+import Location, { latitude, longitude } from "@/components/location/location"; 
 import cookie from 'cookie';
 import { IUserInformation, IUserShift } from "@/interfaces/IUser";
 import { URL_BASE } from "@/config/apiConfig";
 const Profile = () => {
+
+    // useStates hooks needed for implementing the code.
+
     const [isModalVisible, setModalVisible] = useState(false);
     const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);
     const [isPasswordModalVisible, setPasswordModalVisible] = useState(false);
-    const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); // Estado para almacenar la información del usuario
-    const [userShift, setUserShift] = useState<IUserShift[]>([])
+    const [userInfo, setUserInfo] = useState<IUserInformation | null>(null); 
+    const [userShift, setUserShift] = useState<IUserShift[]>([]);
+
+    // Functions for switching the useState hooks.
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -34,10 +39,13 @@ const Profile = () => {
         setPasswordModalVisible(!isPasswordModalVisible);
     };
 
+    // Import cookies for login authentication. 
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
-    const router = useRouter();  // Inicializa useRouter
+    const router = useRouter();  // Next router.
+
+    // useEffect to get an user by its ID.
 
     useEffect(() => {
         const responseID = localStorage.getItem('userID');
@@ -66,6 +74,8 @@ const Profile = () => {
         fetchUser();
     }, [token]);
 
+    // useEffect to get shifts from an user by its ID document.
+
     useEffect(() => {
         const fetchShift = async () => {
             if (userInfo?.document) {
@@ -86,8 +96,9 @@ const Profile = () => {
             }
         };
         fetchShift();
-    }, [userInfo?.document, token]);  // Cambia `userShift` por `userInfo?.document`
+    }, [userInfo?.document, token]); 
 
+    // Redirection to search page with latitude and longitude parameters.
 
     const handleSearch = () => {
         router.push(`/search-results?eps=${userInfo?.eps.name}&latitude=${latitude}&longitude=${longitude}`);

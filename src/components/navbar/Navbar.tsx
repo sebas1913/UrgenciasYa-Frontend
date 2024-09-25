@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 'use client'
 import React, { useState } from 'react';
 import styles from './navbar.module.scss';
@@ -7,7 +6,7 @@ import { CgCloseO } from "react-icons/cg";
 import RegisterForm from '../register-form/Register-form';
 import LoginForm from '../login-form/Login-form';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../context/AuthContext'; // Importa el contexto
+import { useAuth } from '../context/AuthContext'; 
 
 const Navbar: React.FC = () => {
 	const { isAuthenticated, logout } = useAuth();

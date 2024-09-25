@@ -17,13 +17,14 @@ const SearchForm: React.FC = () => {
 		setAlertNull(!isAlertNull);
 	};
 
-	// Creamos dos "estados" para guardar el municipio y la EPS.
+	// useStates hooks needed for implementing the code.
+
 	const [selectedTown, setSelectedTown] = useState('');
 	const [selectedEPS, setSelectedEPS] = useState('');
-
-	// Creamos dos "estados" para guardar las opciones de municipios y EPS que obtenemos del servidor.
 	const [towns, setTowns] = useState<{ label: string, value: string }[]>([]);
 	const [eps, setEps] = useState<{ label: string, value: string }[]>([]);
+
+	// Function to bring all the towns and all the EPS.
 
 	useEffect(() => {
 		const fetchTowns = async () => {
@@ -64,8 +65,10 @@ const SearchForm: React.FC = () => {
 				console.error("Error fetching EPS:", error);
 			}
 		};
-		fetchEps(); // Llamamos la función para obtener las EPS.
-	}, []); // Este arreglo vacío significa que solo ejecutamos esto una vez cuando la página carga.
+		fetchEps(); 
+	}, []); // This empty array means that we only execute this once when the page loads.
+
+	// Function to send the search params with the values to initialize the filter. 
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

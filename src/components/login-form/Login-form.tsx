@@ -6,7 +6,7 @@ import Label from "../UI/label/Label";
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 import { useRouter } from "next/navigation";
-import { useAuth } from '../context/AuthContext'; // Importa el contexto
+import { useAuth } from '../context/AuthContext'; 
 import Alert from "../UI/alert/Alert";
 import { TiWarningOutline } from "react-icons/ti";
 import { IUser } from "@/interfaces/IUser";
@@ -25,7 +25,7 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
         setAlertError(!isAlertError);
     };
 
-    const { login } = useAuth(); // Usa el contexto
+    const { login } = useAuth(); 
 
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedPassword, setSelectedPassword] = useState('');

@@ -14,7 +14,6 @@ const Location: React.FC = () => {
                     const { latitude: lat, longitude: lon } = position.coords;
                     setLocationState({ latitude: lat, longitude: lon });
 
-                    // Actualiza las variables globales
                     latitude = lat;
                     longitude = lon;
                 },
@@ -27,7 +26,7 @@ const Location: React.FC = () => {
         }
     }, []);
 
-    return null;  // No necesitas renderizar nada si solo estás usando la ubicación
+    return null;
 };
 
 export default Location;

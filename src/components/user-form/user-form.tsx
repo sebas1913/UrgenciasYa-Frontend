@@ -13,6 +13,9 @@ import { TiWarningOutline } from "react-icons/ti";
 import { URL_BASE } from "@/config/apiConfig";
 
 const UpdateUserForm: React.FC = () => {
+
+    // useStates hooks needed for implementing the code.
+
     const { login } = useAuth();
     const [isFormVisible, setIsFormVisible] = useState(true);
     const [selectedName, setSelectedName] = useState('');
@@ -24,9 +27,12 @@ const UpdateUserForm: React.FC = () => {
     const [isAlertError, setAlertError] = useState(false);
     const [isAlertNull, setAlertNull] = useState(false);
 
+    // Get the token from cookies. 
 
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
+
+    // Function to get an user by its ID.
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -62,6 +68,8 @@ const UpdateUserForm: React.FC = () => {
         fetchEps();
     }, []);
 
+    // Function to get all the EPS.
+
     const fetchEps = async () => {
         try {
             const response: Response = await fetch(`${URL_BASE}/api/v1/eps/getAll`);
@@ -79,6 +87,8 @@ const UpdateUserForm: React.FC = () => {
             console.error("Error fetching EPS:", error);
         }
     };
+
+    // Functions for switching the useState hooks.
 
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedName(event.target.value);
@@ -107,6 +117,8 @@ const UpdateUserForm: React.FC = () => {
     const toggleAlertNull = () => {
         setAlertNull(!isAlertNull);
     };
+
+    // Function to update users information.
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
