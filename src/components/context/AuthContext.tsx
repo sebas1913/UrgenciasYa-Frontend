@@ -19,6 +19,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<IUser | null>(null);
     const [authChecked, setAuthChecked] = useState<boolean>(false); 
 
+    // Effect to check authentication cookie when mounting
     useEffect(() => {
         const cookies = cookie.parse(document.cookie || '');
         const token = cookies.auth;
@@ -28,26 +29,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setIsAuthenticated(true);
             setUser(userInfo);
         }
-        setAuthChecked(true);  // La autenticación ha sido verificada
+        setAuthChecked(true);  // Authentication verify
     }, []);
 
     const login = (token: string, userInfo: IUser) => {
         document.cookie = `auth=${token}; path=/;`;
-        localStorage.setItem('userID', JSON.stringify(userInfo)); // Guardamos la info del usuario localmente
+        localStorage.setItem('userID', JSON.stringify(userInfo)); // We save the user info locally
         setIsAuthenticated(true);
         setUser(userInfo);
     };
 
     const logout = () => {
         document.cookie = `auth=; Max-Age=0; path=/;`;
-        localStorage.removeItem('userID'); // Eliminamos la info del usuario
+        localStorage.removeItem('userID');
         setIsAuthenticated(false);
         setUser(null);
         router.replace('/');
     };
 
     if (!authChecked) {
-        // Mientras verificamos la autenticación, no renderizamos nada
+        //  // While verifying authentication, we do not render anything.
         return null;
     }
 

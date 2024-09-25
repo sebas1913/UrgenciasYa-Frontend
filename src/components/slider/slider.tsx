@@ -12,8 +12,9 @@ const Slider = () => {
 
 			<h2 className={styles.title}>Entidades aliadas</h2>
 
+			{/* Import the swipper component */}
 			<Swiper
-				spaceBetween={30}
+				spaceBetween={30} 
 				slidesPerView={4}
 				centeredSlides={false}
 				autoplay={{
@@ -25,6 +26,8 @@ const Slider = () => {
 				}}
 				navigation={false}
 				modules={[Autoplay, Pagination, Navigation]}
+
+				// número de slides visibles según el tamaño de pantalla
 				breakpoints={{
 					320: { slidesPerView: 1 },
 					640: { slidesPerView: 2 },

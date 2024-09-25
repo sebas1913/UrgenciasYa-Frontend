@@ -46,13 +46,14 @@ const EmergencyContact: React.FC<EmergencyFormProps> = ({ onClose }) => {
     const cookies = cookie.parse(document.cookie || '');
     const token = cookies.auth;
 
+    // useEffect is executed when the component is mounted to get the user information from the API
     useEffect(() => {
         const responseID = localStorage.getItem('userID');
 
         const fetchUser = async () => {
             if (responseID) {
                 const userID = JSON.parse(responseID);
-
+                 // If the user already has an emergency contact, fill in the fields with that information.
                 try {
                     const response: Response = await fetch(`${URL_BASE}/api/v1/users/${userID.id}`, {
                         method: 'GET',
@@ -89,6 +90,7 @@ const EmergencyContact: React.FC<EmergencyFormProps> = ({ onClose }) => {
         if (responseID) {
             const userID = JSON.parse(responseID);
 
+            // Depending on whether the user already has a contact, use a PUT (update) or POST (create) request.
             const endpoint = userInfo?.contact
                 ? `${URL_BASE}/api/v1/contacts/${userInfo.contact.id
                 }?name=${encodeURIComponent(contactName)}&phone=${encodeURIComponent(contactPhone)}`

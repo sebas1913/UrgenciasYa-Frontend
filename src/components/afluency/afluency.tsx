@@ -5,13 +5,14 @@ interface HourData {
     [hour: string]: number;
 }
 
+// Property containing the hours data.
 interface ChartProps {
     hourData: HourData;
 }
 
 const DynamicHourChart: React.FC<ChartProps> = ({ hourData }) => {
     const [chartData, setChartData] = useState<{ hour: string; value: number }[]>([]);
-
+    // chartData will store the formatted information for the chart
     useEffect(() => {
         if (hourData) {
             const updateChartData = () => {
@@ -20,7 +21,9 @@ const DynamicHourChart: React.FC<ChartProps> = ({ hourData }) => {
             const currentMinute = currentDate.getMinutes();
 
             const relevantHours = [-3, -2, -1, 0, 1, 2, 3].map(offset => {
+                 // Calculates the time based on the offset (and adjusts so that it is always in the range 0-23)
                 const hour = (currentHour + offset + 24) % 24;
+                // Returns the time in two-digit format with “:00” at the end
                 return hour.toString().padStart(2, '0') + ':00';
             });
 
@@ -33,7 +36,7 @@ const DynamicHourChart: React.FC<ChartProps> = ({ hourData }) => {
         };
 
         updateChartData();
-        const intervalId = setInterval(updateChartData, 60000); // Actualizar cada minuto
+        const intervalId = setInterval(updateChartData, 60000); // to keep up with every minute
 
         return () => clearInterval(intervalId);
             

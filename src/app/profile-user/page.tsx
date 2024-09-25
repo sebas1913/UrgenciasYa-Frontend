@@ -100,6 +100,7 @@ const Profile = () => {
 
     // Redirection to search page with latitude and longitude parameters.
 
+    
     const handleSearch = () => {
         router.push(`/search-results?eps=${userInfo?.eps.name}&latitude=${latitude}&longitude=${longitude}`);
     };

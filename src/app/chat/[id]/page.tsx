@@ -39,7 +39,7 @@ const Chat: React.FC = () => {
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isAfluencyModalVisible, setAfluencyModalVisible] = useState(false);
 
-	// Functions for switching the useState hooks.
+	git add -A
 
 	const toggleModal = () => {
 		setModalVisible(!isModalVisible);
