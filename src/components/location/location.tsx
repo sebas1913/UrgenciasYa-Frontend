@@ -1,7 +1,6 @@
 // src/app/components/Location.tsx
 import React, { useEffect, useState } from 'react';
 
-// Declara las variables fuera del componente
 export let latitude: number | null = null;
 export let longitude: number | null = null;
 

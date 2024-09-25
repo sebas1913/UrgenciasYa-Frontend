@@ -8,7 +8,7 @@ import cookie from 'cookie';
 import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
-
+import { URL_BASE } from "@/config/apiConfig";
 interface PasswordFormProps {
     onClose: () => void;
 };
@@ -76,7 +76,7 @@ const PasswordForm : React.FC<PasswordFormProps> = ({ onClose }) => {
             const userID = JSON.parse(responseID);
 
             try {
-                const response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}/change-password`, {
+                const response = await fetch(`${URL_BASE}/api/v1/users/${userID.id}/change-password`, {
                     method: 'PUT',
                     headers: {
                         'accept': '*/*',

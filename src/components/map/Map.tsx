@@ -3,6 +3,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import { latitude, longitude } from '@/components/location/location';
+import { latitudeHospital, longitudeHospital } from '@/app/chat/[id]/page';
 
 const MapComponent: React.FC = () => {
     useEffect(() => {
@@ -16,10 +18,11 @@ const MapComponent: React.FC = () => {
         }).addTo(map);
 
         // Coordenadas de inicio y fin
-        const startLatLng = L.latLng(6.16820, -75.58851);
-        const endLatLng = L.latLng(6.213893, -75.594885);
+        if (latitude && longitude && latitudeHospital && longitudeHospital) {
+            
+        const startLatLng = L.latLng(latitude, longitude);
+        const endLatLng = L.latLng(latitudeHospital, longitudeHospital);
 
-        // Marcadores
         L.marker(startLatLng).addTo(map).bindPopup("Mi nueva ubicación").openPopup();
         L.marker(endLatLng).addTo(map).bindPopup("Mi hospital").openPopup();
 
@@ -34,8 +37,7 @@ const MapComponent: React.FC = () => {
             // @ts-ignore
             createMarker: () => null // Opcional: deshabilitar marcadores adicionales
         }).addTo(map);
-
-        // Limpieza al desmontar el componente
+    }
         return () => {
             map.remove();
         };

@@ -18,6 +18,12 @@
             flex-direction: column;
             gap: 2.1rem;
 
+            .title{
+                color: $turquoise-color;
+                font-size: 2.5rem;
+                font-weight: 700;
+            }
+
             .welcome {
                 width: 100%;
                 display: flex;
@@ -63,16 +69,21 @@
                 }
             }
 
-            .tickets {
+            .containerShifts{
                 width: 100%;
                 display: flex;
-                flex-direction: column;
-                gap: 0.6rem;
+                flex-wrap: wrap;
+                gap: 1rem;
 
-                .ticketTitle {
-                    color: $turquoise-color;
-                    font-size: 2.5rem;
-                    font-weight: 700;
+                .shiftItem{
+                    background-color: $white-color;
+                    @include shadow($black-color, 0.2);
+                    @include border-radius(0.2rem);
+                    padding: 1.5rem;
+
+                    p{
+                        margin: 0.3rem 0rem;
+                    }
                 }
             }
         }
@@ -86,6 +97,7 @@
         flex-direction: column;
         gap: 1.5rem;
         align-items: center;
+        justify-content: center;
         padding: 1.5rem;
         @include border-radius(0.3rem);
         @include shadow($black-color, 0.2);
@@ -125,7 +137,7 @@
                 gap: 1.5rem;
                 justify-content: center;
 
-                .editButton{
+                .editButton {
                     color: $white-color;
                     border: none;
                     width: 2.7rem;

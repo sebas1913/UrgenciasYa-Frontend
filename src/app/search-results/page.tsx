@@ -5,9 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import HospitalCard from '../../components/hospital-card/Hospital-card';
 import Spinner from "../../components/UI/spinner/Spinner";
 import { IHospital } from '@/interfaces/IHospital';
-
 // Importa las variables de latitud y longitud
 import { latitude, longitude } from '@/components/location/location';
+import { URL_BASE } from '@/config/apiConfig';
 
 const ResultsPage: React.FC = () => {
 	const searchParams = useSearchParams();
@@ -24,11 +24,11 @@ const ResultsPage: React.FC = () => {
 
 				// Si hay `town`, realiza la búsqueda como antes
 				if (town && eps) {
-					url = `https://urgenciasya-backend.onrender.com/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}`;
+					url = `${URL_BASE}/api/v1/hospitals/filter?eps=${encodeURIComponent(eps || '')}&town=${encodeURIComponent(town || '')}`;
 				}
 				// Si no hay `town` pero sí `eps`, usa las coordenadas
 				else if (eps && latitude !== null && longitude !== null) {
-					url = `https://urgenciasya-backend.onrender.com/api/v1/hospitals/filter?eps=${encodeURIComponent(eps)}&latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+					url = `${URL_BASE}/api/v1/hospitals/filter?eps=${encodeURIComponent(eps)}&latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
 				}
 
 				if (url) {
@@ -54,7 +54,7 @@ const ResultsPage: React.FC = () => {
 		}
 	}, [town, eps]);
 
-	if (loading) return <Spinner/>;
+	if (loading) return <Spinner />;
 
 	return (
 		<div className={styles.containerResults}>
@@ -71,6 +71,7 @@ const ResultsPage: React.FC = () => {
 							rating={hospital.rating}
 							howtogetthere={hospital.howtogetthere}
 							nameTown={hospital.nameTown}
+							concurrencyProfile={hospital.concurrencyProfile}
 						/>
 					))}
 				</div>

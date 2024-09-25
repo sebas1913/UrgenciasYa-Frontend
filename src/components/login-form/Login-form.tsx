@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from '../context/AuthContext'; // Importa el contexto
 import Alert from "../UI/alert/Alert";
 import { TiWarningOutline } from "react-icons/ti";
+import { IUser } from "@/interfaces/IUser";
+import { URL_BASE } from "@/config/apiConfig";
 
 const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     const router = useRouter();
@@ -30,14 +32,14 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+    
         if (!selectedEmail || !selectedPassword) {
-            setAlertNull(true)
+            setAlertNull(true);
             return;
-        };
-
+        }
+    
         try {
-            const response: Response = await fetch('https://urgenciasya-backend.onrender.com/api/v1/users/login', {
+            const response: Response = await fetch(`${URL_BASE}/api/v1/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,28 +49,37 @@ const LoginForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                     password: selectedPassword
                 }),
             });
-
+    
             if (!response.ok) {
                 throw new Error(`Error en el log in: ${response.statusText}`);
-            };
-
+            }
+    
             const data = await response.json();
             const token = data.token;
-
+    
             if (token) {
-                const userInfo = {
-                    id: data.id
+                const userInfo : IUser = {
+                    id: data.id,
+                    role : data.role_id // Guardamos el rol del usuario
                 };
-                login(token, userInfo); // Guarda el token y la info del usuario
-                router.push('/profile-user');
+                
+                login(token, userInfo);
+    
+                // Redirigir según el rol
+                if (userInfo.role === 2) {
+                    router.push('/admin'); // Página del admin
+                } else {
+                    router.push('/profile-user'); // Página del usuario
+                }
                 onSuccess();
-            };
-
+            }
+    
         } catch (error) {
             console.error("Error en la solicitud:", error);
-            setAlertError(true)
+            setAlertError(true);
         }
     };
+    
 
     const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedEmail(event.target.value);

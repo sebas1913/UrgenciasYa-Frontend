@@ -189,6 +189,11 @@
                     flex-direction: column;
                     justify-content: space-around;
 
+                    .title{
+                        display: flex;
+                        justify-content: center;
+                    }
+
                     .shift{
                         display: flex;
                         align-items: center;
@@ -261,6 +266,7 @@
         }
     }
 }
+
 
 @include mediaQuery(small) {
     .chatContainer {

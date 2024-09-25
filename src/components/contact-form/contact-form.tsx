@@ -35,14 +35,20 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
         setAlertError(!isAlertError);
     };
 
+
+    //form with the request to contact api via email
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+
+        //Verification data
         if (!selectedName || !selectedMessage || !selectedEmail) {
             setAlertNull(true);
             return;
         }
 
+
+        //request for contactEmail
         try {
             const response = await fetch('/api/contactEmails', {
                 method: 'POST',

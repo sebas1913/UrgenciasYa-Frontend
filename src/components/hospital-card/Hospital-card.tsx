@@ -61,12 +61,7 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                     <div className={styles.iconInformation}>
                         <Button className={styles.informationButton}><FaLocationDot className={styles.iconDescription} /></Button><p>{nameTown}</p>
                     </div>
-
-                    <div className={styles.iconInformation}>
-                        <Button className={styles.informationButton}><BiSolidBarChartAlt2 className={styles.iconDescription} /></Button>
-                        <p>Concurrencia</p>
-                    </div>
-
+                    
                     <div className={styles.iconInformation}>
                         <Button className={styles.informationButton}><FaPhoneAlt className={styles.iconDescription} /></Button>
                         <p>{phone_number}</p>
@@ -79,8 +74,8 @@ const HospitalCard: React.FC<IHospital> = ({ id, name, phone_number, rating, url
                             isVisible={isAlertVisible}
                             onClose={toggleAlert}
                             icono={<TiWarningOutline />}
-                            title='¡Oops, ha ocurrido un error!'
-                            description='Debes iniciar sesión para acceder al chat del hospital'
+                            title='¡Inicia sesión!'
+                            description='Debes iniciar sesión para acceder a esta funcionalidad'
                         >
                         </Alert>
                     )}

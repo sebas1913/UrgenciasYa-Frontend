@@ -10,7 +10,7 @@ import cookie from 'cookie';
 import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
-
+import { URL_BASE } from "@/config/apiConfig";
 
 const UpdateUserForm: React.FC = () => {
     const { login } = useAuth();
@@ -35,7 +35,7 @@ const UpdateUserForm: React.FC = () => {
 
                 if (responseID) {
                     const userID = JSON.parse(responseID);
-                    const userResponse = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/${userID.id}`, {
+                    const userResponse = await fetch(`${URL_BASE}/api/v1/users/${userID.id}`, {
                         method: 'GET',
                         headers: {
                             'accept': 'application/json',
@@ -64,7 +64,7 @@ const UpdateUserForm: React.FC = () => {
 
     const fetchEps = async () => {
         try {
-            const response: Response = await fetch("https://urgenciasya-backend.onrender.com/api/v1/eps/getAll");
+            const response: Response = await fetch(`${URL_BASE}/api/v1/eps/getAll`);
             const data = await response.json();
             const epsOptions = data.map((element: any) => ({
                 label: element.name,
@@ -124,7 +124,7 @@ const UpdateUserForm: React.FC = () => {
             const userID = JSON.parse(responseID);
 
             try {
-                const response = await fetch(`https://urgenciasya-backend.onrender.com/api/v1/users/update/${userID.id}`, {
+                const response = await fetch(`${URL_BASE}/api/v1/users/update/${userID.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
