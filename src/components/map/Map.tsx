@@ -4,9 +4,14 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import { latitude, longitude } from '@/components/location/location';
-import { latitudeHospital, longitudeHospital } from '@/app/chat/[id]/page';
 
-const MapComponent: React.FC = () => {
+
+interface MapComponentProps {
+    latitudeHospital: number | null | undefined;
+    longitudeHospital: number | null | undefined;
+}
+
+const MapComponent: React.FC<MapComponentProps> = ({ latitudeHospital, longitudeHospital }) => {
     useEffect(() => {
         const map = L.map('my_map').setView([6.16820, -75.58851], 13);
 
@@ -16,24 +21,24 @@ const MapComponent: React.FC = () => {
         }).addTo(map);
 
         if (latitude && longitude && latitudeHospital && longitudeHospital) {
-            
-        const startLatLng = L.latLng(latitude, longitude);
-        const endLatLng = L.latLng(latitudeHospital, longitudeHospital);
 
-        L.marker(startLatLng).addTo(map).bindPopup("Mi nueva ubicación").openPopup();
-        L.marker(endLatLng).addTo(map).bindPopup("Mi hospital").openPopup();
+            const startLatLng = L.latLng(latitude, longitude);
+            const endLatLng = L.latLng(latitudeHospital, longitudeHospital);
 
-        const controlRouting = L.Routing.control({
-            waypoints: [startLatLng, endLatLng],
-            routeWhileDragging: true,
-            router: L.Routing.osrmv1({
-                serviceUrl: 'https://router.project-osrm.org/route/v1',
-                profile: 'driving'
-            }), 
-            // @ts-ignore
-            createMarker: () => null
-        }).addTo(map);
-    }
+            L.marker(startLatLng).addTo(map).bindPopup("Mi nueva ubicación").openPopup();
+            L.marker(endLatLng).addTo(map).bindPopup("Mi hospital").openPopup();
+
+            const controlRouting = L.Routing.control({
+                waypoints: [startLatLng, endLatLng],
+                routeWhileDragging: true,
+                router: L.Routing.osrmv1({
+                    serviceUrl: 'https://router.project-osrm.org/route/v1',
+                    profile: 'driving'
+                }),
+                // @ts-ignore
+                createMarker: () => null
+            }).addTo(map);
+        }
         return () => {
             map.remove();
         };

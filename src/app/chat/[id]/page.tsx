@@ -21,8 +21,7 @@ import emailjs from 'emailjs-com';
 import DynamicHourChart from "@/components/afluency/afluency";
 import { URL_BASE } from "@/config/apiConfig";
 
-export let latitudeHospital: number | null | undefined = null;
-export let longitudeHospital: number | null | undefined = null;
+
 
 const Chat: React.FC = () => {
 
@@ -35,9 +34,11 @@ const Chat: React.FC = () => {
 	const [hospitalInformation, setHospitalInformation] = useState<IHospital | null>(null);
 	const [isAlertSuccess, setAlertSuccess] = useState(false);
 	const [isAlertError, setAlertError] = useState(false);
-	const [generatedShift, setGeneratedShift] = useState<any>(null); 
+	const [generatedShift, setGeneratedShift] = useState<any>(null);
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [isAfluencyModalVisible, setAfluencyModalVisible] = useState(false);
+	const [latitudeHospital, setLatitudeHospital] = useState<number | null | undefined>(null);
+	const [longitudeHospital, setLongitudeHospital] = useState<number | null | undefined>(null);
 
 
 	const toggleModal = () => {
@@ -81,8 +82,13 @@ const Chat: React.FC = () => {
 					setHospitalInformation(data);
 					console.log(data.concurrencyProfile)
 
-					longitudeHospital = data.longitude;
-					latitudeHospital = data.latitude;
+
+					if (data) {
+						setLatitudeHospital(data.latitude);
+						setLongitudeHospital(data.longitude);
+					}
+
+
 
 				} catch (error) {
 					console.error(`No se pudo realizar la petición: ${error}`);
@@ -107,7 +113,7 @@ const Chat: React.FC = () => {
 	useEffect(() => {
 		const container = containerRef.current;
 		if (container) {
-			container.scrollTop = container.scrollHeight; 
+			container.scrollTop = container.scrollHeight;
 		}
 	}, [messages]); // It runs when a message is sent.
 
@@ -211,9 +217,9 @@ const Chat: React.FC = () => {
 
 	useEffect(() => {
 		if (generatedShift) {
-			generatePDF(generatedShift); 
+			generatePDF(generatedShift);
 		}
-	}, [generatedShift]); 
+	}, [generatedShift]);
 
 	return (
 		<>
@@ -256,7 +262,7 @@ const Chat: React.FC = () => {
 										<Button className={styles.informationButton} onClick={toggleModal}><FaLocationDot className={styles.iconDescription} /></Button>
 										<p>{hospitalInformation?.town_id?.name}</p>
 										<Modal isVisible={isModalVisible} onClose={toggleModal}>
-											<MapComponent />
+											<MapComponent latitudeHospital={latitudeHospital} longitudeHospital={longitudeHospital} />
 										</Modal>
 									</div>
 

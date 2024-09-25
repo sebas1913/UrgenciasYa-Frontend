@@ -1,1 +1,1 @@
-export const URL_BASE = 'https://urgenciasya-backend.onrender.com/'; // Base URL for API connection. 
+export const URL_BASE = 'http://localhost:8080'; // Base URL for API connection. 
