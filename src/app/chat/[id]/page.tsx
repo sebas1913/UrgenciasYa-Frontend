@@ -95,6 +95,7 @@ const Chat: React.FC = () => {
 		}
 	}, [id]); // Escucha cambios en id
 
+
 	useEffect(() => {
 		const container = containerRef.current;
 		if (container) {
@@ -167,7 +168,7 @@ const Chat: React.FC = () => {
 
 	const sendEmail = (shiftData: any, recipientEmail: string) => {
 		const templateParams = {
-			destinatarioEmail: 'diegomejiasobsu@gmail.com',  // Correo del destinatario.
+			destinatarioEmail: 'diegomejiasobsu@gmail.com', 
 			shiftId: shiftData.id,
 			shiftNumber: shiftData.shiftNumber,
 			estimatedTime: shiftData.estimatedTime,

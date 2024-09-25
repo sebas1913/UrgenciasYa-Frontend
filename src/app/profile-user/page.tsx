@@ -89,6 +89,7 @@ const Profile = () => {
     }, [userInfo?.document, token]);  // Cambia `userShift` por `userInfo?.document`
 
 
+    
     const handleSearch = () => {
         router.push(`/search-results?eps=${userInfo?.eps.name}&latitude=${latitude}&longitude=${longitude}`);
     };
