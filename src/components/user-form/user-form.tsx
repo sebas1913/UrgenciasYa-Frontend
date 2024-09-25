@@ -12,7 +12,6 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
 import { URL_BASE } from "@/config/apiConfig";
 
-
 const UpdateUserForm: React.FC = () => {
     const { login } = useAuth();
     const [isFormVisible, setIsFormVisible] = useState(true);

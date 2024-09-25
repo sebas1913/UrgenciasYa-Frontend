@@ -14,9 +14,7 @@ import { MdOutlineEmergency } from "react-icons/md";
 import Location, { latitude, longitude } from "@/components/location/location";  // Importa la latitud y longitud
 import cookie from 'cookie';
 import { IUserInformation, IUserShift } from "@/interfaces/IUser";
-import DynamicHourChart from "@/components/afluency/afluency";
 import { URL_BASE } from "@/config/apiConfig";
-
 const Profile = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [isEmergencyModalVisible, setEmergencyModalVisible] = useState(false);

@@ -9,7 +9,6 @@ import Alert from "../UI/alert/Alert";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { TiWarningOutline } from "react-icons/ti";
 import { URL_BASE } from "@/config/apiConfig";
-
 interface PasswordFormProps {
     onClose: () => void;
 };

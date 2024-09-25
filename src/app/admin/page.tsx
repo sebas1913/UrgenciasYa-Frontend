@@ -37,6 +37,8 @@ const Admin: React.FC = () => {
     const [usersList, setUsersList] = useState<User[]>([]);
     const [townsList, setTownsList] = useState<Town[]>([]);
 
+    //
+
     useEffect(() => {
         const fetchEps = async () => {
             try {

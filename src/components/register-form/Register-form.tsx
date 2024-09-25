@@ -11,7 +11,6 @@ import { TiWarningOutline } from "react-icons/ti";
 import { URL_BASE } from "@/config/apiConfig";
 
 
-
 const RegisterForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
     const [isAlertSuccess, setAlertSuccess] = useState(false);

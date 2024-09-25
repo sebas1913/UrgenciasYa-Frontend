@@ -3,7 +3,6 @@ import { db } from "../firebase/firebase-chat";
 import { IUserInformation } from "@/interfaces/IUser";
 import cookie from 'cookie';
 import { URL_BASE } from "@/config/apiConfig";
-
 export const getMessages = (callback: (messages: any[]) => void, id: string) => {
 	try {
 		// Query a Firestore, filtrando por el ID del hospital y ordenando por "Hora"
