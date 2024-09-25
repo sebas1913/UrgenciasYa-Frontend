@@ -21,8 +21,10 @@ interface Hospital {
 interface User {
     id: number;
     name: string;
-    email: string; // Asumiendo que el usuario tiene un email
+    email: string; // Mantienes este campo aunque no se muestre en la tabla
+    document: string;
 }
+
 
 interface Town {
     id: number;
@@ -148,7 +150,7 @@ const Admin: React.FC = () => {
 
     const deleteUser = async (userId: number) => {
         try {
-            const response = await fetch(`${URL_BASE}/api/v1/users/delete/${userId}`, {
+            const response = await fetch(`${URL_BASE}/api/v1/users/${userId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -156,11 +158,13 @@ const Admin: React.FC = () => {
                 }
             });
             if (!response.ok) {
-                throw new Error("Error al eliminar el usuario");
+                const errorData = await response.json();
+                throw new Error(`Error al eliminar el usuario: ${errorData.message || response.statusText}`);
             }
             setUsersList((prev) => prev.filter((user) => user.id !== userId));
         } catch (error) {
-            console.error("Error deleting user:", error);
+            console.error("Error deleting user:");
+            alert(`Error al eliminar el usuario`);
         }
     };
 
@@ -252,20 +256,22 @@ const Admin: React.FC = () => {
                 <tbody>
                     {usersList.length > 0 ? (
                         usersList.map((user) => (
-                            <tr key={user.id}>
-                                <td style={{ textAlign: 'center' }}>{user.name}</td>
-                                <td style={{ textAlign: 'center' }}>{user.email}</td>
-                                <td style={{ textAlign: 'center' }}>
+                            <tr key={user.document}> {/* Cambié key a user.document */}
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.document}</td>
+                                <td>
                                     <button onClick={() => deleteUser(user.id)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={3} style={{ textAlign: 'center' }}>Cargando usuarios...</td>
+                            <td colSpan={4} style={{ textAlign: 'center' }}>Cargando usuarios...</td>
                         </tr>
                     )}
                 </tbody>
+
             </table>
 
             <h2 style={{ textAlign: 'center' }}>Lista de ciudades</h2>

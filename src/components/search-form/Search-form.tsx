@@ -75,7 +75,7 @@ const SearchForm: React.FC = () => {
 		};
 
 		console.log(`Selected town: ${selectedTown}, Selected EPS: ${selectedEPS}`);
-		
+
 		router.push(`/search-results?town=${encodeURIComponent(selectedTown)}&eps=${encodeURIComponent(selectedEPS)}`);
 	};
 
